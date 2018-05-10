@@ -49,7 +49,23 @@ func main()  {
 	// 配列
 	myarr := [...]int{1,2,3,4,5}
 	myarr2 := []int{1,2,3,4}
-	fmt.Println(myarr,myarr2)
+	myarr3 := [5]int{2,4,6,8,10}
+	fmt.Println(myarr,myarr2,myarr3)
+	myarr3s1 := myarr3[0:3]
+	myarr3s2 := myarr3[1:3]
+	myarr3s3 := myarr3[2:3]
+	myarr3s4 := myarr3[:3]
+	myarr3s5 := myarr3[3:]
+	fmt.Println(myarr3s1,myarr3s2,myarr3s3,myarr3s4,myarr3s5)
+	fmt.Println(len(myarr3s4),cap(myarr3s4))
+
+	myarr4 := make([]int,3)
+	myarr5 := []int{1,2,3,4}
+	myarr5add := append(myarr5,7,6)
+	fmt.Println(myarr4,myarr5,myarr5add)
+	myarr6 := []int{1,2,3,4}
+	myarr6copy := copy(myarr6, myarr5add)
+	fmt.Println(myarr6, myarr6copy)
 
 }
 
