@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 
 type user struct {
@@ -223,6 +226,23 @@ func main()  {
 	whoAreYou(dog_instance)
 	whoAreYou(cat_instance)
 
+	// goroutine
+	go task1()
+	go task2()
+	go task3(99)
+	time.Sleep(time.Second * 3)
+
+	// channel
+	channel_result := make(chan string)
+	channel_result2 := make(chan string)
+	go channel_task1(channel_result)
+	go channel_task2()
+	go channel_task3(999,channel_result2)
+
+	fmt.Println(<-channel_result)
+	fmt.Println(<-channel_result2)
+	time.Sleep( time.Second * 3)
+
 }
 
 
@@ -276,8 +296,36 @@ func whoAreYou(t interface{}){
 		fmt.Println("uuussseeerrr")
 	default:
 		fmt.Println( "other type")
-
 	}
+}
 
+// goroutine
+func task1(){
+	time.Sleep(time.Second * 2)
+	fmt.Println("task1 finished.")
+}
+func task2(){
+	time.Sleep(time.Second * 1)
+	fmt.Println("task2 finished.")
+}
+func task3(i int){
+	fmt.Println(i)
+	time.Sleep(time.Second * 1)
+	fmt.Println(i)
+	fmt.Println("task3 finished.")
+}
 
+func channel_task1( result chan string){
+	time.Sleep( time.Second * 2)
+	fmt.Println("channel_task1 finished")
+	result <- "channel_task1 result"
+}
+func channel_task2(){
+	fmt.Println("channel_task2 finished")
+}
+func channel_task3(i int, result chan string){
+	fmt.Println(i)
+	time.Sleep( time.Second * 2)
+	fmt.Println("channel_task3 finished")
+	result <- "channel_task3 result"
 }
