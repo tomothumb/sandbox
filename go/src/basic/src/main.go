@@ -89,6 +89,40 @@ func main()  {
 		fmt.Println(myscore, "less than 100")
 	}
 
+	if myscore2 :=100 ; myscore2 < 20 {
+		fmt.Println(myscore2 , "less than 20")
+	} else if myscore2 > 1 {
+		fmt.Println(myscore2 , "bigger than 1")
+	} else {
+		fmt.Println(myscore2 , " else")
+	}
+
+	// switch
+	mycolor := "black"
+	switch mycolor{
+	case "blue":
+		fmt.Println("blue")
+	case "red":
+		fmt.Println("red")
+	case "white", "black":
+		fmt.Println("white black")
+	case "green":
+		fmt.Println("green")
+	default:
+		fmt.Println("other color")
+	}
+
+	switch_score := 20
+	switch {
+	case switch_score < 10:
+		fmt.Println(switch_score,"less than 10")
+	case switch_score > 30:
+		fmt.Println(switch_score,"bigger than 30")
+	default:
+		fmt.Println(switch_score,"between 10 and 30")
+	}
+
+
 
 }
 
