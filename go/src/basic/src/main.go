@@ -2,6 +2,28 @@ package main
 
 import "fmt"
 
+
+type user struct {
+	name string
+	blood_type string
+	age int
+}
+
+
+// Interface
+type Animal interface {
+	Say()
+}
+type Dog struct{}
+type Cat struct{}
+
+func (d Dog) Say(){
+	fmt.Println("Bow")
+}
+func (c Cat) Say(){
+	fmt.Println("Nyao")
+}
+
 // @link: https://qiita.com/gcfuji/items/e2a3d7ce7ab8868e37f7
 func main()  {
 	fmt.Println(1)
@@ -122,7 +144,84 @@ func main()  {
 		fmt.Println(switch_score,"between 10 and 30")
 	}
 
+	// For
+	for count := 1; count < 5; count++{
+		fmt.Println(count)
+	}
+	count2 := 10
+	for ; count2 < 15; count2++{
+		fmt.Println(count2)
+	}
+	count3 := 100
+	for count3 < 105 {
+		fmt.Println(count3)
+		count3++
+	}
 
+	// range
+	items := []int{10,20,30}
+	for key, val := range items {
+		fmt.Println(key, val)
+	}
+
+	items2 := []int{10,20,30}
+	for _, val := range items2 {
+		fmt.Println(val)
+	}
+
+	mapitems := map[string]int{"aaa":111,"bbb":222}
+	for key, val := range mapitems {
+		fmt.Println( key, val)
+	}
+	mapitems2 := map[string]int{"ccc":333,"ddd":444}
+	for _,val := range mapitems2{
+		fmt.Println( val)
+	}
+	mapitems3 := map[string]int{"eee":555,"fff":666}
+	for val,_ := range mapitems3{
+		fmt.Println( val)
+	}
+	mapitems4 := map[string]int{"ggg":777,"hhh":888}
+	for val := range mapitems4{
+		fmt.Println( val)
+	}
+
+	// 構造体
+	u1 := new(user)
+	u1.name = "abc"
+	u1.blood_type = "B"
+	u1.age = 1
+	fmt.Println(u1.name, u1)
+
+	u2 := user{name:"xyz",age:99}
+	fmt.Println(u2.name, u2, &u2)
+	u2.age = 99
+	fmt.Println(u2.name, u2, &u2)
+
+	// struct 構造体のメソッド
+	u1.profile()
+	u2.profile()
+	u1.birthday()
+	u2.birthday()
+	u1.profile()
+	u2.profile()
+
+	// Interface
+	dog_instance := Dog{}
+	dog_instance.Say()
+	cat_instance := Cat{}
+	cat_instance.Say()
+
+	animals := []Animal{Dog{}, Cat{}}
+	for _, ani := range animals{
+		ani.Say()
+	}
+
+	whoAreYou(*u1)
+	whoAreYou(u1)
+	whoAreYou(u2)
+	whoAreYou(dog_instance)
+	whoAreYou(cat_instance)
 
 }
 
@@ -144,7 +243,41 @@ func swap(first int, second int) (int,int){
 	return second, first
 }
 
+func (u *user) profile() {
+	fmt.Println("aaaaa")
+	fmt.Printf("age %d \n", u.age)
+	fmt.Printf("blood_type %s \n", u.blood_type)
+}
+func (u *user) birthday() {
+	u.age += 1
+}
+
+// インスタンスを引数
+func whoAreYou(t interface{}){
+	_,ok := t.(user)
+	if ok{
+		fmt.Println( "Im user")
+	}
+	_,ok2 := t.(Dog)
+	if ok2{
+		fmt.Println( "Im dog")
+	}
+	_,ok3 := t.(Cat)
+	if ok3{
+		fmt.Println( "Im cat")
+	}
+
+	switch t.(type) {
+	case Dog:
+		fmt.Println("DDDOOOGGG")
+	case Cat:
+		fmt.Println("CCCAAATTT")
+	case user:
+		fmt.Println("uuussseeerrr")
+	default:
+		fmt.Println( "other type")
+
+	}
 
 
-
-
+}
