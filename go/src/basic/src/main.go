@@ -67,6 +67,29 @@ func main()  {
 	myarr6copy := copy(myarr6, myarr5add)
 	fmt.Println(myarr6, myarr6copy)
 
+	// map
+	mymap1 := map[string]int{"aaa":222,"bbb":444}
+	mymap2 := map[string]bool{"aaa":true,"bbb":false}
+	fmt.Println(mymap1,mymap2)
+
+	mymap1_v,mymap1_v_ok := mymap1["aaa"]
+	mymap1_v2,mymap1_v2_ok := mymap1["hoge"]
+	fmt.Println(mymap1_v,mymap1_v_ok)
+	fmt.Println(mymap1_v2,mymap1_v2_ok)
+	delete(mymap1,"aaa")
+	fmt.Println(mymap1)
+
+	// if
+	myscore := 10
+	if myscore > 100 {
+		fmt.Println(myscore, "more than 100")
+	}else if myscore == 100 {
+		fmt.Println(myscore, "equal 100")
+	}else{
+		fmt.Println(myscore, "less than 100")
+	}
+
+
 }
 
 
