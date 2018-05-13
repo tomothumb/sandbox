@@ -10,6 +10,7 @@ import (
 	"bufio"
 	"time"
 	"net/http"
+	"context"
 )
 
 // @link http://ascii.jp/elem/000/001/243/1243667/
@@ -131,7 +132,26 @@ func main()  {
 
 	fmt.Println(mychannel_task,mychannel_task2,mychannel_task2_ok)
 
+	mychannel_task3 := make(chan bool)
+	go func(){
+		time.Sleep(time.Second * 1)
+		fmt.Println( "mychannel_task3")
+		time.Sleep(time.Second * 1)
+		mychannel_task3 <- true
+	}()
+	<-mychannel_task3
+	fmt.Println("after mychannel_task3")
 
+	// channel with context/cancel
+	ctx, cancel := context.WithCancel(context.Background())
+	go func(){
+		time.Sleep(time.Second * 1)
+		fmt.Println("context test")
+		time.Sleep(time.Second * 1)
+		cancel()
+	}()
+	<-ctx.Done()
+	fmt.Println("context Done!")
 
 }
 
