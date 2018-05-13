@@ -78,6 +78,7 @@ func main()  {
 	http_request.Write(os.Stdout)
 
 
+	// goroutine
 	// @link http://ascii.jp/elem/000/001/475/1475360/
 	fmt.Println("start sub()")
 	go sub_task()
@@ -95,7 +96,42 @@ func main()  {
 	go func(){
 		fmt.Println("share by capture", c*c)
 	}()
+	string_tasks := []string{
+		"cmake ..",
+		"cmake . --build Release",
+		"cpack",
+		"cpack1",
+		"cpack2",
+		"cpack3",
+		"cpack4",
+		"cpack5",
+	}
+	for _, string_task := range string_tasks {
+		go sub_task2(string_task)
+		go func() {
+			// goroutineが起動するときにはループが回りきって
+			// 全部のtaskが最後のタスクになってしまう
+			fmt.Println(string_task)
+		}()
+	}
 	time.Sleep(time.Second * 3)
+
+	// channel
+	mychannel_tasks := make(chan string)
+	go func(){
+		mychannel_tasks <- "T"
+	}()
+	mychannel_task := <- mychannel_tasks
+
+	mychannel_tasks2 := make(chan string, 10)
+	go func(){
+		mychannel_tasks2 <- "F"
+	}()
+	mychannel_task2, mychannel_task2_ok := <- mychannel_tasks2
+
+	fmt.Println(mychannel_task,mychannel_task2,mychannel_task2_ok)
+
+
 
 }
 
@@ -112,4 +148,7 @@ func sub_task()  {
 
 func sub_task1(c int){
 	fmt.Println("share by argument", c*c)
+}
+func sub_task2(v string){
+	fmt.Println("share by argument", v)
 }
