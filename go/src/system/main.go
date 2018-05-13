@@ -153,6 +153,35 @@ func main()  {
 	<-ctx.Done()
 	fmt.Println("context Done!")
 
+	// select
+	// @link https://ryochack.hatenablog.com/entry/2013/08/08/184141
+	myselect_ch1, myselect_done1 := select_fn("tea",5)
+	myselect_ch2, myselect_done2 := select_fn("coffee",3)
+	myselect_ch3, myselect_done3 := select_fn("rice",2)
+
+	myselect_count := 0
+	SELECT_LABEL:
+	for {
+		select {
+			case msg := <- myselect_ch1:
+				fmt.Println(msg)
+			case msg := <- myselect_ch2:
+				fmt.Println(msg)
+			case msg := <- myselect_ch3:
+				fmt.Println(msg)
+			case <- myselect_done1:
+				myselect_count++
+			case <- myselect_done2:
+				myselect_count++
+			case <- myselect_done3:
+				myselect_count++
+		}
+		if ( myselect_count > 0 ) {
+			break SELECT_LABEL
+		}
+	}
+	fmt.Println("select finished")
+
 }
 
 
@@ -171,4 +200,18 @@ func sub_task1(c int){
 }
 func sub_task2(v string){
 	fmt.Println("share by argument", v)
+}
+
+func select_fn(str string, n int) ( chan string, chan bool ) {
+	ch := make(chan string)
+	done := make(chan bool)
+	go func(){
+		for i:=0; i<n; i++ {
+			time.Sleep(time.Second * 1)
+			ch <- str + " please!"
+		}
+		done <- true
+	}()
+	return ch, done
+
 }
