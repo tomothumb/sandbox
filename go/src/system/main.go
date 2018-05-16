@@ -227,6 +227,10 @@ func main()  {
 	}
 	fmt.Println("myselect3 Finished!")
 
+	// Memory
+	// @link http://ascii.jp/elem/000/001/496/1496211/
+	fmt.Printf("Page Size: %d\n", os.Getpagesize())
+
 
 }
 
