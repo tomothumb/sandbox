@@ -5,6 +5,9 @@ import (
 	"log"
 	"net/http"
 	"github.com/PuerkitoBio/goquery"
+	"io"
+	"os"
+	"time"
 )
 
 func main() {
@@ -59,6 +62,7 @@ func Scrape2(url string) {
 			fmt.Println("OG:url = " + con)
 		case "og:image":
 			fmt.Println("OG:image = " + con)
+			storeImage(con)
 		}
 	})
 
@@ -68,4 +72,21 @@ func Scrape2(url string) {
 	//	fmt.Printf("Review %d: %s - %s\n", i, s)
 	//})
 	//fmt.Println(doc)
+}
+
+func storeImage(url string){
+	response, e := http.Get(url)
+	if e != nil {
+		log.Fatal(e)
+	}
+	defer response.Body.Close()
+
+	//img, _ := os.Create("downloads/image.jpg")
+	img, _ := os.Create("downloads/"+time.Now().String()+".jpg")
+
+	defer img.Close()
+
+	b, _ := io.Copy(img, response.Body)
+	fmt.Println("File size: ", b)
+
 }
