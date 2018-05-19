@@ -6,22 +6,22 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-type Product struct {
+type Simple_Product struct {
 	gorm.Model
 	Code string
 	Price uint
 }
-type Product2 struct {
+type Simple_Product2 struct {
 	gorm.Model
 	Code string
 	Price uint
 }
-type Product3 struct {
+type Simple_Product3 struct {
 	gorm.Model
 	Code string
 	Price uint
 }
-type Product4 struct {
+type Simple_Product4 struct {
 	Code string
 	Price uint
 }
@@ -36,13 +36,13 @@ func main()  {
 	defer db.Close()
 
 	// Migrate
-	db.AutoMigrate(&Product{},&Product2{},&Product3{},&Product4{})
+	db.AutoMigrate(&Simple_Product{},&Simple_Product2{},&Simple_Product3{},&Simple_Product4{})
 
 	// Create
-	db.Create(&Product{Code:"A1", Price: 1000})
+	db.Create(&Simple_Product{Code:"A1", Price: 1000})
 	fmt.Println(2)
 
-	var product Product
+	var product Simple_Product
 	db.First(&product,1)
 	db.First(&product, "code = ?", "A1")
 
@@ -53,10 +53,10 @@ func main()  {
 	db.Delete(&product)
 
 	// Create
-	db.Create(&Product2{Code:"B1", Price: 1000})
+	db.Create(&Simple_Product2{Code:"B1", Price: 1000})
 	fmt.Println(2)
 
-	var product2 Product2
+	var product2 Simple_Product2
 	db.First(&product2,1)
 	db.First(&product2, "code = ?", "A1")
 
