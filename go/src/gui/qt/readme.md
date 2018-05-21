@@ -1,20 +1,25 @@
 # GUI
 ## QT
 
-### Install
+### インストール
+```
+$ brew install qt5
+$ vim ~/.bash_profile
+$ source ~/.bash_profile
+---
+### .bash_profile ###
+export QT_HOMEBREW=true
+---
 
-Homebrew でインストールを行った。
-https://tyablog.net/2018/02/03/go-qt-setup-for-macosx/
+$ go get -u -v github.com/therecipe/qt/cmd/...
+$ $GOBIN/qtsetup
 
-https://www.qt.io/download
+```
+
+### depでQTビルドできない
+https://github.com/golang/dep/issues/269
 
 https://github.com/therecipe/qt/wiki/Installation
-
-@Todo
-
-- GOPATHを変更している場合、どうなるのかがわからない。
-- depを使っている場合、どうなるのかがわからない。
-- 上記の場合、`qtsetup`がうまくいかない？
-
+https://www.qt.io/download
+https://tyablog.net/2018/02/03/go-qt-setup-for-macosx/
 https://github.com/therecipe/qt/issues/284
-
