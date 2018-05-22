@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import {Platform, AppRegistry, StyleSheet, Text, TextInput,Button, Alert, View, Image,
     ScrollView,
     FlatList,SectionList,
-    TouchableHighlight,TouchableOpacity,TouchableNativeFeedback,TouchableWithoutFeedback
+    TouchableHighlight,TouchableOpacity,TouchableNativeFeedback,TouchableWithoutFeedback,
+    ActivityIndicator
 } from 'react-native';
 
 
@@ -21,6 +22,7 @@ export default class MainContents extends Component {
                 <Text>aaaas234</Text>
                 <Image source={pic} style={{width: 193, height: 110}}/>
                 <PizzaTranslator />
+                <FetchMovie />
                 <ButtonList />
                 <MySelection />
                 <Greeting name='Rexxar'/>
@@ -30,6 +32,50 @@ export default class MainContents extends Component {
             </View>
             </ScrollView>
         );
+    }
+}
+function getMoviesFromApiAsync(){
+
+}
+class FetchMovie extends Component{
+    constructor(props){
+        super(props);
+        this.state ={ isLoading: true}
+    }
+
+    componentDidMount(){
+        fetch('https://facebook.github.io/react-native/movies.json')
+            // .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    dataSource: responseJson.movies,
+                }, function(){
+
+                });
+                // return responseJson.movies
+            })
+            .catch((error)=>{
+                console.error(error);
+            });
+    }
+    render(){
+        if( this.state.isLoading){
+            return (
+                <View style={{flex:1, padding:20}}>
+                    <ActivityIndicator />
+                </View>
+            )
+        }
+        return (
+            <View style={{flex:1, paddingTop:20}}>
+                <FlatList
+                    data={this.state.dataSource}
+                    renderItem={({item}) => <Text>{item.title}, {item.releaseYear}</Text> }
+                    keyExtractor={(item, index) => index}
+                />
+            </View>
+        )
     }
 }
 
