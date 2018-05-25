@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import { StyleSheet, Button, Text, View , ScrollView, ActionSheetIOS} from 'react-native';
+import { StyleSheet, Button, Text, TextInput, View , ScrollView, Alert,ActionSheetIOS} from 'react-native';
 
 
 const Header = () => {
@@ -24,44 +24,76 @@ const TabBar = () => {
     )
 };
 
-var BUTTONS = [
-    'Option 0',
-    'Option 1',
-    'Option 2',
-    'Destruct',
-    'Cancel',
-];
-
-var DESTRUCTIVE_INDEX = 3;
-var CANCEL_INDEX = 4;
-
-
 class ActionButton extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            clicked: 'none',
-        }
     }
 
     showActionSheet() {
         ActionSheetIOS.showActionSheetWithOptions({
-                options: BUTTONS,
-                cancelButtonIndex: CANCEL_INDEX,
-                destructiveButtonIndex: DESTRUCTIVE_INDEX,
+                options: [
+                    'Option 0',
+                    'Option 1',
+                    'Option 2',
+                    'Destruct',
+                    'Cancel',
+                ],
+                cancelButtonIndex: 3,
+                destructiveButtonIndex: 4,
             },
             (buttonIndex) => {
-                this.setState({ clicked: BUTTONS[buttonIndex] });
+                if (buttonIndex === 0) {
+                    Alert.alert("Accepted");
+                }
             });
+    }
+
+    shareSheetWithMessage() {
+        ActionSheetIOS.showShareActionSheetWithOptions({
+                message: 'Secret message.'
+            },
+            (error) => {},
+            (success, sharing_method) => {}
+        );
+    }
+
+    shareSheetWithMessageAndSubject() {
+        ActionSheetIOS.showShareActionSheetWithOptions({
+                message: 'Secret message.',
+                subject: 'SECRET'
+            },
+            (error) => {},
+            (success, sharing_method) => {}
+        );
+    }
+
+    shareSheetWithUrl() {
+        ActionSheetIOS.showShareActionSheetWithOptions({
+                url: 'https://www.google.com'
+            },
+            (error) => {},
+            (success, sharing_method) => {}
+        );
+    }
+
+    shareSheetWithMessageAndUrl() {
+        ActionSheetIOS.showShareActionSheetWithOptions({
+                url: 'https://www.google.com',
+                message: 'Secret message.',
+            },
+            (error) => {},
+            (success, sharing_method) => {}
+        );
     }
 
     render(){
         return (
             <View>
-                <Button title="アクションボタン" onPress={this.showActionSheet} />
-                <Text>
-                    Clicked button: {this.state.clicked}
-                </Text>
+                <Button title="アクションボタン1" onPress={this.showActionSheet} />
+                <Button title="アクションボタン2" onPress={this.shareSheetWithMessage} />
+                <Button title="アクションボタン3" onPress={this.shareSheetWithMessageAndSubject} />
+                <Button title="アクションボタン4" onPress={this.shareSheetWithUrl} />
+                <Button title="アクションボタン5" onPress={this.shareSheetWithMessageAndUrl} />
             </View>
         )
     }
@@ -70,11 +102,12 @@ class ActionButton extends Component{
 const Card = () => {
     return(
         <View style={[styles.card]}>
-            <View style={{flex:3}}>
+            <View style={{flex:5}}>
                 <ActionButton>あああああ</ActionButton>
             </View>
 
             <View style={{flex:4}}>
+                <TextInput>aa</TextInput>
             <Text style={styles.maintext}>本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文</Text>
             </View>
             <View style={{flex:1,flexDirection:"row"}}>
@@ -139,7 +172,7 @@ const styles = StyleSheet.create({
 
     },
     card:{
-        height:150,
+        height:400,
         // width:'100%',
         borderWidth:1,
         borderColor:"#CCCCCC",
