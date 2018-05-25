@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View , ScrollView} from 'react-native';
+import React ,{Component} from 'react';
+import { StyleSheet, Button, Text, View , ScrollView, ActionSheetIOS} from 'react-native';
 
 
 const Header = () => {
@@ -24,10 +24,72 @@ const TabBar = () => {
     )
 };
 
+var BUTTONS = [
+    'Option 0',
+    'Option 1',
+    'Option 2',
+    'Destruct',
+    'Cancel',
+];
+
+var DESTRUCTIVE_INDEX = 3;
+var CANCEL_INDEX = 4;
+
+
+class ActionButton extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            clicked: 'none',
+        }
+    }
+
+    showActionSheet() {
+        ActionSheetIOS.showActionSheetWithOptions({
+                options: BUTTONS,
+                cancelButtonIndex: CANCEL_INDEX,
+                destructiveButtonIndex: DESTRUCTIVE_INDEX,
+            },
+            (buttonIndex) => {
+                this.setState({ clicked: BUTTONS[buttonIndex] });
+            });
+    }
+
+    render(){
+        return (
+            <View>
+                <Button title="アクションボタン" onPress={this.showActionSheet} />
+                <Text>
+                    Clicked button: {this.state.clicked}
+                </Text>
+            </View>
+        )
+    }
+}
+
+const Card = () => {
+    return(
+        <View style={[styles.card]}>
+            <View style={{flex:3}}>
+                <ActionButton>あああああ</ActionButton>
+            </View>
+
+            <View style={{flex:4}}>
+            <Text style={styles.maintext}>本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文</Text>
+            </View>
+            <View style={{flex:1,flexDirection:"row"}}>
+                <View style={{flex:1}}><Text style={styles.subtext}>辻本</Text></View>
+                <View style={{flex:1}}><Text style={styles.subtext}>4日前</Text></View>
+            </View>
+        </View>
+    )
+};
 const MainArea = () => {
     return(
         <ScrollView style={styles.mainarea}>
-
+        <View>
+            <Card />
+        </View>
         </ScrollView>
     )
 };
@@ -73,6 +135,18 @@ const styles = StyleSheet.create({
      mainarea:{
          height:'80%'
      },
+    card_wrapper:{
+
+    },
+    card:{
+        height:150,
+        // width:'100%',
+        borderWidth:1,
+        borderColor:"#CCCCCC",
+        borderRadius:5,
+        margin:3,
+        padding:5,
+    },
     maintext:{
         fontSize:13,
         color:'#000000'
