@@ -1,5 +1,6 @@
 import React ,{Component} from 'react';
-import { StyleSheet, Button, Text, TextInput, View , ScrollView, Alert,ActionSheetIOS} from 'react-native';
+import { StyleSheet, Button, Text, TextInput, View , ScrollView, Alert,
+    ActionSheetIOS,AlertIOS,DatePickerIOS,ImagePickerIOS} from 'react-native';
 
 
 const Header = () => {
@@ -44,6 +45,19 @@ class ActionButton extends Component{
             (buttonIndex) => {
                 if (buttonIndex === 0) {
                     Alert.alert("Accepted");
+                }
+                if (buttonIndex === 1) {
+                    AlertIOS.alert(
+                        'Sync Complete',
+                        'All your data are belong to us.'
+                    );
+                }
+                if(buttonIndex === 2){
+                    AlertIOS.prompt(
+                        'Enter a value',
+                        null,
+                        text => console.log("You entered "+text)
+                    );
                 }
             });
     }
@@ -109,6 +123,19 @@ const Card = () => {
             <View style={{flex:4}}>
                 <TextInput>aa</TextInput>
             <Text style={styles.maintext}>本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文</Text>
+                <DatePickerIOS
+                    date={ new Date()}
+                    onDateChange={()=>{}}
+                />
+{/*                <Button title="アクションボタン5" onPress={()=>{
+                    ImagePickerIOS.canRecordVideos(()=>{});
+                    ImagePickerIOS.canUseCamera(()=>{});
+                    // ImagePickerIOS.openSelectDialog({},()=>{},()=>{});
+                    ImagePickerIOS.openCameraDialog({},()=>{},()=>{});
+
+                }} />*/}
+
+
             </View>
             <View style={{flex:1,flexDirection:"row"}}>
                 <View style={{flex:1}}><Text style={styles.subtext}>辻本</Text></View>
