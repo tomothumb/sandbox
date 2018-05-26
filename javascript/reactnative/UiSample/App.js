@@ -2,16 +2,10 @@ import React ,{Component} from 'react';
 import { StyleSheet, Button, Text, TextInput, View , ScrollView, Alert,
     ActionSheetIOS,AlertIOS,DatePickerIOS,ImagePickerIOS} from 'react-native';
 
+import {
+    createStackNavigator,
+} from 'react-navigation';
 
-const Header = () => {
-  return(
-      <View style={[{ flexDirection: 'row'},styles.header]}>
-          <View style={[{flex: 1,width:'30%'},styles.header_inner]}><Text style={styles.header_inner_text}>☆</Text></View>
-          <View style={[{flex: 2,width:'40%'},styles.header_inner]}><Text style={styles.header_inner_text}>ホーム</Text></View>
-          <View style={[{flex: 1,width:'30%'},styles.header_inner]}><Text style={styles.header_inner_text}>☆</Text></View>
-      </View>
-  )
-};
 
 const TabBar = () => {
     return(
@@ -154,15 +148,136 @@ const MainArea = () => {
     )
 };
 
-const App = () => {
-  return (
-      <View style={styles.container}>
-          <Header />
-          <MainArea />
-          <TabBar />
-      </View>
-    );
+class HomeScreen extends Component {
+    static navigationOptions = {
+        title: 'Home',
+    };
+    render (){
+        return (
+            <View style={styles.container}>
+                <MainArea />
+                <Button
+                    title="Go to Profile"
+                    onPress={() => this.props.navigation.navigate('Profile', {
+                        itemId: 86,
+                        otherParam: 'anything you want here',
+                    })}
+                />
+                <TabBar />
+            </View>
+        );
+    }
 };
+
+class ProfileScreen extends Component {
+
+    static navigationOptions = ({ navigation, navigationOptions }) => {
+        const { params } = navigation.state;
+        return {
+            title: navigation.getParam('otherParam', 'Profile'),
+            headerRight: (
+                <Button
+                    onPress={() => navigation.navigate('MyModal')}
+                    title="Modal"
+                    color="#999"
+                />
+            ),
+            headerStyle: {
+                backgroundColor: navigationOptions.headerTintColor,
+            },
+            headerTintColor: navigationOptions.headerStyle.backgroundColor,
+        };
+    };
+    render (){
+        const { navigation } = this.props;
+        const itemId = navigation.getParam('itemId', 'NO-ID');
+        const otherParam = navigation.getParam('otherParam', 'some default value');
+
+        return (
+            <View style={styles.container}>
+                <Text>Details Screen</Text>
+                <Text>itemId: {JSON.stringify(itemId)}</Text>
+                <Text>otherParam: {JSON.stringify(otherParam)}</Text>
+
+                <Button
+                    title="Go to Home"
+                    onPress={() => this.props.navigation.navigate('Home')}
+                />
+                <Button
+                    title="Go to Profile... again"
+                    onPress={() => this.props.navigation.push('Profile')}
+                />
+                <Button
+                    title="Go back"
+                    onPress={() => this.props.navigation.goBack()}
+                />
+
+                <Button
+                    title="Update the title"
+                    onPress={() => this.props.navigation.setParams({otherParam: 'Updated!'})}
+                />
+            </View>
+        );
+    }
+};
+
+
+class ModalScreen extends React.Component {
+    render() {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+                <Button
+                    onPress={() => this.props.navigation.goBack()}
+                    title="Dismiss"
+                />
+            </View>
+        );
+    }
+}
+
+
+const MainStack = createStackNavigator(
+    {
+        Home: { screen: HomeScreen },
+        Profile: { screen: ProfileScreen },
+    },
+    {
+        initialRouteName: 'Home',
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: '#f4511e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            },
+        },
+    }
+);
+
+
+const RootStack = createStackNavigator(
+    {
+        Main: {
+            screen: MainStack,
+        },
+        MyModal: {
+            screen: ModalScreen,
+        },
+    },
+    {
+        mode: 'card',
+        headerMode: 'none',
+    }
+);
+
+class App extends React.Component {
+    render() {
+        return <RootStack />;
+    }
+}
+
 export default App;
 
 const styles = StyleSheet.create({

@@ -23,6 +23,7 @@
     "nachos-ui": "^0.1.2",
     "react": "16.3.1",
     "react-native": "~0.55.2",
-    "react-native-uikit": "^0.1.6"
+    "react-native-uikit": "^0.1.6",
+    "react-navigation": "^2.0.4"
   }
 }
