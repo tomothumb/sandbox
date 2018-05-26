@@ -1,23 +1,13 @@
 import React ,{Component} from 'react';
 import { StyleSheet, Button, Text, TextInput, View , ScrollView, Alert,
     ActionSheetIOS,AlertIOS,DatePickerIOS,ImagePickerIOS} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
     createStackNavigator,
+    createBottomTabNavigator
 } from 'react-navigation';
 
-
-const TabBar = () => {
-    return(
-        <View style={[{ flexDirection: 'row'},styles.tabbar]}>
-            <View style={[{flex: 1,width:'20%'},styles.tabbar_inner]}><Text style={styles.tabbar_inner_text}>1</Text></View>
-            <View style={[{flex: 1,width:'20%'},styles.tabbar_inner]}><Text style={styles.tabbar_inner_text}>2</Text></View>
-            <View style={[{flex: 1,width:'20%'},styles.tabbar_inner]}><Text style={styles.tabbar_inner_text}>3</Text></View>
-            <View style={[{flex: 1,width:'20%'},styles.tabbar_inner]}><Text style={styles.tabbar_inner_text}>4</Text></View>
-            <View style={[{flex: 1,width:'20%'},styles.tabbar_inner]}><Text style={styles.tabbar_inner_text}>5</Text></View>
-        </View>
-    )
-};
 
 class ActionButton extends Component{
     constructor(props){
@@ -163,7 +153,6 @@ class HomeScreen extends Component {
                         otherParam: 'anything you want here',
                     })}
                 />
-                <TabBar />
             </View>
         );
     }
@@ -278,7 +267,75 @@ class App extends React.Component {
     }
 }
 
-export default App;
+class SettingsScreen extends React.Component {
+    render() {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Settings!</Text>
+                <Button
+                    title="go to Setting 2!"
+                    onPress={() => this.props.navigation.navigate('Settings2')}
+                />
+            </View>
+        );
+    }
+}
+
+class Settings2Screen extends React.Component {
+    render() {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Settings 2!</Text>
+                <Button
+                    title="go to Setting!"
+                    onPress={() => this.props.navigation.navigate('Settings')}
+                />
+            </View>
+        );
+    }
+}
+
+const HomeStack = createStackNavigator({
+    Home: HomeScreen,
+    Profile: ProfileScreen
+});
+const SettingsStack = createStackNavigator({
+    Settings: SettingsScreen,
+    Settings2: Settings2Screen
+});
+
+
+export default createBottomTabNavigator(
+    {
+        Home: HomeStack,
+        Settings: SettingsStack,
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
+                const { routeName } = navigation.state;
+                let iconName;
+                if (routeName === 'Home') {
+                    iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Settings') {
+                    iconName = `ios-options${focused ? '' : '-outline'}`;
+                } else {
+                    iconName = `ios-options${focused ? '' : '-outline'}`;
+                }
+
+                // You can return any component that you like here! We usually use an
+                // icon component from react-native-vector-icons
+                return <Ionicons name={iconName} size={25} color={tintColor} />;
+            },
+        }),
+        tabBarOptions: {
+            activeTintColor: 'green',
+            inactiveTintColor: 'gray',
+        },
+    }
+);
+
+// export default App;
 
 const styles = StyleSheet.create({
     header:{
