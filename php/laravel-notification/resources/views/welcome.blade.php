@@ -14,6 +14,7 @@
             padding:20px;
         }
     </style>
+    <script src="/js/app.js"></script>
 </head>
 <body>
 
@@ -42,9 +43,25 @@
         <h3>YOUR NOTIFICATION</h3>
         <ul>
             @foreach ($user->unreadNotifications as $notification)
-                <li>{{$notification->data['message']}}</li>
+                <li>{!! $notification->data['message'] !!}</li>
             @endforeach
         </ul>
+
+            <script>
+                function mark_read(user_id) {
+                    console.log('send');
+                    axios.get('/user/'+user_id+'/notification/read')
+                        .then(function (response) {
+                            console.log('SUCCESS')
+                        })
+                        .catch(function (error) {
+                            console.log('ERROR')
+                        });
+
+                }
+            </script>
+            <button onclick="mark_read({{$user->id}});">既読にする</button>
+
         @endif
 
         <h3>FOLLOWING User List</h3>

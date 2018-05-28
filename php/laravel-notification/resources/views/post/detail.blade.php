@@ -38,7 +38,7 @@
         <h3>コメント</h3>
         <ul>
             @foreach ($post->post_comments as $post_comment)
-                <li>{{$post_comment->comment}}</li>
+                <li><em style="color: #999999; font-size: 13px;">{{$post_comment->created_at}}</em>：{{$post_comment->comment}}</li>
             @endforeach
         </ul>
         <hr>

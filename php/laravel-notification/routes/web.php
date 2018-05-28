@@ -99,6 +99,9 @@ Route::group(['prefix' => '/user/{user_id}'], function(){
                 'post_id' => $post_id,
                 'comment' => $request->comment
             ]);
+            $user->notify(new \App\Notifications\CommentNotification($user,$post));
+
+
             return redirect("/user/{$user_id}/post/{$post_id}");
         });
 
