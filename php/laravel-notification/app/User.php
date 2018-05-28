@@ -32,20 +32,23 @@ class User extends Authenticatable
         return $this->belongsToMany('\App\User','user_follows','following_user_id','followed_user_id');
     }
 
-    public function follow(User $user)
+    public function follow(User $target_user)
     {
         try{
-            $this->user_followings()->attach($user->id);
+            $this->user_followings()->attach($target_user->id);
+
+            $target_user->notify(new \App\Notifications\FollowNotification($this));
+
             session()->flash('message','Success follow');
         } catch (\Exception $e){
             session()->flash('message','This user is already followed by you.');
         }
     }
 
-    public function unfollow(User $user)
+    public function unfollow(User $target_user)
     {
         try{
-            $this->user_followings()->detach($user->id);
+            $this->user_followings()->detach($target_user->id);
             session()->flash('message','Success unfollow');
         } catch (\Exception $e){
             session()->flash('message','This user is not followed by you.');

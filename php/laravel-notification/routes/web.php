@@ -29,6 +29,9 @@ Route::get('/', function () {
         $tmpuser->save();
     }
     $user = $user1;
+
+    // 既読にする
+    // $user->unreadNotifications->markAsRead();
     return view('welcome',compact('user'));
 });
 
@@ -37,6 +40,12 @@ Route::group(['prefix' => '/user/{user_id}'], function(){
     Route::get('/', function ($user_id) {
         $user = \App\User::find($user_id);
         return view('welcome',compact('user'));
+    });
+
+    // 既読状態にする
+    Route::get('/notification/read', function ($user_id) {
+        $user = \App\User::find($user_id);
+        $user->unreadNotifications->markAsRead();
     });
 
     Route::get('/follow/{target_user_id}', function (int $user_id, int $target_user_id) {

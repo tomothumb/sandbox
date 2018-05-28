@@ -21,7 +21,7 @@
     Message：{{ session('message') }}
 @endif
 
-<p>NOTIFICATION DEMO</p>
+<h1>NOTIFICATION DEMO</h1>
 <div class="flex-center position-ref full-height">
     @if (Route::has('login'))
         <div class="top-right links">
@@ -35,6 +35,15 @@
     @endif
 
     <div class="content">
+
+        @if($user->notifications->count() >= 1 )
+        <h3>YOUR NOTIFICATION</h3>
+        <ul>
+            @foreach ($user->unreadNotifications as $notification)
+                <li>{{$notification->data['message']}}</li>
+            @endforeach
+        </ul>
+        @endif
 
         <h3>FOLLOWING User List</h3>
         <ul>
