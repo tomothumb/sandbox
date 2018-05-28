@@ -17,6 +17,8 @@
 </head>
 <body>
 
+@include('includes.nav',['user' => $user])
+
 @if(session()->has('message'))
     Message：{{ session('message') }}
 @endif

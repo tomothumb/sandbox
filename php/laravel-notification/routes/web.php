@@ -23,8 +23,7 @@ Route::get('/', function () {
         $tmpuser = \App\User::firstOrNew([
                 "name" => "NAME{$i}",
                 "email" => "example{$i}@example.com"
-            ]
-        );
+            ]);
         $tmpuser->password = bcrypt('demo');
         $tmpuser->save();
     }
@@ -61,6 +60,50 @@ Route::group(['prefix' => '/user/{user_id}'], function(){
         $main_user->unfollow($target_user);
         return redirect("/user/{$user_id}");
     });
+
+    // 投稿
+    Route::group(['prefix' => '/post'], function() {
+
+        Route::get('/', function (int $user_id) {
+            $user = \App\User::find($user_id);
+            $posts = \App\Post::where('user_id',$user_id)->get();
+            return view('post.list',compact('user','posts'));
+        });
+
+        Route::get('/new', function (int $user_id) {
+            $user = \App\User::find($user_id);
+            return view('post.new',compact('user'));
+        });
+
+        Route::post('/new', function (int $user_id, \Illuminate\Http\Request $request) {
+            $user = \App\User::find($user_id);
+            $post = \App\Post::firstOrCreate([
+                'user_id' => $user_id,
+                'subject' => $request->subject,
+                'body' => $request->body
+            ]);
+            return redirect("/user/{$user_id}/post/");
+        });
+
+        Route::get('/{post_id}', function (int $user_id,int $post_id) {
+            $user = \App\User::find($user_id);
+            $post = \App\Post::find($post_id);
+            $post->loadMissing('post_comments');
+            return view('post.detail',compact('user','post'));
+        });
+
+        Route::post('/{post_id}/comment', function (int $user_id,int $post_id, \Illuminate\Http\Request $request) {
+            $user = \App\User::find($user_id);
+            $post = \App\Post::find($post_id);
+            $post_comment = \App\PostComment::firstOrCreate([
+                'post_id' => $post_id,
+                'comment' => $request->comment
+            ]);
+            return redirect("/user/{$user_id}/post/{$post_id}");
+        });
+
+    });
+
 
 });
 
