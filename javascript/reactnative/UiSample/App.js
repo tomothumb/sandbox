@@ -1,6 +1,8 @@
 import React ,{Component} from 'react';
 import { StyleSheet, Button, Text, TextInput, View , ScrollView, Alert,
-    ActionSheetIOS,AlertIOS,DatePickerIOS,ImagePickerIOS} from 'react-native';
+    ActionSheetIOS,AlertIOS,DatePickerIOS,ImagePickerIOS,
+    TouchableOpacity,AsyncStorage
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
@@ -171,10 +173,10 @@ class ProfileScreen extends Component {
                     color="#999"
                 />
             ),
-            headerStyle: {
-                backgroundColor: navigationOptions.headerTintColor,
-            },
-            headerTintColor: navigationOptions.headerStyle.backgroundColor,
+            // headerStyle: {
+            //     backgroundColor: navigationOptions.headerTintColor,
+            // },
+            // headerTintColor: navigationOptions.headerStyle.backgroundColor,
         };
     };
     render (){
@@ -282,6 +284,26 @@ class SettingsScreen extends React.Component {
 }
 
 class Settings2Screen extends React.Component {
+
+    saveData(){
+        let obj = {
+            name : 'John',
+            email: 'test@example.com',
+            country: 'japan'
+        };
+        AsyncStorage.setItem('user',JSON.stringify(obj));
+    }
+
+    displayData = async () => {
+        try{
+            let user = await AsyncStorage.getItem('user');
+            let parsed_user = JSON.parse(user);
+            alert(parsed_user.email);
+        }catch (e) {
+            alert(e);
+        }
+    }
+
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -290,6 +312,25 @@ class Settings2Screen extends React.Component {
                     title="go to Setting!"
                     onPress={() => this.props.navigation.navigate('Settings')}
                 />
+                <Button
+                    title="Go to Profile"
+                    onPress={() => this.props.navigation.navigate('Profile', {
+                        itemId: 86,
+                        otherParam: 'anything you want here',
+                    })}
+                />
+
+                <TouchableOpacity onPress={this.saveData}>
+                    <Text>Click me to save data</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.displayData}>
+                    <Text>Click me to display data</Text>
+                </TouchableOpacity>
+
+
+
+
             </View>
         );
     }
