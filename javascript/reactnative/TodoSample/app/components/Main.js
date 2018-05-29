@@ -3,26 +3,86 @@ import { StyleSheet, Text, View,
     TextInput,
     ScrollView, TouchableOpacity, AsyncStorage
 } from 'react-native';
+import Note from './Note';
+
+
 
 export default class Main extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            noteArray:[],
+            noteText:'',
+        };
+    }
+    componentWillMount(){
+        AsyncStorage.getItem('noteArray')
+            .then((data) => {
+                if(data){
+                    this.setState({ noteArray: JSON.parse(data) });
+                }
+            });
+    }
+
+
+    addNote(){
+        if(this.state.noteText){
+            var d = new Date();
+            this.state.noteArray.push({
+                'date': d.getFullYear()
+                        + "/"+ (d.getMonth() +1)
+                        + "/"+ d.getDate()
+                        + " "+ d.getHours()
+                        + ":"+ d.getMinutes()
+                        + ":"+ d.getSeconds(),
+                'note': this.state.noteText
+            });
+            this.setState({ noteArray: this.state.noteArray });
+            this.setState({ noteText:''});
+
+            AsyncStorage.setItem('noteArray',JSON.stringify(this.state.noteArray));
+        }
+    }
+
+    deleteNote(key) {
+        this.state.noteArray.splice(key,1);
+        this.setState({noteArray: this.state.noteArray});
+        AsyncStorage.setItem('noteArray',JSON.stringify(this.state.noteArray));
+
+    }
+
   render() {
+
+        let notes = this.state.noteArray.map((val,key)=>{
+            return <Note key={key} keyVal={key} val={val}
+                deleteMethod={ ()=>{ this.deleteNote(key)} }
+            />
+        });
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>- TITLE -</Text>
         </View>
           <ScrollView style={styles.scrollContainer}>
-
-              <Text>111</Text>
+              {notes}
           </ScrollView>
         <View style={styles.footer}>
           <TextInput
             style={styles.textInput}
+            onChangeText={(noteText)=>this.setState({noteText})}
+            value={this.state.noteText}
             placeholder='>note'
             placeholderTextColor='white'
             underlineColorAndroid='transparent'
           />
         </View>
+
+          <TouchableOpacity onPress={ this.addNote.bind(this)} style={styles.addButton}>
+              <Text style={styles.addButtonText}>+</Text>
+          </TouchableOpacity>
+
       </View>
     );
   }
@@ -69,20 +129,20 @@ const styles = StyleSheet.create({
         borderTopColor: '#DDD'
     },
     addButton:{
-    position:'absolute',
+        position:'absolute',
         zIndex:11,
         right:20,
         bottom:90,
         backgroundColor:'#987',
-        width:90,
-        height:90,
+        width:60,
+        height:60,
         borderRadius:50,
         alignItems:'center',
         justifyContent:'center',
         elevation:8,
     },
     addButtonText:{
-    fontSize:24,
+        fontSize:24,
         color: '#fff'
     }
 
