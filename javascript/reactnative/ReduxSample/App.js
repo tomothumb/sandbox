@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
-import { store } from './Redux';
-import Home from './home';
+import { store } from './App/Store/Store';
+import Home from './App/Components/Home';
 
 // https://qiita.com/loverails/items/8c46767413a3c8d15f00
 export default class App extends Component {
@@ -14,12 +13,3 @@ export default class App extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
