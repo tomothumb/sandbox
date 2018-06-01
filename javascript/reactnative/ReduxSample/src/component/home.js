@@ -1,15 +1,15 @@
-// home.js
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-
 import { connect } from 'react-redux';
-import { action_activate, action_close } from '../Store/Action';
-import {btnreducer, myreducer} from "../Store/Reducer";
+import { action_activate, action_close } from '../store/action';
+import {btnreducer, myreducer} from "../store/btn_reducer";
 
 export class Home extends Component {
     render() {
         return (
             <View>
+                <Text style={styles.text}>テス22ト</Text>
+
                 <Text style={styles.text}>{this.props.btnstate.title || '未設定'}</Text>
                 {this.props.btnstate.title ?
                     <Button
@@ -18,12 +18,14 @@ export class Home extends Component {
                         style={styles.button}
                     /> :
                     <Button
-                        onPress={() => this.props.action_activate({ title: 'アクティブです' })}
+                        onPress={() => this.props.action_activate({ title: 'アクティブです２' })}
                         title="Set Active"
                         style={styles.button}
                         accessibilityLabel="Learn more about this purple button"
                     />
                 }
+                <Button title="S1へ" onPress={()=>{this.props.navigation.navigate('S1')}} />
+                <Button title="Go back" onPress={() => this.props.navigation.goBack()}/>
             </View>
         );
     }
@@ -38,12 +40,10 @@ const mapDispatchToProps = {
     action_close,
 };
 
-const Container = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Home);
-
-export default Container;
 
 
 

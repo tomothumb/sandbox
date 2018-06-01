@@ -1,7 +1,6 @@
 import React from 'react';
-import {combineReducers} from "redux";
 
-const btnreducer = (state = {}, action) => {
+const btn_reducer = (state = {}, action) => {
     switch (action.type) {
         case 'ACTIVATE':
             return action.mystate;
@@ -11,7 +10,4 @@ const btnreducer = (state = {}, action) => {
             return state;
     }
 };
-
-export const reducers = combineReducers({
-    btnreducer,
-});
+export default btn_reducer;
