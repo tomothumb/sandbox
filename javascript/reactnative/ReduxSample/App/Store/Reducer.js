@@ -1,13 +1,11 @@
 import React from 'react';
 import {combineReducers} from "redux";
 
-
-// reducers.js
-export const kabaya = (state = {}, action) => {
+const btnreducer = (state = {}, action) => {
     switch (action.type) {
-        case 'ACTIVATE_KABAYA':
-            return action.kabaya;
-        case 'CLOSE_KABAYA':
+        case 'ACTIVATE':
+            return action.mystate;
+        case 'CLOSE':
             return {};
         default:
             return state;
@@ -15,5 +13,5 @@ export const kabaya = (state = {}, action) => {
 };
 
 export const reducers = combineReducers({
-    kabaya,
+    btnreducer,
 });

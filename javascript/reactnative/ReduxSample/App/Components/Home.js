@@ -3,23 +3,24 @@ import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 
 import { connect } from 'react-redux';
-import { activateKabaya, closeKabaya } from '../Store/Action';
+import { action_activate, action_close } from '../Store/Action';
+import {btnreducer, myreducer} from "../Store/Reducer";
 
 export class Home extends Component {
     render() {
         return (
             <View>
-                <Text style={{marginTop: 200}}>{this.props.kabaya.title || '成功!'}</Text>
-                {this.props.kabaya.title ?
+                <Text style={styles.text}>{this.props.btnstate.title || '未設定'}</Text>
+                {this.props.btnstate.title ?
                     <Button
-                        onPress={this.props.closeKabaya}
-                        title="Click me"
-                        color="#841584"
+                        onPress={this.props.action_close}
+                        title="Reset"
+                        style={styles.button}
                     /> :
                     <Button
-                        onPress={() => this.props.activateKabaya({ title: '私の名前はカバヤです' })}
-                        title="Click me"
-                        color="#841584"
+                        onPress={() => this.props.action_activate({ title: 'アクティブです' })}
+                        title="Set Active"
+                        style={styles.button}
                         accessibilityLabel="Learn more about this purple button"
                     />
                 }
@@ -29,14 +30,12 @@ export class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-    // storeは巨大なJsonの塊なので、kabayaにjsonから取って来たデータを代入している。
-    kabaya: state.kabaya,
+    btnstate: state.btnreducer,
 });
 
 const mapDispatchToProps = {
-    // action creatorの名前が入っている。
-    activateKabaya,
-    closeKabaya,
+    action_activate,
+    action_close,
 };
 
 const Container = connect(
@@ -55,4 +54,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    text:{
+        marginTop: 200
+    },
+    button:{
+        color:"#841584"
+    }
 });

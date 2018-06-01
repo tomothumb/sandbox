@@ -1,10 +1,10 @@
 import React from 'react';
 
-export const activateKabaya = kabaya => ({
-    type: 'ACTIVATE_KABAYA',
-    kabaya,
+export const action_activate = mystate => ({
+    type: 'ACTIVATE',
+    mystate,
 });
 
-export const closeKabaya = () => ({
-    type: 'CLOSE_KABAYA',
+export const action_close = () => ({
+    type: 'CLOSE',
 });
