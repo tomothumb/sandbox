@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import { View, Text, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { activateKabaya, closeKabaya } from './redux';
+import { activateKabaya, closeKabaya } from './Redux';
 
 export class Home extends Component {
     render() {
