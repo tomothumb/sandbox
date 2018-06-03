@@ -1,13 +1,12 @@
 import React from 'react';
 
-const btn_reducer = (state = {}, action) => {
+export const btn_reducer = (state = {}, action) => {
     switch (action.type) {
-        case 'ACTIVATE':
+        case 'BTN_ACTIVATE':
             return action.mystate;
-        case 'CLOSE':
+        case 'BTN_CLOSE':
             return {};
         default:
             return state;
     }
 };
-export default btn_reducer;
