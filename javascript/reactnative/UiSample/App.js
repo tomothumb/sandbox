@@ -1,8 +1,11 @@
 import React ,{Component} from 'react';
-import { StyleSheet, Button, Text, TextInput, View , ScrollView, Alert,
+import { StyleSheet,
+    //Button, Text,
+    TextInput, View , ScrollView, Alert,
     ActionSheetIOS,AlertIOS,DatePickerIOS,ImagePickerIOS,
     TouchableOpacity,AsyncStorage
 } from 'react-native';
+import {Container,Text,Button,Drawer,Content} from "native-base";
 import {Col, Row, Grid} from "react-native-easy-grid";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -228,6 +231,18 @@ class ModalScreen extends React.Component {
     }
 }
 
+const NativeBaseDemoScreen = () => {
+    return (
+        <Container>
+            <Content padder onPress={this.closeDrawer}>
+            <Button onPress={this.openDrawer}>
+                <Text>OPEN / CLOSE</Text>
+            </Button>
+            </Content>
+        </Container>
+    );
+};
+
 const EasyGridDemoScreen = () => {
     return (
         <ScrollView>
@@ -441,6 +456,7 @@ const flex_styles = StyleSheet.create({
 });
 const MainStack = createStackNavigator(
     {
+        NativeBaseDemo: { screen: NativeBaseDemoScreen},
         EasyGridDemo: { screen: EasyGridDemoScreen},
         FlexDemo: { screen: FlexDemoScreen },
         Home: { screen: HomeScreen },
@@ -556,6 +572,7 @@ class Settings2Screen extends React.Component {
 }
 
 const HomeStack = createStackNavigator({
+    NativeBaseDemo: NativeBaseDemoScreen,
     EasyGridDemo: EasyGridDemoScreen,
     FlexDemo: FlexDemoScreen,
     Home: HomeScreen,
