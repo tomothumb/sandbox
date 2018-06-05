@@ -227,14 +227,158 @@ class ModalScreen extends React.Component {
     }
 }
 
+const FlexDemoScreen = () => {
+    return(
+        <ScrollView>
+            <Text>flex_row</Text>
+            <View style={flex_styles.flex_row}>
+                <Text style={[flex_styles.flex_row_item,flex_styles.flex_row_item1,flex_styles.box_color1]}>flex_row_item1</Text>
+                <Text style={[flex_styles.flex_row_item,flex_styles.flex_row_item2,flex_styles.box_color2]}>flex_row_item2</Text>
+                <Text style={[flex_styles.flex_row_item,flex_styles.flex_row_item3,flex_styles.box_color3]}>flex_row_item3</Text>
+            </View>
 
+            <Text style={flex_styles.line}>LINE</Text>
+
+            <Text>flex_column</Text>
+            <View style={flex_styles.flex_column}>
+                <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item1,flex_styles.box_color1]}>flex_column_item1</Text>
+                <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item2,flex_styles.box_color2]}>flex_column_item2</Text>
+                <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item3,flex_styles.box_color3]}>flex_column_item3</Text>
+            </View>
+
+            <Text style={flex_styles.line}>LINE</Text>
+
+            <Text>Nested flex</Text>
+
+            <View style={[flex_styles.flex_row]}>
+                <View style={[flex_styles.flex_column,{flex:1,margin:10}]}>
+                    <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item1,flex_styles.box_color1]}>flex_column_item1</Text>
+                    <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item2,flex_styles.box_color2]}>flex_column_item2</Text>
+                    <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item3,flex_styles.box_color3]}>flex_column_item3</Text>
+                </View>
+                <View style={[flex_styles.flex_column,{flex:2,margin:10}]}>
+                    <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item3,flex_styles.box_color3]}>flex_column_item3</Text>
+                    <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item2,flex_styles.box_color2]}>flex_column_item2</Text>
+                    <Text style={[flex_styles.flex_column_item,flex_styles.flex_column_item1,flex_styles.box_color1]}>flex_column_item1</Text>
+                </View>
+            </View>
+
+            <Text style={flex_styles.line}>LINE</Text>
+
+            <Text>FINISH</Text>
+
+
+            <View style={[flex_styles.flex_grid]}>
+                <Text style={[flex_styles.flex_grid_item,flex_styles.flex_grid_item1,flex_styles.box_color1]}>flex_column_item1</Text>
+                <Text style={[flex_styles.flex_grid_item,flex_styles.flex_grid_item2,flex_styles.box_color2]}>flex_column_item2</Text>
+                <Text style={[flex_styles.flex_grid_item,flex_styles.flex_grid_item3,flex_styles.box_color3]}>flex_column_item3</Text>
+                <Text style={[flex_styles.flex_grid_item,flex_styles.flex_grid_item4,flex_styles.box_color4]}>flex_column_item4</Text>
+                <Text style={[flex_styles.flex_grid_item,flex_styles.flex_grid_item5,flex_styles.box_color5]}>flex_column_item5</Text>
+            </View>
+
+        </ScrollView>
+    );
+}
+
+const flex_styles = StyleSheet.create({
+    line:{
+        margin:10,
+        height:2,
+        backgroundColor:'#000'
+    },
+    box_color1:{
+        color:'#FFF',
+        backgroundColor:'#000'
+    },
+    box_color2:{
+        color:'#FFF',
+        backgroundColor:'#333'
+    },
+    box_color3:{
+        color:'#FFF',
+        backgroundColor:'#666'
+    },
+    box_color4:{
+        color:'#FFF',
+        backgroundColor:'#999'
+    },
+    box_color5:{
+        color:'#000',
+        backgroundColor:'#CCC'
+    },
+
+    //flexDirection:'row'
+
+    flex_row:{
+        flexDirection:'row'
+    },
+    flex_row_item:{
+        height:60,
+        padding:10
+    },
+    flex_row_item1:{
+        flex:1
+    },
+    flex_row_item2:{
+        flex:2
+    },
+    flex_row_item3:{
+        flex:3
+    },
+
+    //flexDirection:'column'
+    flex_column:{
+        height:200,
+        flexDirection:'column'
+    },
+    flex_column_item:{
+        padding:10
+    },
+    flex_column_item1:{
+        flex:1
+    },
+    flex_column_item2:{
+        flex:2
+    },
+    flex_column_item3:{
+        flex:3
+    },
+
+    // flexWrap
+    flex_grid:{
+        flexDirection:'row',
+        flexWrap:'wrap',
+    },
+    flex_grid_item:{
+        height:60,
+        width:120,
+        margin:10,
+        padding:10
+    },
+    flex_grid_item1:{
+        height:20
+    },
+    flex_grid_item2:{
+        height:40
+    },
+    flex_grid_item3:{
+        height:60
+    },
+    flex_grid_item4:{
+        height:80
+    },
+    flex_grid_item5:{
+        height:100
+    }
+});
 const MainStack = createStackNavigator(
     {
+        FlexDemo: { screen: FlexDemoScreen },
         Home: { screen: HomeScreen },
         Profile: { screen: ProfileScreen },
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'FlexDemo',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: '#f4511e',
@@ -278,6 +422,12 @@ class SettingsScreen extends React.Component {
                     title="go to Setting 2!"
                     onPress={() => this.props.navigation.navigate('Settings2')}
                 />
+
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ flex:1,padding:10, width:50, backgroundColor:'#CCC'}} >aaaa</Text>
+                    <Text style={{ flex:1,padding:10, width:50, backgroundColor:'#999'}} >bbbb</Text>
+                    <Text style={{ flex:1,padding:10, width:50, backgroundColor:'#666'}} >CCCCC</Text>
+                </View>
             </View>
         );
     }
@@ -337,6 +487,7 @@ class Settings2Screen extends React.Component {
 }
 
 const HomeStack = createStackNavigator({
+    FlexDemo: FlexDemoScreen,
     Home: HomeScreen,
     Profile: ProfileScreen
 });
