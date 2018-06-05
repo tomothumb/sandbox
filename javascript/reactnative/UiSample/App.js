@@ -3,6 +3,7 @@ import { StyleSheet, Button, Text, TextInput, View , ScrollView, Alert,
     ActionSheetIOS,AlertIOS,DatePickerIOS,ImagePickerIOS,
     TouchableOpacity,AsyncStorage
 } from 'react-native';
+import {Col, Row, Grid} from "react-native-easy-grid";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
@@ -227,6 +228,57 @@ class ModalScreen extends React.Component {
     }
 }
 
+const EasyGridDemoScreen = () => {
+    return (
+        <ScrollView>
+            <Text style={flex_styles.line}>LINE</Text>
+
+            <Grid>
+                <Col style={flex_styles.bg_color3}><Text>col</Text></Col>
+                <Col style={flex_styles.bg_color5}><Text>col</Text></Col>
+            </Grid>
+
+            <Grid>
+                <Col size={1} style={flex_styles.bg_color1}><Text>col size=1</Text></Col>
+                <Col size={2} style={flex_styles.bg_color3}><Text>col size=2</Text></Col>
+                <Col size={1} style={flex_styles.bg_color5}><Text>col size=1</Text></Col>
+            </Grid>
+
+            <Grid>
+                <Col style={flex_styles.bg_color1}><Text>col</Text></Col>
+                <Col style={flex_styles.bg_color3}><Text>col</Text></Col>
+                <Col size={4} style={flex_styles.bg_color5}><Text>col size=4</Text></Col>
+            </Grid>
+
+            <Text style={flex_styles.line}>LINE</Text>
+
+            <Grid style={{height:200}}>
+                <Row size={1} style={flex_styles.bg_color1}><Text>col</Text></Row>
+                <Row size={2} style={flex_styles.bg_color3}><Text>col</Text></Row>
+                <Row size={4} style={flex_styles.bg_color5}><Text>col size=4</Text></Row>
+            </Grid>
+
+            <Text style={flex_styles.line}>LINE</Text>
+
+            <Grid style={{height:200}}>
+                <Row size={1} style={flex_styles.bg_color1}><Text>col</Text></Row>
+                <Row size={2} style={flex_styles.bg_color3}><Text>col</Text></Row>
+                <Row size={4} style={flex_styles.bg_color5}>
+                    <Col size={1} style={flex_styles.bg_color1}><Text>col size=1</Text></Col>
+                    <Col size={2} style={flex_styles.bg_color3}>
+                        <Row size={1} style={flex_styles.bg_color2}><Text>col</Text></Row>
+                        <Row size={2} style={flex_styles.bg_color4}><Text>col</Text></Row>
+                    </Col>
+                    <Col size={1} style={flex_styles.bg_color5}><Text>col size=1</Text></Col>
+                </Row>
+            </Grid>
+
+            <Text style={flex_styles.line}>LINE</Text>
+
+        </ScrollView>
+    )
+};
+
 const FlexDemoScreen = () => {
     return(
         <ScrollView>
@@ -286,6 +338,22 @@ const flex_styles = StyleSheet.create({
         height:2,
         backgroundColor:'#000'
     },
+    bg_color1:{
+        backgroundColor:'#000'
+    },
+    bg_color2:{
+        backgroundColor:'#333'
+    },
+    bg_color3:{
+        backgroundColor:'#666'
+    },
+    bg_color4:{
+        backgroundColor:'#999'
+    },
+    bg_color5:{
+        backgroundColor:'#CCC'
+    },
+
     box_color1:{
         color:'#FFF',
         backgroundColor:'#000'
@@ -373,12 +441,13 @@ const flex_styles = StyleSheet.create({
 });
 const MainStack = createStackNavigator(
     {
+        EasyGridDemo: { screen: EasyGridDemoScreen},
         FlexDemo: { screen: FlexDemoScreen },
         Home: { screen: HomeScreen },
         Profile: { screen: ProfileScreen },
     },
     {
-        initialRouteName: 'FlexDemo',
+        initialRouteName: 'EasyGridDemo',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: '#f4511e',
@@ -487,6 +556,7 @@ class Settings2Screen extends React.Component {
 }
 
 const HomeStack = createStackNavigator({
+    EasyGridDemo: EasyGridDemoScreen,
     FlexDemo: FlexDemoScreen,
     Home: HomeScreen,
     Profile: ProfileScreen
