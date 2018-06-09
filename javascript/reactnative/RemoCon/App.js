@@ -1,14 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { CP_setting } from './src/component/setting'
+import { CP_remocon } from './src/component/remocon'
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>RemoCon</Text>
-          <CP_setting />
-      </View>
+        <ScrollView>
+          <View style={styles.container}>
+            <Text>RemoCon</Text>
+              <CP_setting />
+              <CP_remocon />
+          </View>
+        </ScrollView>
     );
   }
 }
