@@ -14,6 +14,18 @@ export EDITOR=vim
 
 ```
 
+## anyenv
+
+pythonの場合はglobalに2系、3系をそれぞれ入れる。python2、python3と入力することで、それぞれのバージョンを起動できる
+
+```
+$ pyenv global 2.x.y 3.x.y
+
+$ python2
+$ python3
+
+```
+
 
 ## direnv インストール
 
