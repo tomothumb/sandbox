@@ -34,6 +34,7 @@ Route::get('/', function () {
     return view('welcome',compact('user'));
 });
 
+Route::get('/crawler/test', 'CrawlerSettingController@getTest');
 
 Route::group(['prefix' => '/user/{user_id}'], function(){
     Route::get('/', function ($user_id) {
