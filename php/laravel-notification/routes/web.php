@@ -34,7 +34,7 @@ Route::get('/', function () {
     return view('welcome',compact('user'));
 });
 
-Route::get('/crawler/test', 'CrawlerSettingController@getTest');
+Route::get('/crawler/yahoo_news', 'CrawlerSettingController@getYahooNews');
 
 Route::group(['prefix' => '/user/{user_id}'], function(){
     Route::get('/', function ($user_id) {
