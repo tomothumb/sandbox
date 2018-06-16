@@ -5,9 +5,8 @@ import { CP_remocon } from './component/remocon'
 export default class App extends React.Component {
   render() {
     return (<div>
-      <h2>Welcome to Re2asct!2</h2>
-        <CP_setting />
         <CP_remocon />
+        <CP_setting />
     </div>);
   }
 }

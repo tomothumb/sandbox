@@ -27,12 +27,11 @@ export class CP_setting extends Component {
 
   render(){
     let access_token = (this.state.access_token != "")
-        ? <p>{this.state.access_token}</p>
+        ? <p style={{fontSize:"12px"}}>{this.state.access_token}</p>
         : null;
 
     return(
-      <div>
-        <p>ACCESS TOKEN:</p>
+      <div style={{position:"fixed", bottom:0,left:0, width:"100%"}}>
         {access_token}
           <input type="text"
               onChange={(e)=>{this.handleInput(e);}}

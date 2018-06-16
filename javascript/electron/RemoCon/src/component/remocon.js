@@ -30,23 +30,23 @@ class CP_Signal extends Component {
     }
     render (){
         return (
-            <div>
-                <button onClick={this.handlePress.bind(this)}
-                >{this.props.signal.name}</button>
-            </div>
+            <p style={{ margin:0, padding:0, textAlign:"center",lineHeight:"50px",height:"50px",backgroundColor:"#333333"}} onClick={this.handlePress.bind(this)}
+            >{this.props.signal.name}</p>
         );
     }
 }
 
 const Appliances = ({item,token}) => {
     return (
-        <div>
-            <p>{item.nickname}</p>
+        <div style={{borderTop:"1px solid #FFFFFF"}}>
+            <p style={{margin:0,padding:"5px",textAlign:"center"}}>{item.nickname}</p>
+            <div style={{display:"grid",gridGap:"1px", gridTemplateColumns:"1fr 1fr 1fr"}}>
             { item.signals.map((signal,idx) => {
                 return (
                     <CP_Signal signal={signal} key={idx} token={token} />
                 )
             }) }
+            </div>
         </div>
     )
 };
@@ -119,7 +119,7 @@ export class CP_remocon extends Component{
     render(){
         return(
             <div>
-                <p>{this.state.devices.name}</p>
+                <p style={{margin:0, textAlign:"center",padding:"5px"}} >{this.state.devices.name}</p>
                 <button onClick={this.enterDevice.bind(this)} >Enter</button>
                 {this.state.appliances.map((item,idx)=>{
                     return (
