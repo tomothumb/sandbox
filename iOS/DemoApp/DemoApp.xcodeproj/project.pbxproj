@@ -15,7 +15,6 @@
 		E50D14B520D62B1C0018165D /* DemoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D14B420D62B1C0018165D /* DemoAppTests.swift */; };
 		E50D14C020D62B1C0018165D /* DemoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D14BF20D62B1C0018165D /* DemoAppUITests.swift */; };
 		E5DE2B5720D6862100C416CE /* RadioStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE2B5620D6862100C416CE /* RadioStation.swift */; };
-		E5DE2B5920D68E1400C416CE /* BookStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE2B5820D68E1400C416CE /* BookStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +49,6 @@
 		E50D14BF20D62B1C0018165D /* DemoAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAppUITests.swift; sourceTree = "<group>"; };
 		E50D14C120D62B1C0018165D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5DE2B5620D6862100C416CE /* RadioStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioStation.swift; sourceTree = "<group>"; };
-		E5DE2B5820D68E1400C416CE /* BookStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +99,13 @@
 		E50D149E20D62B1C0018165D /* DemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				E5DE2BDC20D6DFCE00C416CE /* Controllers */,
+				E5DE2BDB20D6DFC600C416CE /* Views */,
+				E5DE2BDA20D6DFAD00C416CE /* Models */,
 				E50D149F20D62B1C0018165D /* AppDelegate.swift */,
-				E50D14A120D62B1C0018165D /* ViewController.swift */,
-				E50D14A320D62B1C0018165D /* Main.storyboard */,
 				E5DE2B5620D6862100C416CE /* RadioStation.swift */,
 				E50D14A620D62B1C0018165D /* Assets.xcassets */,
-				E50D14A820D62B1C0018165D /* LaunchScreen.storyboard */,
 				E50D14AB20D62B1C0018165D /* Info.plist */,
-				E5DE2B5820D68E1400C416CE /* BookStore.swift */,
 			);
 			path = DemoApp;
 			sourceTree = "<group>";
@@ -129,6 +126,30 @@
 				E50D14C120D62B1C0018165D /* Info.plist */,
 			);
 			path = DemoAppUITests;
+			sourceTree = "<group>";
+		};
+		E5DE2BDA20D6DFAD00C416CE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E5DE2BDB20D6DFC600C416CE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E50D14A820D62B1C0018165D /* LaunchScreen.storyboard */,
+				E50D14A320D62B1C0018165D /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E5DE2BDC20D6DFCE00C416CE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E50D14A120D62B1C0018165D /* ViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,7 +288,6 @@
 			files = (
 				E50D14A220D62B1C0018165D /* ViewController.swift in Sources */,
 				E50D14A020D62B1C0018165D /* AppDelegate.swift in Sources */,
-				E5DE2B5920D68E1400C416CE /* BookStore.swift in Sources */,
 				E5DE2B5720D6862100C416CE /* RadioStation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

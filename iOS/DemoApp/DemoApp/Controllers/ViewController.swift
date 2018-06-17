@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var randomNumberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var stationName: UILabel!
@@ -47,6 +48,14 @@ class ViewController: UIViewController {
         }else{
             stationBand.text = "AM"
         }
+    }
+    @IBAction func seedAction(_ sender: Any) {
+        srandom(CUnsignedInt(time(nil)))
+        randomNumberLabel.text = "Genarator Seeded."
+    }
+    @IBAction func generateAction(_ sender: Any) {
+        let generated = (arc4random() % 100) + 1
+        randomNumberLabel.text = "\(generated)"
     }
     
 }
