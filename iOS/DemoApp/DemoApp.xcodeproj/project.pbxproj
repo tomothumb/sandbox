@@ -14,6 +14,7 @@
 		E50D14AA20D62B1C0018165D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E50D14A820D62B1C0018165D /* LaunchScreen.storyboard */; };
 		E50D14B520D62B1C0018165D /* DemoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D14B420D62B1C0018165D /* DemoAppTests.swift */; };
 		E50D14C020D62B1C0018165D /* DemoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D14BF20D62B1C0018165D /* DemoAppUITests.swift */; };
+		E559486520DA9E3C00A30060 /* BookStoreModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E559486320DA9E3C00A30060 /* BookStoreModel.xcdatamodeld */; };
 		E5DE2B5720D6862100C416CE /* RadioStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE2B5620D6862100C416CE /* RadioStation.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		E50D14BB20D62B1C0018165D /* DemoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50D14BF20D62B1C0018165D /* DemoAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAppUITests.swift; sourceTree = "<group>"; };
 		E50D14C120D62B1C0018165D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E559486420DA9E3C00A30060 /* sampleModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = sampleModel.xcdatamodel; sourceTree = "<group>"; };
 		E5DE2B5620D6862100C416CE /* RadioStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioStation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 		E50D149E20D62B1C0018165D /* DemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				E559486320DA9E3C00A30060 /* BookStoreModel.xcdatamodeld */,
 				E5DE2BDC20D6DFCE00C416CE /* Controllers */,
 				E5DE2BDB20D6DFC600C416CE /* Views */,
 				E5DE2BDA20D6DFAD00C416CE /* Models */,
@@ -289,6 +292,7 @@
 				E50D14A220D62B1C0018165D /* ViewController.swift in Sources */,
 				E50D14A020D62B1C0018165D /* AppDelegate.swift in Sources */,
 				E5DE2B5720D6862100C416CE /* RadioStation.swift in Sources */,
+				E559486520DA9E3C00A30060 /* BookStoreModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +584,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E559486320DA9E3C00A30060 /* BookStoreModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E559486420DA9E3C00A30060 /* sampleModel.xcdatamodel */,
+			);
+			currentVersion = E559486420DA9E3C00A30060 /* sampleModel.xcdatamodel */;
+			name = BookStoreModel.xcdatamodeld;
+			path = Models/BookStoreModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E50D149420D62B1C0018165D /* Project object */;
 }
