@@ -7,8 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
-class ViewController: UIViewController {
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var managedObjectContext: NSManagedObjectContext!
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return loadBooks().count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") else { return UITableViewCell() }
+        let book: Book = loadBooks()[indexPath.row]
+        cell.textLabel?.text = book.title
+        return cell
+    }
+    
     
     @IBOutlet weak var randomNumberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -17,6 +33,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var stationFrequency: UILabel!
     @IBOutlet weak var stationBand: UILabel!
     
+    @IBOutlet weak var myTableView: UITableView!
+
     var myStation: RadioStation
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,6 +51,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        managedObjectContext = appDelegate.persistentContainer.viewContext as NSManagedObjectContext
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +77,28 @@ class ViewController: UIViewController {
         let generated = (arc4random() % 100) + 1
         randomNumberLabel.text = "\(generated)"
     }
+    @IBAction func addNew(_ sender: Any) {
+        let book: Book = NSEntityDescription.insertNewObject(forEntityName: "Book", into: managedObjectContext) as! Book
+        book.title = "My Book" + String(loadBooks().count)
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            NSLog("My Error: %@", error)
+        }
+        myTableView.reloadData()
+    }
+    
+    func loadBooks() -> [Book] {
+        let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
+        var result: [Book] = []
+        do {
+            result = try managedObjectContext.fetch(fetchRequest)
+        } catch {
+            NSLog("My Error: %@", error as NSError)
+        }
+        return result
+    }
+
     
 }
 

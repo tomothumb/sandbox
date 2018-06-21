@@ -592,8 +592,7 @@
 				E559486420DA9E3C00A30060 /* sampleModel.xcdatamodel */,
 			);
 			currentVersion = E559486420DA9E3C00A30060 /* sampleModel.xcdatamodel */;
-			name = BookStoreModel.xcdatamodeld;
-			path = Models/BookStoreModel.xcdatamodeld;
+			path = BookStoreModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
