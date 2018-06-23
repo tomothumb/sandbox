@@ -34,6 +34,14 @@ Route::get('/', function () {
     return view('welcome',compact('user'));
 });
 
+
+Route::get('/notification/', 'NotificationDemoController@welcome');
+Route::post('/notification/subscript', 'NotificationDemoController@subscript');
+Route::get('/notification/data', 'NotificationDemoController@notificationData');
+Route::post('/notification/send', 'NotificationDemoController@send');
+Route::get('/notification/send', 'NotificationDemoController@send');
+
+
 Route::get('/crawler/yahoo_news', 'CrawlerSettingController@getYahooNews');
 
 Route::group(['prefix' => '/user/{user_id}'], function(){
