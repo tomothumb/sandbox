@@ -14,7 +14,11 @@
             padding:20px;
         }
     </style>
-    <script src="/js/app.js"></script>
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <script src="{{ mix('/js/manifest.js') }}"></script>
+    <script src="{{ mix('/js/vendor.js') }}"></script>
+    <script src="{{ mix('/js/app.js') }}"></script>
+
 </head>
 <body>
 
