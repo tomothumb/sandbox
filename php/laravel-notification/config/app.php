@@ -175,6 +175,11 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /**
+         * Extra Packages
+         */
+        LaravelFCM\FCMServiceProvider::class,
+
+        /**
          * Debugging
          */
         Barryvdh\Debugbar\ServiceProvider::class,
@@ -229,6 +234,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /**
+         * Extra Packages
+         */
+        'FCM'      => LaravelFCM\Facades\FCM::class,
+        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class, // Optional
 
         /**
          * Debugging
