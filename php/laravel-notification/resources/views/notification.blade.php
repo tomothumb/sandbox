@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Notification Demo</title>
+
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <style>
         html, body {
             background-color: #fff;
@@ -14,45 +16,22 @@
             margin: 0;
             padding: 20px;
         }
+        .none {
+            display: none;
+        }
     </style>
 
-    <script src="/js/app.js"></script>
-
-
     <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: '{{ env('FIREBASE_apiKey') }}',
-            authDomain: '{{ env('FIREBASE_authDomain') }}',
-            databaseURL: '{{ env('FIREBASE_databaseURL') }}',
-            projectId: '{{ env('FIREBASE_projectId') }}',
-            storageBucket: '{{ env('FIREBASE_storageBucket') }}',
-            messagingSenderId: '{{ env('FIREBASE_messagingSenderId') }}'
-        };
-        firebase.initializeApp(config);
-
-        var messaging = firebase.messaging();
-        messaging.requestPermission()
-            .then(function () {
-                console.log('request permission');
-                return messaging.getToken();
-            }).then(function (token) {
-            console.log(token);
-
-        }).catch(function (error) {
-            console.log(error);
-        });
-
-        messaging.onMessage(function (payload) {
-            console.log("onMessage", payload)
-        })
-
-    </script>
+    <script src="{{ mix('/js/manifest.js') }}"></script>
+    <script src="{{ mix('/js/vendor.js') }}"></script>
 </head>
 <body>
 
 @link https://qiita.com/kite_999/items/e53b1c60a10275988604
+
+<header>
+    <div id="app_notification"></div>
+</header>
 
 <h1>Web Push Test</h1>
 <p><a href="#" id="push_regist" class="none">通知登録して！</a></p>
@@ -60,12 +39,34 @@
 <p><button id="sendbtn">直接送信</button></p>
 <p><button id="sendbtn_server">サーバから送信</button></p>
 
-<style>
-    .none {
-        display: none;
-    }
-</style>
 
+
+
+<script src="{{ mix('/js/app.js') }}"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: '{{ env('FIREBASE_apiKey') }}',
+        authDomain: '{{ env('FIREBASE_authDomain') }}',
+        databaseURL: '{{ env('FIREBASE_databaseURL') }}',
+        projectId: '{{ env('FIREBASE_projectId') }}',
+        storageBucket: '{{ env('FIREBASE_storageBucket') }}',
+        messagingSenderId: '{{ env('FIREBASE_messagingSenderId') }}'
+    };
+    firebase.initializeApp(config);
+
+    var messaging = firebase.messaging();
+    messaging.requestPermission()
+        .then(function () {
+            console.log('request permission');
+            return messaging.getToken();
+        }).then(function (token) {
+        console.log(token);
+
+    }).catch(function (error) {
+        console.log(error);
+    });
+</script>
 <script>
 
     var key = '{{ env('FIREBASE_Server_key') }}';
@@ -76,7 +77,6 @@
         'icon': 'firebase-logo.png',
         'click_action': '{{env("APP_URL")}}/notification'
     };
-
 
     function sendMessage() {
         fetch('https://fcm.googleapis.com/fcm/send', {
@@ -91,7 +91,7 @@
                 'to': to
             })
         }).then(function(response) {
-            // console.log(response);
+            console.log(response);
         }).catch(function(error) {
             console.error(error);
         })
@@ -115,9 +115,6 @@
     document.getElementById('sendbtn_server').addEventListener('click',function(event){
         sendMessageServer();
     });
-
-
 </script>
-
 </body>
 </html>
