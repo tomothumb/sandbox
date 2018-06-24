@@ -31,6 +31,15 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        colorR = randomSource.nextInt(upperBound: 256)
+        colorG = randomSource.nextInt(upperBound: 256)
+        colorB = randomSource.nextInt(upperBound: 256)
+        
+        colorLabel.text = "R:\(colorR) G:\(colorG) B:\(colorB)"
+    }
+    
+    
     func doComputer(player:Int){
         let computer = randomSource.nextInt(upperBound: 3);
         var msg = "";
@@ -101,5 +110,24 @@ class ViewController: UIViewController {
         messageLabel.text = "パー！"
         doComputer(player:2);
     }
+    
+    
+    
+    @IBAction func returnTop( segue: UIStoryboardSegue){
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nextVC = segue.destination as! colorViewController
+        nextVC.colorR = colorR
+        nextVC.colorG = colorG
+        nextVC.colorB = colorB
+    }
+
+    @IBOutlet weak var colorLabel: UILabel!
+    var colorR = 0
+    var colorG = 0
+    var colorB = 0
+    
+    
 }
 

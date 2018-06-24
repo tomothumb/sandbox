@@ -19,6 +19,9 @@
 		E5A2C0EC20DF9908003430FE /* choki.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2C0E920DF9908003430FE /* choki.png */; };
 		E5A2C0ED20DF9908003430FE /* pa.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2C0EA20DF9908003430FE /* pa.png */; };
 		E5A2C0EF20DF9976003430FE /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2C0EE20DF9976003430FE /* download.png */; };
+		E5A2C0F120DFBDBF003430FE /* colorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2C0F020DFBDBF003430FE /* colorViewController.swift */; };
+		E5A2C0F320DFC31C003430FE /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2C0F220DFC31C003430FE /* FirstViewController.swift */; };
+		E5A2C0F520DFC34B003430FE /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2C0F420DFC34B003430FE /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,9 @@
 		E5A2C0E920DF9908003430FE /* choki.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choki.png; sourceTree = "<group>"; };
 		E5A2C0EA20DF9908003430FE /* pa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pa.png; sourceTree = "<group>"; };
 		E5A2C0EE20DF9976003430FE /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
+		E5A2C0F020DFBDBF003430FE /* colorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorViewController.swift; sourceTree = "<group>"; };
+		E5A2C0F220DFC31C003430FE /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		E5A2C0F420DFC34B003430FE /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,9 @@
 				E5A2C0E620DF98E0003430FE /* Assets */,
 				E5A2C0B520DF97F0003430FE /* AppDelegate.swift */,
 				E5A2C0B720DF97F0003430FE /* ViewController.swift */,
+				E5A2C0F220DFC31C003430FE /* FirstViewController.swift */,
+				E5A2C0F420DFC34B003430FE /* SecondViewController.swift */,
+				E5A2C0F020DFBDBF003430FE /* colorViewController.swift */,
 				E5A2C0B920DF97F0003430FE /* Main.storyboard */,
 				E5A2C0BF20DF97F0003430FE /* Assets.xcassets */,
 				E5A2C0C120DF97F0003430FE /* LaunchScreen.storyboard */,
@@ -294,8 +303,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5A2C0F520DFC34B003430FE /* SecondViewController.swift in Sources */,
+				E5A2C0F320DFC31C003430FE /* FirstViewController.swift in Sources */,
 				E5A2C0B820DF97F0003430FE /* ViewController.swift in Sources */,
 				E5A2C0B620DF97F0003430FE /* AppDelegate.swift in Sources */,
+				E5A2C0F120DFBDBF003430FE /* colorViewController.swift in Sources */,
 				E5A2C0BE20DF97F0003430FE /* BookTutorial.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
