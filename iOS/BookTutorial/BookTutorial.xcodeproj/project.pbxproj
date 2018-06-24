@@ -15,6 +15,10 @@
 		E5A2C0C320DF97F0003430FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5A2C0C120DF97F0003430FE /* LaunchScreen.storyboard */; };
 		E5A2C0CE20DF97F1003430FE /* BookTutorialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2C0CD20DF97F1003430FE /* BookTutorialTests.swift */; };
 		E5A2C0D920DF97F1003430FE /* BookTutorialUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2C0D820DF97F1003430FE /* BookTutorialUITests.swift */; };
+		E5A2C0EB20DF9908003430FE /* gu.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2C0E820DF9908003430FE /* gu.png */; };
+		E5A2C0EC20DF9908003430FE /* choki.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2C0E920DF9908003430FE /* choki.png */; };
+		E5A2C0ED20DF9908003430FE /* pa.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2C0EA20DF9908003430FE /* pa.png */; };
+		E5A2C0EF20DF9976003430FE /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2C0EE20DF9976003430FE /* download.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		E5A2C0D420DF97F1003430FE /* BookTutorialUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookTutorialUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A2C0D820DF97F1003430FE /* BookTutorialUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTutorialUITests.swift; sourceTree = "<group>"; };
 		E5A2C0DA20DF97F1003430FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5A2C0E820DF9908003430FE /* gu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gu.png; sourceTree = "<group>"; };
+		E5A2C0E920DF9908003430FE /* choki.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choki.png; sourceTree = "<group>"; };
+		E5A2C0EA20DF9908003430FE /* pa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pa.png; sourceTree = "<group>"; };
+		E5A2C0EE20DF9976003430FE /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 		E5A2C0B420DF97F0003430FE /* BookTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				E5A2C0E620DF98E0003430FE /* Assets */,
 				E5A2C0B520DF97F0003430FE /* AppDelegate.swift */,
 				E5A2C0B720DF97F0003430FE /* ViewController.swift */,
 				E5A2C0B920DF97F0003430FE /* Main.storyboard */,
@@ -126,6 +135,25 @@
 				E5A2C0DA20DF97F1003430FE /* Info.plist */,
 			);
 			path = BookTutorialUITests;
+			sourceTree = "<group>";
+		};
+		E5A2C0E620DF98E0003430FE /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E5A2C0E720DF98E9003430FE /* Images */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E5A2C0E720DF98E9003430FE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E5A2C0EE20DF9976003430FE /* download.png */,
+				E5A2C0E920DF9908003430FE /* choki.png */,
+				E5A2C0E820DF9908003430FE /* gu.png */,
+				E5A2C0EA20DF9908003430FE /* pa.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,8 +263,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5A2C0EC20DF9908003430FE /* choki.png in Resources */,
 				E5A2C0C320DF97F0003430FE /* LaunchScreen.storyboard in Resources */,
+				E5A2C0EB20DF9908003430FE /* gu.png in Resources */,
 				E5A2C0C020DF97F0003430FE /* Assets.xcassets in Resources */,
+				E5A2C0ED20DF9908003430FE /* pa.png in Resources */,
+				E5A2C0EF20DF9976003430FE /* download.png in Resources */,
 				E5A2C0BB20DF97F0003430FE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
