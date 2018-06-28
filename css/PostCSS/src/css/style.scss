@@ -1,15 +1,17 @@
+@import "./color";
+
 
 .transition{
   cursor: pointer;
   transition: all .3s;
-  background-color: #FFFFFF;
+  background-color: $clr_black;
 }
 .transition:hover{
-  background-color: #000000;
+  background-color: $clr_white;
 }
 
 .red{
-  color:red;
+  color:$clr_red;
 }
 
 .rotate{

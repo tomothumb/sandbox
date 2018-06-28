@@ -17,7 +17,7 @@ module.exports = {
     module:{
         rules:[
             {
-                test: /\.css$/,
+                test: /\.scss$/,
                 use: [
                     'style-loader',
                     {
@@ -29,8 +29,21 @@ module.exports = {
                             minimize: true,
                             // ソースマップを有効にする
                             sourceMap: enabledSourceMap,
+
+
+                            // 0 => no loaders (default);
+                            // 1 => postcss-loader;
+                            // 2 => postcss-loader, sass-loader
+                            importLoaders: 2
+
                         },
                     },
+                    {
+                        loader: 'sass-loader',
+                        options:{
+                            sourceMap: enabledSourceMap,
+                        }
+                    }
                 ],
             },
             // {
