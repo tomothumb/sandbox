@@ -28,7 +28,7 @@ module.exports = {
                                 // オプションでCSS内のurl()メソッドの取り込みを禁止する
                                 // url: false,
                                 // CSSの空白文字を削除する
-                                minimize: true,
+                                // minimize: true,
                                 // ソースマップを有効にする
                                 sourceMap: enabledSourceMap,
 
@@ -41,6 +41,23 @@ module.exports = {
                             },
                         },
                         {
+                            loader: 'postcss-loader',
+                            options:{
+                                sourceMap: enabledSourceMap,
+                                plugins: (loader) => [
+                                    require('autoprefixer')({
+                                        grid: true,
+                                        browsers: [
+                                            // "last 1 version",
+                                            "> 10%",
+                                            'ie >= 9'
+                                        ],
+                                    }),
+                                ]
+                            },
+                        },
+
+                        {
                             loader: 'sass-loader',
                             options:{
                                 sourceMap: enabledSourceMap,
@@ -49,12 +66,7 @@ module.exports = {
                     ]
                 })
             },
-            // {
-            //     loader: 'postcss-loader',
-            //     plugins:[
-            //          // require('autoprefixer')({grid: true})
-            //     ]
-            // }
+            //
         ]
     },
 
