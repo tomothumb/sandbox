@@ -1,4 +1,5 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // 'production' か 'development' を指定
 const MODE = 'development';
@@ -18,33 +19,35 @@ module.exports = {
         rules:[
             {
                 test: /\.scss$/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            // オプションでCSS内のurl()メソッドの取り込みを禁止する
-                            url: false,
-                            // CSSの空白文字を削除する
-                            minimize: true,
-                            // ソースマップを有効にする
-                            sourceMap: enabledSourceMap,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                // オプションでCSS内のurl()メソッドの取り込みを禁止する
+                                // url: false,
+                                // CSSの空白文字を削除する
+                                minimize: true,
+                                // ソースマップを有効にする
+                                sourceMap: enabledSourceMap,
 
 
-                            // 0 => no loaders (default);
-                            // 1 => postcss-loader;
-                            // 2 => postcss-loader, sass-loader
-                            importLoaders: 2
+                                // 0 => no loaders (default);
+                                // 1 => postcss-loader;
+                                // 2 => postcss-loader, sass-loader
+                                importLoaders: 2
 
+                            },
                         },
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options:{
-                            sourceMap: enabledSourceMap,
+                        {
+                            loader: 'sass-loader',
+                            options:{
+                                sourceMap: enabledSourceMap,
+                            }
                         }
-                    }
-                ],
+                    ]
+                })
             },
             // {
             //     loader: 'postcss-loader',
@@ -53,7 +56,11 @@ module.exports = {
             //     ]
             // }
         ]
-    }
+    },
+
+    plugins: [
+        new ExtractTextPlugin("stylesheets/style.css")
+    ]
 
 
-}
+};
