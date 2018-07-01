@@ -1,3 +1,4 @@
+@import "./variable";
 @import "./color";
 
 
@@ -8,10 +9,6 @@
 }
 .transition:hover{
   background-color: $clr_white;
-}
-
-.red{
-  color:$clr_red;
 }
 
 .rotate{

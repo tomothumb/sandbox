@@ -10,9 +10,12 @@ const enabledSourceMap = (MODE === 'development');
 
 module.exports = {
     mode: MODE,
-    entry: './src/js/index.js',
+    entry: {
+        main: './src/js/main.js',
+        style: './src/css/style.scss'
+    },
     output: {
-        filename: 'index.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist/js')
     },
     module:{
@@ -71,7 +74,7 @@ module.exports = {
     },
 
     plugins: [
-        new ExtractTextPlugin("stylesheets/style.css")
+        new ExtractTextPlugin("../css/[name].css")
     ]
 
 
