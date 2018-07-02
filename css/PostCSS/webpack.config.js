@@ -77,5 +77,4 @@ module.exports = {
         new ExtractTextPlugin("../css/[name].css")
     ]
 
-
 };
