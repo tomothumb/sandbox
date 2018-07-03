@@ -9,6 +9,7 @@ export default class App extends React.Component {
         this.state = {
             tab: "setting",
         };
+        this.handleTab = this.handleTab.bind(this);
     }
     handleTab(value){
         this.setState({ tab: value });
@@ -16,12 +17,9 @@ export default class App extends React.Component {
 
     render() {
         let mycontent = <p style={{color:"white"}}>NO CONTENT</p>
-        console.log(1);
         if (this.state.tab == 'setting'){
-            console.log(2);
             mycontent = <CP_setting />;
         }else{
-            console.log(3);
             mycontent = <CP_remocon />;
         }
         return (
