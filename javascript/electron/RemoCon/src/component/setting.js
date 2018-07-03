@@ -21,7 +21,6 @@ export class CP_setting extends Component {
   }
   handleInput(e){
       console.log(e);
-
       this.setState({ text_input: e.target.value });
   }
 
@@ -31,7 +30,7 @@ export class CP_setting extends Component {
         : null;
 
     return(
-      <div style={{position:"fixed", bottom:0,left:0, width:"100%"}}>
+      <div style={{}}>
         {access_token}
           <input type="text"
               onChange={(e)=>{this.handleInput(e);}}
