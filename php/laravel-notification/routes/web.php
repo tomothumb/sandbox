@@ -43,6 +43,7 @@ Route::get('/notification/send', 'NotificationDemoController@send');
 
 
 Route::get('/crawler/yahoo_news', 'CrawlerSettingController@getYahooNews');
+Route::get('/phantomjs/yahoo_news', 'CrawlerSettingController@getYahooNewsByPhantomjs');
 
 Route::group(['prefix' => '/user/{user_id}'], function(){
     Route::get('/', function ($user_id) {
