@@ -25,3 +25,29 @@ $nextdocument = $client->click($link);
 
 
 ```
+
+### PhantomJS スクレイピング
+
+You need set the Path PhantomJS installed.
+```
+$client->getEngine()->setPath(env('PHANTOMJS_PATH'));
+```
+
+http://jonnnnyw.github.io/php-phantomjs/
+
+```
+/.env
+PHANTOMJS_PATH=/path/to/phantomjs
+
+/sample.php
+
+<?php
+$client = \JonnyW\PhantomJs\Client::getInstance();
+$client->getEngine()->setPath(env('PHANTOMJS_PATH'));
+$request = $client->getMessageFactory()->createRequest('http://yahoo.co.jp', 'GET');
+$response = $client->getMessageFactory()->createResponse();
+$client->send($request, $response);
+if($response->getStatus() == 200) {
+    echo $response->getContent();
+}
+```
