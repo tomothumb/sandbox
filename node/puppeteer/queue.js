@@ -6,7 +6,7 @@ const HCCrawler = require('headless-chrome-crawler');
             title: $('title').text(),
         })),
         onSuccess: ( results => {
-            console.log(results.result);
+            my_callback(results)
         })
     });
 
@@ -15,3 +15,10 @@ const HCCrawler = require('headless-chrome-crawler');
     await crawler.onIdle();
     await crawler.close();
 })();
+
+function my_callback(results){
+    console.log(results.links,
+        results.result.title);
+
+    console.log('test');
+}
