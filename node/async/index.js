@@ -42,8 +42,28 @@ async_resolve().then(val => {
     console.log(err); // => reject!!
 });
 async_reject().then(val => {
-    console.log("async reject");
+    console.log("success async reject");
 }).catch(err => {
-    console.log(err); // => reject!!
+    console.log("err"); // => reject!!
+    // console.log(err); // => reject!!
 });
 
+function sampleResolve(value){
+    return new Promise((resolve,reject) => {
+        setTimeout(()=>{
+            resolve(value * 2)
+        }, 3000);
+    });
+}
+
+async function async_await_sample(){
+    const result = await sampleResolve(10);
+    return result + 5;
+}
+
+async_await_sample().then(result => {
+    console.log(result);
+}).catch(err => {
+    console.log("err");
+    console.log(err);
+});
