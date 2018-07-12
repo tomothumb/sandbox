@@ -48,16 +48,16 @@ async_reject().then(val => {
     // console.log(err); // => reject!!
 });
 
-function sampleResolve(value){
+function multiple_Resolve(value){
     return new Promise((resolve,reject) => {
-        setTimeout(()=>{
+        setTimeout(() => {
             resolve(value * 2)
-        }, 3000);
+        }, 1000);
     });
 }
 
 async function async_await_sample(){
-    const result = await sampleResolve(10);
+    const result = await multiple_Resolve(10);
     return result + 5;
 }
 
@@ -67,3 +67,109 @@ async_await_sample().then(result => {
     console.log("err");
     console.log(err);
 });
+
+
+function async_promise_pipe(){
+    let result = 0;
+
+    return multiple_Resolve(5)
+        .then(val => {
+            result += val;
+            console.log(result);
+            return multiple_Resolve(10);
+        })
+        .then(val => {
+            result += val;
+            console.log(result);
+            return multiple_Resolve(20);
+        })
+        .then(val => {
+            result += val;
+            console.log(result);
+            return result;
+        });
+}
+
+async function async_await_pipe(){
+    const a = await multiple_Resolve(5);
+    const b = await multiple_Resolve(10);
+    const c = await multiple_Resolve(20);
+    return a + b+ c;
+}
+async function async_await_forloop(){
+    for(let i=0; i<5; i ++){
+        const result = await multiple_Resolve(i);
+        console.log(result);
+    }
+    return "DONE LOOP";
+}
+
+async_promise_pipe().then(val => {
+    console.log(val);
+});
+async_await_pipe().then(val => {
+    console.log(val);
+});
+async_await_forloop().then(val => {
+    console.log(val);
+});
+
+
+function async_promise_parallel(){
+    const promiseA = multiple_Resolve(5);
+    const promiseB = multiple_Resolve(10);
+    const promiseC = promiseB.then(value => {
+        console.log("promiceC",value);
+        return multiple_Resolve(value);
+    });
+    const promiseD = multiple_Resolve(10);
+    const promiseE = multiple_Resolve(20);
+    const promiseF = multiple_Resolve(30);
+    const promiseG = multiple_Resolve(40);
+    const promiseH = multiple_Resolve(50);
+    const promiseI = multiple_Resolve(60);
+    const promiseJ = multiple_Resolve(70);
+
+    return Promise.all([promiseA, promiseB, promiseC,
+        promiseD, promiseE, promiseF, promiseG, promiseH, promiseI, promiseJ])
+        .then(([a,b,c,d,e,f,g,h,i,j]) => {
+            return [a,b,c,d,e,f,g,h,i,j];
+        });
+}
+async_promise_parallel().then(([a,b,c,d,e,f,g,h,i,j]) => {
+    console.log("async_promise_parallel",a,b,c,d,e,f,g,h,i,j);
+});
+
+
+async function async_await_parallel(){
+    const [a,b,c,d,e,f,g,h,i] = await Promise.all([
+        multiple_Resolve(5),
+        multiple_Resolve(10),
+        multiple_Resolve(20),
+        multiple_Resolve(30),
+        multiple_Resolve(40),
+        multiple_Resolve(50),
+        multiple_Resolve(60),
+        multiple_Resolve(70),
+        multiple_Resolve(80),
+    ]);
+    const j = await multiple_Resolve(i);
+    return [a,b,c,d,e,f,g,h,i,j];
+}
+async_await_parallel().then(([a,b,c,d,e,f,g,h,i,j]) => {
+    console.log("async_await_parallel",a,b,c,d,e,f,g,h,i,j);
+});
+
+
+async function async_map_parallel(){
+    const array = [5,10,20];
+    const promiseAll = await Promise.all(array.map(async(value) =>{
+        return await multiple_Resolve(value);
+    }));
+
+    return promiseAll;
+}
+async_map_parallel().then(([a,b,c]) => {
+    console.log("async_map_parallel",a,b,c);
+});
+
