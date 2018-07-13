@@ -1,3 +1,5 @@
+const chalk = require("chalk");
+
 
 function sample1(){
     console.log(1);
@@ -200,7 +202,7 @@ function promise_error_handleing() {
 promise_error_handleing().then((result) => {
     console.log("promise_error_handleing Success",result);
 }).catch((err) => {
-    console.error("promise_error_handleing Error",err);
+    console.error(chalk.red("promise_error_handleing Error",err.stack));
 });
 
 async function async_error_handling() {
@@ -214,7 +216,7 @@ async function async_error_handling() {
 async_error_handling().then(result => {
     console.log("async_error_handling Success", result);
 }).catch(err => {
-    console.error("async_error_handling Error", err);
+    console.error(chalk.red("async_error_handling Error", err.stack));
 });
 
 async function async_error_handling_simple() {
@@ -224,5 +226,6 @@ async function async_error_handling_simple() {
 async_error_handling_simple().then( result => {
     console.log("async_error_handling_simple Success", result);
 }).catch( err => {
-    console.error("async_error_handling_simple Error", err);
+
+    console.error(chalk.red("async_error_handling_simple Error", err.stack));
 });
