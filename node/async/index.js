@@ -173,3 +173,56 @@ async_map_parallel().then(([a,b,c]) => {
     console.log("async_map_parallel",a,b,c);
 });
 
+
+// Error
+function throw_error(){
+    return new Promise((resolve,reject) => {
+       setTimeout(function () {
+           try{
+               throw new Error("Throw Error.");
+               resolve("No Error");
+           }catch (e) {
+               reject(e);
+           }
+       },5000)
+    });
+}
+
+function promise_error_handleing() {
+    return throw_error()
+        .then((result) => {
+            return result;
+        }).catch((err) => {
+            throw err;
+        });
+}
+
+promise_error_handleing().then((result) => {
+    console.log("promise_error_handleing Success",result);
+}).catch((err) => {
+    console.error("promise_error_handleing Error",err);
+});
+
+async function async_error_handling() {
+    try{
+       const result = await throw_error();
+       return result;
+    }catch(err){
+        throw err;
+    }
+}
+async_error_handling().then(result => {
+    console.log("async_error_handling Success", result);
+}).catch(err => {
+    console.error("async_error_handling Error", err);
+});
+
+async function async_error_handling_simple() {
+    const result = await throw_error();
+    return result;
+}
+async_error_handling_simple().then( result => {
+    console.log("async_error_handling_simple Success", result);
+}).catch( err => {
+    console.error("async_error_handling_simple Error", err);
+});
