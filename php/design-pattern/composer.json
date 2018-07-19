@@ -1,0 +1,21 @@
+{
+    "name": "tomothumb/design-pattern",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomoyuki Tsujimoto",
+            "email": "tomo.tsujimoto@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "Tests/"
+        }
+    },
+    "require": {}
+}
