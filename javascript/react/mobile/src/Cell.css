@@ -1,0 +1,33 @@
+.cell_outer {
+  width: 100vw;
+  height: 100vw;
+  overflow: hidden;
+}
+.cell_inner {
+
+  height: 100vw;
+  transition: all 0.5s;
+}
+.cell_inner {
+  transform: translateX(0vw);
+  position: relative;
+}
+.cell_inner.current_scene1 {transform: translateX(0vw);}
+.cell_inner.current_scene2 {transform: translateX(-100vw);}
+.cell_inner.current_scene3 {transform: translateX(-200vw);}
+.cell_inner.current_scene4 {transform: translateX(-300vw);}
+
+.cell {
+  width: 100vw;
+  height: 100vw;
+
+  color: #FFFFFF;
+  margin-bottom: 5px;
+  padding: 15px;
+  top: 0;
+  position: absolute;
+}
+.cell_1{background: #000;}
+.cell_2{background: #333; transform: translateX(100vw);}
+.cell_3{background: #666; transform: translateX(200vw);}
+.cell_4{background: #999; transform: translateX(300vw);}
