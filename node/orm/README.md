@@ -11,3 +11,12 @@ $ node_modules/.bin/sequelize model:generate --name Ogp --attributes title:strin
 $ node_modules/.bin/sequelize db:migrate
 
 ```
+
+## Seed
+```
+# generate
+$ node_modules/.bin/sequelize seed:generate --name OgpSeed
+
+$ node_modules/.bin/sequelize db:seed:all
+
+```
