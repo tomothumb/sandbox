@@ -12,6 +12,12 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+      return queryInterface.bulkInsert('Ogps', [{
+          title: 'tttt',
+          description: 'dddd',
+          updatedAt: new Date(),
+          createdAt: new Date()
+      }], {});
   },
 
   down: (queryInterface, Sequelize) => {
@@ -22,5 +28,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
+      return queryInterface.bulkDelete('Ogps', null, {});
   }
 };
