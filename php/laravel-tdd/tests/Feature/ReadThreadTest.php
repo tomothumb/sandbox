@@ -15,6 +15,8 @@ class ReadThreadTest extends TestCase
         parent::setUp();
 
         $this->thread = factory('App\Model\Thread')->create();
+        $this->replies = factory('App\Model\Reply',5)->create(['thread_id' => $this->thread->id ]);
+
     }
 
     /**
@@ -36,11 +38,11 @@ class ReadThreadTest extends TestCase
     }
 
     public function test_a_user_can_read_replies_that_are_associated_with_a_thread(){
-        $replies = factory('App\Model\Reply',5)->create(['thread_id' => $this->thread->id ]);
 
         $response = $this->get('/threads/'.$this->thread->id)
-            ->assertSee($replies[0]->body)
-            ->assertSee($replies[0]->user->name);
+            ->assertSee($this->replies[0]->body)
+            ->assertSee($this->replies[0]->user->name);
     }
+
 
 }
