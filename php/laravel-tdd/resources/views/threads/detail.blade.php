@@ -1,18 +1,32 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{$thread->id}}/
+                        {{$thread->title}}</div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+                    <div class="card-body">
+                        {{$thread->body}}
+                    </div>
+                    <hr>
 
-    </head>
-    <body>
-    {{$thread->id}}
-    {{$thread->title}}
-    </body>
-</html>
+                    <div class="card-body">
+                        <h3>Reply</h3>
+                        @foreach( $thread->replies as $reply)
+                            <p>ID:{{$reply->id}}</p>
+                            <p><a href="/user/{{$reply->user->path()}}">
+                                {{$reply->user->name}}
+                                </a> said {{$reply->created_at->diffForHumans()}}...</p>
+                            <p>Body:{{$reply->body}}</p>
+                            <hr>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+

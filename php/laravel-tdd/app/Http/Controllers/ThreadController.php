@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Reply;
 use App\Model\Thread;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,7 @@ class ThreadController extends Controller
      */
     public function index()
     {
-        $threads = Thread::all();
+        $threads = Thread::latest()->get();
         return view("threads.index",compact('threads'));
     }
 
@@ -47,6 +49,7 @@ class ThreadController extends Controller
      */
     public function show(Thread $thread)
     {
+        $thread->loadMissing('replies');
         return view("threads.detail",compact('thread'));
     }
 

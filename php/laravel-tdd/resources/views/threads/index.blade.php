@@ -1,20 +1,32 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Forum Threads</div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+                    <div class="card-body">
+                        @foreach($threads as $thread)
+                            <article>
+                                <h4>
+                                    <a href="{{$thread->path()}}">
+                                        {{$thread->id}}/
+                                        {{$thread->title}}
 
-    </head>
-    <body>
-        @foreach($threads as $thread)
-            {{$thread->id}}
-            {{$thread->title}}
-        @endforeach
-    </body>
-</html>
+                                    </a>
+                                </h4>
+                                <div class="body">{{$thread->body}}</div>
+
+                            </article>
+
+                            <hr>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
