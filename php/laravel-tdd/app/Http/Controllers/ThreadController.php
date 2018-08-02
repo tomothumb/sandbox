@@ -86,4 +86,8 @@ class ThreadController extends Controller
     {
         //
     }
+
+    public function addReply(Request $request, Thread $thread){
+        $thread->replies()->create($request);
+    }
 }

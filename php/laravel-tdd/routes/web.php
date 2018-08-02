@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/threads', '\App\Http\Controllers\ThreadController@index');
 Route::get('/threads/{thread}', '\App\Http\Controllers\ThreadController@show');
+Route::post('/threads/{thread}/replies', '\App\Http\Controllers\ReplyController@store');
 
 Auth::routes();
 
