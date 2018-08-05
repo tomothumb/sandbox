@@ -10,13 +10,18 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class CreateThreadsTest extends TestCase
 {
 
-//    function test_gueast_can_not_create_new_forum_threads()
-//    {
-////        $this->expectException('Illuminate\Auth\AuthenticationException');
-////        $user = factory('App\User')->make();
-//        $thread = factory('App\Model\Thread')->make();
-//        $this->post('/threads', $thread->toArray());
-//    }
+    function test_gueast_can_not_create_new_forum_threads()
+    {
+        $this->withoutExceptionHandling();
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+
+        $thread = factory('App\Model\Thread')->make();
+        $response = $this->post('/threads', $thread->toArray());
+        $this->withExceptionHandling();
+        $response->assertStatus(302);
+
+
+    }
 
     function test_an_authenticated_user_can_create_new_forum_threads()
     {
