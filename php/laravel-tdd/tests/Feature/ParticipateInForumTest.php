@@ -9,20 +9,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ParticipateInForumTest extends TestCase
 {
-
     use DatabaseMigrations;
 
     public function test_unauthenticated_user_may_not_add_replies()
     {
-        $this->withoutExceptionHandling();
-        $this->expectException('Illuminate\Auth\AuthenticationException');
-
-        $thread = factory('App\Model\Thread')->create();
-        $response = $this->post($thread->path().'/replies', []);
         $this->withExceptionHandling();
-        $response->assertStatus(302);
-
-
+        $response = $this->post('/threads/some-slug/1/replies', [])
+            ->assertRedirect("/login");
 
     }
 

@@ -18,8 +18,20 @@ $factory->define( \App\Model\Thread::class, function ($faker) {
         'user_id' => function () {
             return factory("App\User")->create()->id;
         },
+        'channel_id' => function () {
+            return factory("App\Model\Channel")->create()->id;
+        },
         'title' => $faker->sentence,
         'body' => $faker->paragraph,
+    ];
+});
+
+
+$factory->define( \App\Model\Channel::class, function ($faker) {
+    $name = $faker->word;
+    return [
+        'name' => $name,
+        'slug' => $name,
     ];
 });
 

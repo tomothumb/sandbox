@@ -12,7 +12,8 @@
                                 <h3>Create new thread.</h3>
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="/thread">
+                                <form method="POST" action="/threads">
+                                    <input type="text" name="title">
                                     <textarea name="body" id="body" rows="5" style="width: 100%;" placeholder="Have something to say?"></textarea>
                                     <p><input type="submit" value="POST"></p>
                                 </form>
