@@ -23,13 +23,23 @@ class ParticipateInForumTest extends TestCase
     {
         $this->be($user = factory('App\User')->create());
         $thread = factory('App\Model\Thread')->create();
-        $reply = factory('App\Model\Reply')->create();
+        $reply = factory('App\Model\Reply')->make();
 
         $this->post($thread->path().'/replies', $reply->toArray());
 
         $response = $this->get($thread->path())
             ->assertSee($reply->body);
 
+    }
+
+    function test_a_reply_required_a_body()
+    {
+        $this->withExceptionHandling();
+        $this->be($user = factory('App\User')->create());
+        $thread = factory('App\Model\Thread')->create();
+        $reply = factory('App\Model\Reply')->make(['body'=>null]);
+        $this->post($thread->path().'/replies', $reply->toArray())
+            ->assertSessionHasErrors('body');
     }
 
 }
