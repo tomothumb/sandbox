@@ -35,6 +35,15 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li><a href="/threads">All Threads</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Channels <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                @foreach(\App\Model\Channel::all() as $channels)
+                                    <li><a href="/threads/{{$channels->slug}}">{{$channels->name}}</a></li>
+                                @endforeach
+                            </ul>
+
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

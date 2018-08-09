@@ -38,11 +38,20 @@ class ReadThreadTest extends TestCase
 
     public function test_a_user_can_read_replies_that_are_associated_with_a_thread()
     {
-
         $response = $this->get("/threads/{$this->thread->channel->id}/{$this->thread->id}")
             ->assertSee($this->replies[0]->body)
             ->assertSee($this->replies[0]->user->name);
     }
 
-
+    public function test_a_user_can_filter_threads_according_to_a_tag()
+    {
+        $channel = factory(\App\Model\Channel::class)->create();
+        $thread = factory(\App\Model\Thread::class)->create([
+            'channel_id' => $channel->id,
+        ]);
+        $threadNotInChannel = factory(\App\Model\Thread::class)->create();
+        $response = $this->get("/threads/{$channel->slug}")
+            ->assertSee($thread->title)
+            ->assertDontSee($threadNotInChannel->title);
+    }
 }
