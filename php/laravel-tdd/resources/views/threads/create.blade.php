@@ -12,14 +12,38 @@
                             </div>
                             <div class="card-body">
                                 <form method="POST" action="/threads">
-                                    <p>Title:
-                                        <input type="text" name="title"></p>
+                                    @if(count($errors))
+                                        <ul class="alert alert-danger">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+
+                                    <p>Title:<br>
+                                        <input type="text" name="title" value="{{old('title')}}" required></p>
+                                    <p>Choose a Cannel<br>
+                                        <select name="channel_id" id="channel_id" required>
+                                            <option value="">-- Choose one --</option>
+                                            @foreach(\App\model\Channel::all() as $channel)
+                                                <option value="{{ $channel->id }}"
+                                                {{(old('channel_id') == $channel->id) ? 'selected':""}}
+                                                >{{ $channel->name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </p>
+
                                     <p>
                                         Body:
-                                        <textarea name="body" id="body" rows="5" style="width: 100%;" placeholder="Have something to say?"></textarea>
+                                        <textarea name="body" id="body" rows="5" style="width: 100%;" placeholder="Have something to say?" required>{{old('body')}}</textarea>
                                     </p>
-                                    <p><input type="submit" value="PUBLISH"></p>
+
+                                    <p><button type="submit" class="btn btn-primary">PUBLISH</button></p>
+
                                 </form>
+
+
                             </div>
                         </div>
                     @else
