@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Model\Thread;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -46,12 +48,31 @@ class ReadThreadTest extends TestCase
     public function test_a_user_can_filter_threads_according_to_a_tag()
     {
         $channel = factory(\App\Model\Channel::class)->create();
-        $thread = factory(\App\Model\Thread::class)->create([
+        $thread = factory(Thread::class)->create([
             'channel_id' => $channel->id,
         ]);
-        $threadNotInChannel = factory(\App\Model\Thread::class)->create();
+        $threadNotInChannel = factory(Thread::class)->create();
         $response = $this->get("/threads/{$channel->slug}")
             ->assertSee($thread->title)
             ->assertDontSee($threadNotInChannel->title);
     }
+
+    public function test_a_user_can_filter_threads_by_any_username()
+    {
+        $user = factory(User::class)->create([
+            'name' => "foobar"
+        ]);
+        $this->be($user);
+
+        $thread = factory(Thread::class)->create([
+            'user_id' => $user->id
+        ]);
+        $other_thread = factory(Thread::class)->create();
+        $response = $this->get("/threads?by=foobar")
+            ->assertSee('foobar')
+            ->assertSee($thread->title)
+            ->assertDontSee($other_thread->title)
+            ;
+    }
+
 }
