@@ -40,8 +40,9 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/threads/create">New Thread</a></li>
                                 @auth()
-                                <li><a href="/threads?by={{ auth()->user()->name  }}">My Thread</a></li>
+                                    <li><a href="/threads?by={{ auth()->user()->name  }}">My Thread</a></li>
                                 @endauth
+                                <li><a href="/threads?popular=1">Popular All Time</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

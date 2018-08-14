@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Model\Reply;
 use App\Model\Thread;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -17,7 +18,6 @@ class ReadThreadTest extends TestCase
         parent::setUp();
 
         $this->thread = factory('App\Model\Thread')->create();
-        $this->replies = factory('App\Model\Reply',5)->create(['thread_id' => $this->thread->id ]);
     }
 
     /**
@@ -40,6 +40,8 @@ class ReadThreadTest extends TestCase
 
     public function test_a_user_can_read_replies_that_are_associated_with_a_thread()
     {
+        $this->replies = factory('App\Model\Reply',5)->create(['thread_id' => $this->thread->id ]);
+
         $response = $this->get("/threads/{$this->thread->channel->id}/{$this->thread->id}")
             ->assertSee($this->replies[0]->body)
             ->assertSee($this->replies[0]->user->name);
@@ -73,6 +75,25 @@ class ReadThreadTest extends TestCase
             ->assertSee($thread->title)
             ->assertDontSee($other_thread->title)
             ;
+    }
+
+    public function test_a_user_can_filter_threads_by_popularity()
+    {
+        $threadWithTwoReplies = factory(Thread::class)->create();
+        $twoReplies = factory(Reply::class,2)->create([
+            'thread_id' => $threadWithTwoReplies->id
+        ]);
+
+        $threadWithThreeReplies = factory(Thread::class)->create();
+        $threeReplies = factory(Reply::class,3)->create([
+            'thread_id' => $threadWithThreeReplies->id
+        ]);
+
+
+        $response = $this->getJson('threads?popular=1')->json();
+
+        $this->assertEquals([3,2,0], array_column($response, 'replies_count'));
+
     }
 
 }
