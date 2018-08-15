@@ -20,7 +20,7 @@ class Thread extends Model
     }
 
     public function replies(){
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->withCount('favorites');
     }
     public function user(){
         return $this->belongsTo(\App\User::class,'user_id');

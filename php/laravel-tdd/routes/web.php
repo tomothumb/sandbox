@@ -25,4 +25,6 @@ Route::get('/threads/{channel}/{thread}', '\App\Http\Controllers\ThreadControlle
 Route::post('/threads', '\App\Http\Controllers\ThreadController@store');
 Route::post('/threads/{channel}/{thread}/replies', '\App\Http\Controllers\ReplyController@store');
 
+Route::post('/replies/{reply}/favorites', '\App\Http\Controllers\FavoriteController@store');
+
 
