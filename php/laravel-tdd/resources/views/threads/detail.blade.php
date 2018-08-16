@@ -9,7 +9,6 @@
                         <a href="{{$thread->user->path()}}">{{$thread->user->name}}</a>
                         posted {{$thread->created_at->diffForHumans()}}<br>
                         {{$thread->title}}</div>
-
                     <div class="card-body">
                         {{$thread->body}}
                     </div>
@@ -39,13 +38,9 @@
                     @foreach( $replies as $reply)
                         @include( 'threads.reply')
                     @endforeach
-
                         {{$replies->links()}}
                     </div>
                 </div>
-
-
-
             </div>
 
             <div class="col-md-4">

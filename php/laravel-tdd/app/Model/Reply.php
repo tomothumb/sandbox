@@ -9,8 +9,11 @@ class Reply extends Model
 
     protected $guarded = [];
 
-    public function user(){
-        return $this->hasOne(\App\User::class,'id','user_id');
+    protected $with = ['user','favorites'];
+
+    public function user()
+    {
+        return $this->hasOne(\App\User::class, 'id', 'user_id');
     }
 
     public function favorites()
@@ -23,16 +26,14 @@ class Reply extends Model
         $condition = [
             'user_id' => $user_id
         ];
-        if (!$this->favorites()->where($condition)->exists()) {
+        if ($this->favorites->where('user_id', $user_id)->count() == 0) {
             return $this->favorites()->create($condition);
         }
     }
+
     public function isFavorited()
     {
-        $condition = [
-            'user_id' => auth()->id()
-        ];
-        return $this->favorites()->where($condition)->exists();
+        return !!$this->favorites->where('user_id', auth()->id())->count();
     }
 
 }

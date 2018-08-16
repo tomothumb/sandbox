@@ -78,9 +78,9 @@ class ThreadController extends Controller
      */
     public function show($channelId, Thread $thread)
     {
-        $thread->loadMissing('replies');
-        $replies = $thread->replies()->paginate(3);
-
+        $thread->loadMissing('replies.favorites');
+        $thread->loadMissing('replies.user');
+        $replies = $thread->replies()->paginate(20);
         return view("threads.detail",compact('thread','replies'));
     }
 
