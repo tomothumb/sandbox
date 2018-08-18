@@ -22,6 +22,7 @@ Route::get('/threads', '\App\Http\Controllers\ThreadController@index');
 Route::get('/threads/create', '\App\Http\Controllers\ThreadController@create');
 Route::get('/threads/{channel}', '\App\Http\Controllers\ThreadController@index');
 Route::get('/threads/{channel}/{thread}', '\App\Http\Controllers\ThreadController@show');
+Route::delete('/threads/{channel}/{thread}', '\App\Http\Controllers\ThreadController@destroy');
 Route::post('/threads', '\App\Http\Controllers\ThreadController@store');
 Route::post('/threads/{channel}/{thread}/replies', '\App\Http\Controllers\ReplyController@store');
 
