@@ -8,6 +8,7 @@ use App\Model\Channel;
 use App\Model\Reply;
 use App\Model\Thread;
 use App\User;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -17,7 +18,9 @@ class ThreadController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index','show'
+//            ,'destroy'
+        ]);
     }
 
 
@@ -72,11 +75,11 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $channelId
+     * @param $channel
      * @param  \App\Model\Thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($channelId, Thread $thread)
+    public function show($channel, Thread $thread)
     {
         $thread->loadMissing('replies.favorites');
         $thread->loadMissing('replies.user');
@@ -113,9 +116,17 @@ class ThreadController extends Controller
      * @param  \App\Model\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy($channel, Thread $thread)
     {
-        //
+        if(! auth()->check()){
+            return redirect('/login');
+        }
+        $thread->delete();
+        if(request()->wantsJson()){
+            return response([],204);
+        }
+        return redirect('/threads');
+
     }
 
     public function addReply(Request $request, Thread $thread){
