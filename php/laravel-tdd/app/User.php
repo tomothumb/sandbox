@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\Thread;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -18,6 +19,12 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -28,7 +35,11 @@ class User extends Authenticatable
     ];
 
     public function path(){
-        return "/user/{$this->id}";
+        return "/profiles/{$this->id}";
+    }
+
+    public function threads(){
+        return $this->hasMany(Thread::class)->latest();
     }
 
 }

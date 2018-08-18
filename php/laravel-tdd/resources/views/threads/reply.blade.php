@@ -1,6 +1,6 @@
 <div>
 <p>{{$reply->id}}</p>
-<p><a href="{{$reply->user->path()}}">
+<p><a href="{{route('profile',$reply->user)}}">
     {{$reply->user->name}}
     </a> said {{$reply->created_at->diffForHumans()}}...</p>
 

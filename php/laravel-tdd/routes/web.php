@@ -27,4 +27,6 @@ Route::post('/threads/{channel}/{thread}/replies', '\App\Http\Controllers\ReplyC
 
 Route::post('/replies/{reply}/favorites', '\App\Http\Controllers\FavoriteController@store');
 
+Route::get('/profiles/{user}/', '\App\Http\Controllers\ProfileController@show')->name('profile');
+
 

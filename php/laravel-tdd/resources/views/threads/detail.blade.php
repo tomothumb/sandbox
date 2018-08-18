@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{$thread->user->path()}}">{{$thread->user->name}}</a>
+                        <a href="{{route('profile',$thread->user)}}">{{$thread->user->name}}</a>
                         posted {{$thread->created_at->diffForHumans()}}<br>
                         {{$thread->title}}</div>
                     <div class="card-body">
