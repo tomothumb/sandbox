@@ -18,9 +18,7 @@ class ThreadController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show'
-//            ,'destroy'
-        ]);
+        $this->middleware('auth')->except(['index','show']);
     }
 
 
@@ -118,8 +116,8 @@ class ThreadController extends Controller
      */
     public function destroy($channel, Thread $thread)
     {
-        if(! auth()->check()){
-            return redirect('/login');
+        if($thread->user_id != auth()->id()){
+            abort(403,'Permission Denied');
         }
         $thread->delete();
         if(request()->wantsJson()){
