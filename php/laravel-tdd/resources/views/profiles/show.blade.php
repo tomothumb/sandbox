@@ -13,7 +13,7 @@
                     @foreach($threads as $thread)
                         <div>
                             <h4><a href="{{route('profile',$thread->user)}}">{{$thread->user->name}}</a> posted:
-                                {{$thread->title}}</h4>
+                                <a href="{{ $thread->path() }}">{{$thread->title}}</a></h4>
 
                             <p>Channel: <a href="/threads/{{$thread->channel->name}}">{{$thread->channel->name}}</a></p>
                             <p>{{$thread->created_at->diffForHumans()}}</p>

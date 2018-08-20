@@ -9,14 +9,14 @@
                         <a href="{{route('profile',$thread->user)}}">{{$thread->user->name}}</a>
                         posted {{$thread->created_at->diffForHumans()}}<br>
                         {{$thread->title}}</div>
-                    @if(auth()->check())
+                    @can('update', $thread)
                     <div>
                         <form action="{{$thread->path()}}" method="post">
                             {{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-link">Delete Thread</button>
                         </form>
                     </div>
-                    @endif
+                    @endcan
                     <div class="card-body">
                         {{$thread->body}}
                     </div>
