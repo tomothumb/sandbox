@@ -26,4 +26,21 @@ class ActivityTest extends TestCase
         $this->assertEquals($activity->subject->id, $thread->id);
     }
 
+    public function test_it_records_activity_when_a_reply_is_created()
+    {
+        $this->actingAs(factory('App\User')->create());
+        $reply = factory('App\Model\Reply')->create();
+
+        $this->assertEquals(2, Activity::count());
+
+
+        $this->assertDatabaseHas('activities', [
+            'user_id' => auth()->id(),
+            'subject_id' => $reply->id,
+            'subject_type' => 'App\Model\Reply',
+            'type' => 'created_reply',
+        ]);
+        $activity = Activity::first();
+        $this->assertEquals($activity->subject->id, $reply->id);
+    }
 }
