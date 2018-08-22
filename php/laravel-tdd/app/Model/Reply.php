@@ -19,4 +19,9 @@ class Reply extends Model
         return $this->hasOne(\App\User::class, 'id', 'user_id');
     }
 
+    public function thread()
+    {
+        return $this->belongsTo(\App\Model\Thread::class);
+    }
+
 }
