@@ -13,6 +13,7 @@ class ProfileController extends Controller
         return view('profiles.show',[
             'profileUser' => $user,
             'threads' => $user->threads()->paginate(10)
+            'activities' => $user->activities()->paginate(10)
         ]);
     }
 }

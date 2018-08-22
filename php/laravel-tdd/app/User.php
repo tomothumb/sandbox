@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\Activity;
 use App\Model\Thread;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -41,5 +42,7 @@ class User extends Authenticatable
     public function threads(){
         return $this->hasMany(Thread::class)->latest();
     }
-
+    public function activities(){
+        return $this->hasMany(Activity::class)->latest();
+    }
 }
