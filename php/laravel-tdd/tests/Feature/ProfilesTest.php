@@ -17,7 +17,7 @@ class ProfilesTest extends TestCase
      */
     public function test_a_user_has_a_profile()
     {
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
         $user = factory('App\User')->create();
         $this->get("/profiles/{$user->name}")
             ->assertSee($user->name);
@@ -25,8 +25,10 @@ class ProfilesTest extends TestCase
 
     public function test_profiles_display_all_threads_created_by_the_associated_user()
     {
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
         $user = factory('App\User')->create();
+        $this->actingAs($user);
+
         $thread = factory('App\Model\Thread')->create([
             'user_id' => $user->id
         ]);
