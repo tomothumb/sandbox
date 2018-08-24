@@ -67,7 +67,8 @@ class ThreadController extends Controller
             'channel_id' => request('channel_id'),
             'user_id' => auth()->id(),
         ]);
-        return redirect($thread->path());
+        return redirect($thread->path())
+            ->with('flash', 'Your thread has been published.');
     }
 
     /**

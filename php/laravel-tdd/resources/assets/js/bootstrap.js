@@ -1,6 +1,7 @@
 
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
+window.Vue = require('vue');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -23,6 +24,12 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+window.events = new Vue();
+
+window.flash = function(message){
+    window.events.$emit('flash', message);
+};
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
