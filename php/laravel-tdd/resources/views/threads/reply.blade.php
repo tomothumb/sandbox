@@ -1,4 +1,4 @@
-<div>
+<div id="reply-{{$reply->id}}">
 <p>{{$reply->id}}</p>
 <p><a href="{{route('profile',$reply->user)}}">
     {{$reply->user->name}}
