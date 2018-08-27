@@ -16,7 +16,6 @@ class ParticipateInForumTest extends TestCase
         $this->withExceptionHandling();
         $response = $this->post('/threads/some-slug/1/replies', [])
             ->assertRedirect("/login");
-
     }
 
     public function test_an_authenticated_user_may_participate_in_forum_threads()
@@ -40,6 +39,22 @@ class ParticipateInForumTest extends TestCase
         $reply = factory('App\Model\Reply')->make(['body'=>null]);
         $this->post($thread->path().'/replies', $reply->toArray())
             ->assertSessionHasErrors('body');
+    }
+
+    public function test_unauthorized_users_cannot_delete_replies()
+    {
+//        $this->withExceptionHandling();
+
+        $reply = factory('App\Model\Reply')->create();
+//        $response = $this->delete("/replies/{$reply->id}")
+//            ->assertRedirect("/login");
+
+        $this->be($user = factory('App\User')->create());
+        $response = $this->delete("/replies/{$reply->id}")
+            ->assertStatus(403);
+
+
+
     }
 
 }
