@@ -43,18 +43,29 @@ class ParticipateInForumTest extends TestCase
 
     public function test_unauthorized_users_cannot_delete_replies()
     {
-//        $this->withExceptionHandling();
+        $this->withExceptionHandling();
 
         $reply = factory('App\Model\Reply')->create();
-//        $response = $this->delete("/replies/{$reply->id}")
-//            ->assertRedirect("/login");
+        $response = $this->delete("/replies/{$reply->id}")
+            ->assertRedirect("/login");
 
         $this->be($user = factory('App\User')->create());
         $response = $this->delete("/replies/{$reply->id}")
             ->assertStatus(403);
+    }
 
+    public function test_authorized_users_can_delete_replies()
+    {
+        $this->withExceptionHandling();
+        $this->be($user = factory('App\User')->create());
 
+        $reply = factory('App\Model\Reply')->create([
+            'user_id' => auth()->id()
+        ]);
 
+        $response = $this->delete("/replies/{$reply->id}")
+         ->assertStatus(302);
+        $this->assertDatabaseMissing('replies',['id' => $reply->id]);
     }
 
 }

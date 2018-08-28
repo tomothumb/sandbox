@@ -11,5 +11,15 @@
     </form>
 
 <p>{{$reply->body}}</p>
+
+    <hr>
+    @can ('update', $reply)
+        <div>
+            <form action="/replies/{{$reply->id}}" method="post">
+                {{ method_field('DELETE') }}
+                <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+        </div>
+    @endcan
 </div>
 <hr>
