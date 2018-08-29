@@ -18,11 +18,10 @@
         <button class="btn btn-primary" @click="update">Update</button>
         <button class="btn btn-link" @click="editing = false">Cancel</button>
     </div>
-    <div v-else>
-        <p>{{$reply->body}}</p>
+    <div v-else v-text="body">
+
     </div>
 
-    <hr>
     @can ('update', $reply)
         <div>
             <button class="btn btn-info" @click="editing = true">Edit</button>

@@ -9,9 +9,12 @@
         },
         methods:{
             update(){
-                axios.patch('/repliies/' + this.attributes.id, {
+                axios.patch('/replies/' + this.attributes.id, {
                     body:this.body
                 });
+                this.editing = false;
+
+                flash('Updated!');
             }
         }
     }

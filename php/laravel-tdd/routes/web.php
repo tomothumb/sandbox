@@ -26,6 +26,7 @@ Route::delete('/threads/{channel}/{thread}', '\App\Http\Controllers\ThreadContro
 Route::post('/threads', '\App\Http\Controllers\ThreadController@store');
 Route::post('/threads/{channel}/{thread}/replies', '\App\Http\Controllers\ReplyController@store');
 Route::delete('/replies/{reply}', '\App\Http\Controllers\ReplyController@destroy');
+Route::patch('/replies/{reply}', '\App\Http\Controllers\ReplyController@update');
 
 Route::post('/replies/{reply}/favorites', '\App\Http\Controllers\FavoriteController@store');
 
