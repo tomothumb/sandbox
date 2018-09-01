@@ -25,10 +25,7 @@
     @can ('update', $reply)
         <div>
             <button class="btn btn-info" @click="editing = true">Edit</button>
-            <form action="/replies/{{$reply->id}}" method="post">
-                {{ method_field('DELETE') }}
-                <button type="submit" class="btn btn-danger">DELETE</button>
-            </form>
+            <button class="btn btn-danger" @click="destroy">Delete</button>
         </div>
     @endcan
 </div>
