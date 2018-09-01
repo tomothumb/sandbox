@@ -1,24 +1,27 @@
 <script>
+    import favoriteComponent from './FavoriteComponent';
+
     export default {
-        props:['attributes'],
-        data(){
-            return{
-                editing:false,
+        props: ['attributes'],
+        components: {"favoriteComponent": favoriteComponent},
+        data() {
+            return {
+                editing: false,
                 body: this.attributes.body
             };
         },
-        methods:{
-            update(){
+        methods: {
+            update() {
                 axios.patch('/replies/' + this.attributes.id, {
-                    body:this.body
+                    body: this.body
                 });
                 this.editing = false;
 
                 flash('Updated!');
             },
-            destroy(){
+            destroy() {
                 axios.delete('/replies/' + this.attributes.id);
-                $(this.$el).fadeOut(300,()=>{
+                $(this.$el).fadeOut(300, () => {
                     flash('Your reply has been deleted.')
                 });
             }

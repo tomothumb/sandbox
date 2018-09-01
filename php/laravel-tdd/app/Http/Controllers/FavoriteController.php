@@ -16,6 +16,14 @@ class FavoriteController extends Controller
     {
         $reply->favorite(auth()->id());
         return redirect()->back();
+    }
 
+    public function destroy(Reply $reply)
+    {
+        $reply->unfavorite(auth()->id());
+        if(request()->wantsJson()){
+            return response([],204);
+        }
+        return redirect()->back();
     }
 }
