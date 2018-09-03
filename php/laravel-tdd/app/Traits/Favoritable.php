@@ -8,6 +8,13 @@ use App\Model\Reply;
 trait Favoritable
 {
 
+    protected static function bootFavoritable()
+    {
+        static::deleting(function($model){
+            $model->favorites->each->delete();
+        });
+    }
+
     public function favorites()
     {
         return $this->morphMany(Favorite::class, 'favorited');
@@ -23,12 +30,12 @@ trait Favoritable
         }
     }
 
-    public function unfavorite($user_id)
+    public function unfavorite()
     {
         $condition = [
-            'user_id' => $user_id
+            'user_id' => auth()->id()
         ];
-        return $this->favorites()->where('user_id', $user_id)->delete();
+        return $this->favorites()->where($condition)->get()->each->delete();
     }
 
     public function isFavorited()
