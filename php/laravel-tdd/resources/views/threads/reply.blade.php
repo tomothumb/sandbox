@@ -6,17 +6,11 @@
                 {{$reply->user->name}}
             </a> said {{$reply->created_at->diffForHumans()}}...</p>
 
+        @if( Auth::check())
         <div>
             <favorite-component :reply="{{ $reply }}"></favorite-component>
-
-            {{--
-                        <form method="post" action="/replies/{{$reply->id}}/favorites">
-                            <button type="submit" class="btn btn-primary" {{ $reply->isFavorited() ? 'disabled' : "" }} >
-                                {{$reply->favorites->count()}} {{ str_plural('Favorite', $reply->favorites->count()) }}
-                            </button>
-                        </form>
-                        --}}
         </div>
+        @endif
 
         <div v-if="editing">
             <textarea class="form-control" name="reply_edit" id="" cols="30" rows="5" v-model="body">{{$reply->body}}</textarea>
