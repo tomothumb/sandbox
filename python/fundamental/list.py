@@ -85,3 +85,90 @@ num_list3.extend(num_list4)
 print(num_list3)
 
 print("#####")
+
+r = [1,2,3,4,5,1,2,3]
+print(r)
+print(r.index(3))
+print(r.index(3,3))
+print(r.count(3))
+print(r.count(6))
+
+if 100 in r:
+    print('100 in r')
+else:
+    print('100 not in r')
+if 100 not in r:
+    print('100 not in r')
+else:
+    print('100 in r')
+
+if 3 in r:
+    print('3 in r')
+else:
+    print('3 not in r')
+
+print("#####")
+r.sort()
+print(r)
+r.sort( reverse=True)
+print(r)
+r.reverse()
+print(r)
+
+print("#####")
+s = 'My name is Mike'
+print(s)
+to_split = s.split(' ')
+print(to_split)
+to_join = ' ### ' . join(to_split)
+print(to_join)
+
+# print(help(list))
+
+print("#####")
+i = [1,2,3,4,5]
+j = i
+j[0] = 100
+print('i = ', i)
+print('j = ', j)
+i[3] = 100
+print('i = ', i)
+print('j = ', j)
+
+print("#####")
+x = [1,2,3,4,5]
+y = x.copy()
+y[0] = 100
+x[3] = 100
+print('x = ', x)
+print('y = ', y)
+##
+y = x[:]
+y[0] = 100
+x[3] = 100
+print('x = ', x)
+print('y = ', y)
+
+print("#####")
+X = 20
+Y = X
+Y = 5
+print(id(X))
+print(id(Y))
+print(X)
+print(Y)
+X = 10
+print(X)
+print(Y)
+
+print("#####")
+X = ['a','b']
+Y = X
+Y[0] = 'AAA'
+print(id(X))
+print(id(Y))
+print(X)
+print(Y)
+Y[1] = 'BBB'
+print(X)
+print(Y)
