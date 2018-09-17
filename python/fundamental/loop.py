@@ -107,6 +107,71 @@ print(d.items())
 for k,v in d.items():
     print(k,':', v)
 
+print('########')
+t= (1,2,3,4,5)
+r = []
+for i in t:
+    if i % 2 == 0:
+        r.append(i)
+print(r)
+
+r = [i for i in t if i % 2 == 0]
+print(r)
+
+
+print('########')
+w = ['mon','tue','wed']
+f = ['coffee','milk','water']
+d = {}
+for x,y in zip(w,f):
+    d[x] = y
+print(d)
+
+d = {x:y for x,y in zip(w,f)}
+print(d)
+
+print('########')
+s = set()
+for i in range(10):
+    if i % 2 == 0:
+        s.add(i)
+print(s)
+
+s = {i for i in range(10) if i % 2 == 0}
+print(s)
+
+
+print('########')
+def g():
+    for i in range(10):
+        yield i
+
+def g2():
+    for i in range(10):
+        yield i
+
+def g3():
+    for i in range(10):
+        yield i
+g = g()
+print(type(g))
+print(next(g))
+print(next(g))
+print(next(g))
+print(next(g))
+
+g2 = g2()
+g2 = (i for i in range(10) if i % 2 == 0)
+print(type(g2))
+print(next(g2))
+print(next(g2))
+print(next(g2))
+print(next(g2))
+
+g3 = g3()
+g3 = tuple(i for i in range(10))
+print(type(g3))
+print(g3)
 
 
 
