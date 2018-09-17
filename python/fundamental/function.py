@@ -382,3 +382,29 @@ print(next(g))
 
 # print(next(c))
 # print(next(g))
+
+print('########')
+# scope
+
+"""
+Test Test #####
+"""
+animal = 'cat'
+def f():
+    global animal
+    animal = 'dog'
+    animal2 = 'bird'
+    print('local animal:',animal)
+    print('local animal2:',animal2)
+    """
+    f()
+    :return:
+    """
+    print(f.__name__)
+    print(f.__doc__)
+    print('local:',locals())
+f()
+print('global animal:', animal)
+print('global.__name__:', globals.__name__)
+print('global.__doc__:', globals.__doc__)
+print('global:', globals())
