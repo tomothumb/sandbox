@@ -333,3 +333,52 @@ sample_func = lambda word: word.capitalize()
 change_words(l, sample_func)
 change_words(l, lambda word: word.capitalize())
 change_words(l, lambda word: word.lower())
+
+print('########')
+# generator
+l = ['Good morning', 'Good afternoon', 'Good night']
+for i in l:
+    print(i)
+
+print('####')
+def greeting():
+    yield 'Good morning'
+    yield 'Good afternoon'
+    yield 'Good night'
+for g in greeting():
+    print(g)
+
+print('####')
+g = greeting()
+print(next(g))
+print("@@@")
+print(next(g))
+print("@@@")
+print(next(g))
+
+print('####')
+def counter(num=10):
+    for _ in range(num):
+        yield 'run'
+
+g = greeting()
+c = counter()
+
+print(next(g))
+
+print(next(c))
+print(next(c))
+print(next(c))
+print(next(c))
+print(next(c))
+print(next(g))
+
+print(next(c))
+print(next(c))
+print(next(c))
+print(next(c))
+print(next(c))
+print(next(g))
+
+# print(next(c))
+# print(next(g))
