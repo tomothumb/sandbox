@@ -408,3 +408,41 @@ print('global animal:', animal)
 print('global.__name__:', globals.__name__)
 print('global.__doc__:', globals.__doc__)
 print('global:', globals())
+
+print('########')
+# EXCEPTION
+l = [1,2,3]
+i= 5
+#del l
+
+try:
+    l[i]
+    # l[0]
+except IndexError as ex:
+    print("Don't worry: {}".format(ex))
+except NameError as ex:
+    print(ex)
+except Exception as ex:
+    print("Other: {}".format(ex))
+else:
+    print('else Done')
+finally:
+    print("clean up")
+
+print("done")
+
+print('########')
+
+class UppercaseError(Exception):
+    pass
+
+def check():
+    words = ['APPLE','Orange','banana']
+    for word in words:
+        if word.isupper():
+            raise UppercaseError(word)
+
+try:
+    check()
+except UppercaseError as ex:
+    print('This is my fault. Go next')
