@@ -71,9 +71,9 @@ print(True, type(True) )
 print(True, type(str(True)) )
 
 # ??
-print(True, type(int(True)) )
+# print(True, type(int(True)) )
 # ??
-print(False, type(int(False)) )
+# print(False, type(int(False)) )
 
 
 
