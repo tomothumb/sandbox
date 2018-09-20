@@ -90,3 +90,33 @@ print(d.items())
 
 for k,v in d.items():
     print(k,':', v)
+
+print('########')
+ranking = {
+    'A': 100,
+    'B': 85,
+    'C': 95
+}
+print(sorted(ranking))
+print(sorted(ranking,key=ranking.get))
+print(sorted(ranking,key=ranking.get, reverse=True))
+
+print('########')
+
+s = 'aslfjkhasdfasvouizjxhcvnamfasd'
+d = {}
+for c in s:
+    # if c not in d:
+    #     d[c] = 0
+    d.setdefault(c,0)
+    d[c] += 1
+print(d)
+print(d['f'])
+print('####')
+
+from collections import defaultdict
+d= defaultdict(int)
+for c in s:
+    d[c] +=1
+print(d)
+print(d['f'])
