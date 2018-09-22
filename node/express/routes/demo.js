@@ -5,7 +5,7 @@ var demoController = require('../controller/demoController');
 router.get('/', function(req, res, next) {
     res.render('demo',{ title: 'DDEEMMOO'});
 });
-//
+
 // router.get('/sample', function(req, res, next) {
 //     res.send('sample');
 // });
@@ -20,8 +20,5 @@ router.get('/', function(req, res, next) {
 
 router.get('/list', demoController.getList);
 router.get('/detail/:pageId', demoController.getDetail);
-
-
-
 
 module.exports = router;
