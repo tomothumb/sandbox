@@ -103,11 +103,13 @@ console.log("models",models.employee);
 models.employee.count().then(c => {
     console.log("There are " + c + " projects!")
 })
-// models.employee.all().then(employees => {
-//     console.log(employees);
-//     // res.render('employee/index', {employees : employees});
-// });
-// // exports.index = function(req, res, next) {
+models.employee.all().then(employees => {
+    console.log(employees);
+    // res.render('employee/index', {employees : employees});
+});
+
+// With Express.js Sample
+// exports.index = function(req, res, next) {
 //     models.Employee.all().then(employees => {
 //         res.render('employee/index', {employees : employees});
 //     });
