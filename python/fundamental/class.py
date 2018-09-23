@@ -30,9 +30,11 @@ class Car(object):
     def __init__(self, model=None):
         self.model = model
 
-
     def run(self):
         print('run')
+
+    def ride(self, driver):
+        driver.drive()
 
 
 class ToyotaCar(Car):
@@ -111,3 +113,48 @@ tesla_car2 = TeslaCar('Model M', passwd='456')
 tesla_car2.private_val2 = False
 print('tesla_car2:',tesla_car2.private_val2)
 
+print("########")
+import abc
+
+class Driver(metaclass=abc.ABCMeta):
+    def __init__(self, age=1):
+        self.age = age
+
+    #抽象メソッド
+    @abc.abstractmethod
+    def drive(self):
+        pass
+
+class Baby(Driver):
+    def __init__(self, age=1):
+        if age < 18:
+            super().__init__(age)
+        else:
+            raise ValueError
+    def drive(self):
+        raise Exception("No baby drive")
+
+class Adult(Driver):
+    def __init__(self, age=18):
+        if age >= 18:
+            super().__init__(age)
+        else:
+            raise ValueError
+    def drive(self):
+        print('ok adult drive')
+
+
+baby = Baby()
+adult = Adult()
+car = Car()
+try:
+    car.ride(baby)
+except Exception:
+    print('baby ride excepted.')
+
+try:
+    car.ride(adult)
+except Exception:
+    print('adult ride excepted.')
+
+print("########")
