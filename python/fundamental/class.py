@@ -178,3 +178,78 @@ pen_marker_robot = PenMarkerRobot()
 pen_marker_robot.line()
 pen_marker_robot.boldline()
 pen_marker_robot.write()
+
+print("########")
+# class vars
+class Man(object):
+    kind = 'human'
+
+    def __init__(self, name):
+        self.name = name
+
+    def who_are_you(self):
+        print(self.name, self.kind)
+
+a = Man('A')
+a.who_are_you()
+b = Man('B')
+b.who_are_you()
+
+
+class Words(object):
+
+    # this vars will be shared within instances
+    words = []
+
+    def __init__(self):
+        # this self vars will not be shared within instances
+        self.localwords = []
+
+    def add_word(self,word):
+        self.words.append(word)
+        self.localwords.append(word)
+
+w = Words()
+w.add_word('add 1')
+w.add_word('add 2')
+
+w2 = Words()
+w2.add_word('add 3')
+w2.add_word('add 4')
+
+print('w.words: ',w.words)
+print('w.localwords: ',w.localwords)
+print('w2.words: ',w2.words)
+print('w2.localwords: ',w2.localwords)
+
+
+print("########")
+# class method / static method
+
+class Woman(object):
+    kind = 'human'
+    def __init__(self):
+        self.x = 100
+
+    @classmethod
+    def what_is_your_kind(self):
+        return self.kind
+
+    @staticmethod
+    def about(year):
+        print('about human {}'.format(year))
+
+a = Woman()
+print(a)
+print(a.x)
+print(a.kind)
+print(a.what_is_your_kind())
+b = Woman
+print(b)
+# print(b.x) # Error
+print('b.kind:', b.kind)
+print('b.what_is_your_kind:', b.what_is_your_kind())
+print('Woman.kind:',Woman.kind)
+print('Woman.what_is_your_kind:',Woman.what_is_your_kind())
+Woman.about(1000)
+
