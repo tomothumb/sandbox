@@ -2,3 +2,4 @@ w+open
 Test
 with open write
 My_name_is_Mike!
+r+open

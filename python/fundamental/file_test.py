@@ -8,6 +8,7 @@ f.close()
 print("########")
 # Write and Read
 with open('file_test.txt', 'w+') as myfile_wplus:
+    # file will be empty after open with "w+".
     myfile_wplus.write('w+open\n')
     myfile_wplus.seek(0)
     print(myfile_wplus.read())
@@ -65,3 +66,12 @@ with open('file_test.txt', 'r') as myfile_seek:
     print(myfile_seek.read(3))
     myfile_seek.seek(5)
     print(myfile_seek.read(3))
+
+
+print("########")
+# Write and Read
+with open('file_test.txt', 'r+') as myfile_rplus:
+    print(myfile_rplus.read())
+    myfile_rplus.write('r+open\n')
+    myfile_rplus.seek(0)
+    print(myfile_rplus.read())
