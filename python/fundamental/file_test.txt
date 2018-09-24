@@ -1,5 +1,4 @@
-Test
-My#name#is#Mike!
+w+open
 Test
 with open write
 My_name_is_Mike!
