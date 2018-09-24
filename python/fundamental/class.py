@@ -158,3 +158,23 @@ except Exception:
     print('adult ride excepted.')
 
 print("########")
+# Multiple inheritance(Not recommend)
+
+class Pen(object):
+    def line(self):
+        print('Pen: -----')
+    def boldline(self):
+        print('Pen: =====')
+
+class Marker(object):
+    def boldline(self):
+        print('Marker: ■■■■■■')
+
+class PenMarkerRobot(Marker, Pen):
+    def write(self):
+        print('Bot: ABC')
+
+pen_marker_robot = PenMarkerRobot()
+pen_marker_robot.line()
+pen_marker_robot.boldline()
+pen_marker_robot.write()
