@@ -1,0 +1,5 @@
+Test
+My#name#is#Mike!
+Test
+with open write
+My_name_is_Mike!
