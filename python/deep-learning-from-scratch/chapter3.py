@@ -122,6 +122,8 @@ y = identify_function(a3)
 print('y', y, 'y.shape', y.shape)
 
 print("######")
+
+
 # Newral network ( foward)
 
 def init_network():
@@ -156,3 +158,26 @@ network = init_network()
 x = np.array([1.0, 0.5])
 y = forward(network, x)
 print(y)
+
+print("######")
+
+
+# Softmax
+def softmax(a):
+    c = np.max(a)
+    exp_a = np.exp(a - c)
+    sum_exp_a = np.sum(exp_a)
+    y = exp_a / sum_exp_a
+    return y
+
+
+x = np.array([0.3, 2.9, 4.0])
+y = softmax(x)
+print(y)
+print(np.sum(y))
+print("###")
+x = np.array([1010, 1000, 990])
+y = softmax(x)
+# y = np.exp(x) / np.sum(np.exp(x)) # [nan nan nan] Overflow Error
+print(y)
+print(np.sum(y))
