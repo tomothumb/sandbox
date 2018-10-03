@@ -18,7 +18,10 @@ demoController.getList = function(req,res, next){
 };
 
 demoController.getDetail = function(req,res, next){
-    res.render('demo/detail',{param:req.params})
+    res.render('demo/detail',{
+        param:req.params,
+        'layout': 'demo/layout'
+    })
     // res.send('demoController detail Query:' + req.params.pageId)
 };
 
