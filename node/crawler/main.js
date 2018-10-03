@@ -21,6 +21,7 @@ const models = require('./models');
 })();
 
 function deepCrawle(results){
+
     (async () => {
         const crawler = await HCCrawler.launch({
             // headless: false,
@@ -29,6 +30,7 @@ function deepCrawle(results){
                 url: window.location.href,
                 title: $('title').text(),
                 description: $('meta[name="description"]').attr("content"),
+                html: $('html').html(),
                 og_image: $('meta[property="og:image"]').attr("content"),
             })),
             onSuccess: (results => {
@@ -46,11 +48,14 @@ function deepCrawle(results){
 }
 
 function savePageMetas(results) {
+    console.log(
+        chalk.green(results),
+    );
     if (results.result.title) {
         console.log(
             "Save Meta: ",
             results.result.url,
-            // chalk.green(results.result.title),
+            chalk.green(results.result.content()),
             // chalk.gray(results.result.description),
             // chalk.blue(results.result.og_image),
         );
@@ -59,6 +64,7 @@ function savePageMetas(results) {
                 url: results.result.url,
                 title: results.result.title,
                 description: results.result.description,
+                body: results.result.html,
                 image: results.result.og_image,
                 createdAt: new Date(),
                 updatedAt: new Date()
