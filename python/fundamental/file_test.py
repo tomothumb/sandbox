@@ -156,3 +156,32 @@ else:
 print(os.getcwd())
 
 
+print("########")
+# Tar/gz
+import tarfile
+
+with tarfile.open('file_test_tar.gz','w:gz') as tr:
+    tr.add('file_test_tar')
+
+with tarfile.open('file_test_tar.gz','r:gz') as tr:
+    tr.extractall(path='file_test_tar_open')
+
+with tarfile.open('file_test_tar.gz','r:gz') as tr:
+    with tr.extractfile('file_test_tar/test2.txt') as f:
+        print(f.read())
+
+print("########")
+# Zip
+import zipfile
+
+with zipfile.ZipFile('file_test_zip.zip','w') as z:
+    # z.write('file_test_zip')
+    # z.write('file_test_zip/test.txt')
+    for f in glob.glob('file_test_zip/**', recursive=True):
+        print(f)
+        z.write(f)
+
+with zipfile.ZipFile('file_test_zip.zip','r') as z:
+    z.extractall('file_test_zip_open')
+    with z.open('file_test_zip/test2.txt') as f:
+        print(f.read())
