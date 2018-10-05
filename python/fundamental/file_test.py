@@ -113,3 +113,46 @@ with open('file_test_csv.csv','r') as csv_file:
     reader = csv.DictReader(csv_file)
     for row in reader:
         print(row['Name'], row['Count'])
+
+print("########")
+# File
+
+import os
+import pathlib
+import glob
+import shutil
+
+print(os.path.exists('file_test.txt'))
+print(os.path.isfile('file_test.txt'))
+print(os.path.isdir('file_test.txt'))
+print(os.path.isdir('sample_package'))
+
+os.rename('file_test.txt','file_test_renamed.txt')
+#os.symlink('file_test_renamed.txt','file_test_symlink.txt')
+
+if os.path.exists('file_test_empty.txt'):
+    os.remove('file_test_empty.txt')
+else:
+    pathlib.Path('file_test_empty.txt').touch()
+
+
+if os.path.exists('file_test_dir'):
+    # os.rmdir('file_test_dir')
+    shutil.rmtree('file_test_dir') # warning to exec.
+else:
+    os.mkdir('file_test_dir')
+    os.mkdir('file_test_dir/subdir1')
+    os.mkdir('file_test_dir/subdir2')
+    os.mkdir('file_test_dir/subdir2/subdir2-2')
+    pathlib.Path('file_test_dir/subdir2/empty.txt').touch()
+    shutil.copy('file_test_dir/subdir2/empty.txt',
+                'file_test_dir/subdir2/empty2.txt')
+    os.mkdir('file_test_dir/subdir3')
+    # get list
+    print(os.listdir('file_test_dir'))
+    # get list
+    print(glob.glob('file_test_dir/subdir2/*'))
+
+print(os.getcwd())
+
+
