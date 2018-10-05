@@ -75,3 +75,23 @@ with open('file_test.txt', 'r+') as myfile_rplus:
     myfile_rplus.write('r+open\n')
     myfile_rplus.seek(0)
     print(myfile_rplus.read())
+
+print("########")
+# Template
+
+import string
+s = """\
+Hi $name.
+$contents.
+Have a good day.
+"""
+
+tpl = string.Template(s)
+contents = tpl.substitute(name='Mike', contents= 'How are you?')
+print(contents)
+
+print("########")
+with open('file_test_design.txt') as f:
+    t = string.Template(f.read())
+contents = tpl.substitute(name='Mike', contents= 'How are you?')
+print(contents)
