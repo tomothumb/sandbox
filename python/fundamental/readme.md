@@ -9,7 +9,7 @@ https://pypi.org/
 $ pip install termcolor
 ```
 
-# importing order
+## importing order
 
 - importing order should be A-Z ordering.
 - - Standard Lib
@@ -32,4 +32,15 @@ import sample_package
 
 # Local Package
 import note
+
+```
+
+## Librery
+
+### Coding style
+```
+#pip install pep8
+pip install pycodestyle
+pip install flake8
+pip install pylint
 ```
