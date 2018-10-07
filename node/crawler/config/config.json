@@ -13,9 +13,11 @@
     "password": null,
     "database": "database_development",
     "host": "127.0.0.1",
-    "storage": "./database.sqlite",
+    "storage": "./database_development.sqlite",
     "dialect": "sqlite",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "logging": false
+
   },
   "test": {
     "username": "root",
