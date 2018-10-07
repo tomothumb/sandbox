@@ -55,7 +55,7 @@ function savePageMetas(results) {
         console.log(
             "Save Meta: ",
             results.result.url,
-            chalk.green(results.result.content()),
+            // chalk.green(results.result.content()),
             // chalk.gray(results.result.description),
             // chalk.blue(results.result.og_image),
         );

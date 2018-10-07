@@ -1,9 +1,11 @@
 {
   "dependencies": {
     "chalk": "^2.4.1",
+    "cheerio": "^1.0.0-rc.2",
     "dotenv": "^6.0.0",
     "headless-chrome-crawler": "^1.8.0",
     "puppeteer": "^1.5.0",
+    "request": "^2.88.0",
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.0.0",
     "sqlite3": "^4.0.2"
