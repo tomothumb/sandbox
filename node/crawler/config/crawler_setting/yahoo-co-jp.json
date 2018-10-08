@@ -1,0 +1,34 @@
+{
+  "CRAWLER": {
+    "BASE_URL": null,
+    "LIST_PAGE": {
+      "PAGINATION": {
+        "NEXT": null,
+        "PREV": null
+      }
+    },
+    "DETAIL_PAGE": {
+      "URL": null,
+      "SUFFIX": null
+    },
+    "sleep": 1
+  },
+  "SCRAPING": {
+    "LIST_PAGE": {
+      "LIST_ITEM_DOM": null,
+      "DETAIL_URL_DOM": null,
+      "PORTAL_PLACE_NAME_DOM": null,
+      "PORTAL_PLACE_NAME_ATTRIBUTE": null,
+      "PORTAL_PLACE_ID_DOM": null,
+      "PORTAL_PLACE_ID_ATTRIBUTE": null,
+      "PORTAL_PLACE_IMAGE_DOM": null,
+      "PORTAL_PLACE_IMAGE_ATTRIBUTE": null
+    },
+    "DETAIL_PAGE": {
+      "INFORMATION": {
+        "PORTAL_PLACE_NAME_DOM": null,
+        "PORTAL_PLACE_NAME_ATTRIBUTE": null
+      }
+    }
+  }
+}
