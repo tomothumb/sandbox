@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test": "jest -u --no-watchman"
+  },
   "dependencies": {
     "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
