@@ -1,0 +1,13 @@
+{
+  "name": "mytest",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
