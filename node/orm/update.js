@@ -5,7 +5,7 @@ const models = require('./models');
 const addOgp = function () {
     models.Ogp.sync({force: false}).then(() => {
         models.Ogp.create({
-            title: 'update.js',
+            title: 'will update',
             description: 'sample',
             updatedAt: new Date(),
             createdAt: new Date()
@@ -16,4 +16,20 @@ const addOgp = function () {
 console.log("add");
 addOgp();
 console.log("done");
+
+// Documents
+// http://docs.sequelizejs.com/manual/tutorial/instances.html#updating-saving-persisting-an-instance
+models.Ogp.findOne({
+    where: {
+        title: 'will_update.js',
+    }
+}).then(ogp => {
+    ogp.title = 'updated';
+    ogp.description = 'sample';
+    ogp.save().then(()=>{});
+
+    ogp.update({
+        title: 'updated2'
+    }).then(() => {})
+});
 
