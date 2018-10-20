@@ -36,12 +36,14 @@
             .attr("width", width)
             .attr("height", height);
         d3.json("../datasets/topojson/countries/japan/jp-prefectures.json").then(function (data) {
+            console.log(data);
             svg.selectAll("path")  // おまじない。というか理解できてない。色々変えても動く。
                 .data(topojson.feature(data, data.objects.JPN_adm1).features)
                 .enter()
                 .append("path")
                 .attr("d", path)
                 .attr("fill", function (d, i) {
+                    console.log(d,i);
                     return "#009900";
                 });
         });
