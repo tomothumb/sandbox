@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>World Map</title>
+
+    <style>
+        #graph{
+            width: 600px;
+            height: 600px;
+            position: relative;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>World Map</h1>
+<div id="graph">
+</div>
+
+<!--<script src="./node_modules/d3/dist/d3.js"></script>-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="./node_modules/topojson/dist/topojson.js"></script>
+
+<script src="./datasets/datamaps/datamaps.none.min.js"></script>
+<script>
+    var map = new Datamap({
+        element: document.getElementById('graph'),
+        scope: 'jpn',
+        geographyConfig: {
+            dataUrl: './datasets/datamaps_custom/topo_jpn.json'
+        },
+        setProjection: function(element) {
+            var projection = d3.geo.equirectangular()
+                .center([137, 37])
+                .scale(1500)
+                .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            var path = d3.geo.path()
+                .projection(projection);
+
+            return {path: path, projection: projection};
+        }
+    });
+</script>
+</body>
+</html>
