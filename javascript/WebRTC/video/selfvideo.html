@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebRTC Video Demo</title>
+    <style>
+        video {
+            border: 10px solid #000000;
+            width: 20%;
+            height: auto;
+            -webkit-animation: rotate linear 60s 0s infinite ;
+            -o-animation: rotate linear 60s 0s infinite ;
+            animation: rotate linear 60s 0s infinite ;
+        }
+        @keyframes rotate {
+            0%{
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+
+            }
+            100%{
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+
+        }
+    </style>
+</head>
+<body>
+<h1>VideoDemo</h1>
+
+<video id="myVideo" width="1000" height="1000" autoplay="1"></video>
+<p>
+    <button onclick="startVideo()">Start</button>
+</p>
+
+<hr>
+
+<script>
+    // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+
+    var localVideo = document.getElementById("myVideo");
+    var localStream = null;
+
+    function startVideo() {
+        navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: false
+        })
+            .then(function (stream) {
+                console.log(stream);
+                localStream = stream;
+                localVideo.src = window.URL.createObjectURL(localStream);
+            })
+            .catch(function (err) {
+                console.error('mediaDevices.getUserMedia() error:', err);
+                return;
+            });
+    }
+    startVideo();
+
+</script>
+
+</body>
+</html>
