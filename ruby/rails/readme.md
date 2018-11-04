@@ -31,6 +31,7 @@ $ bundle exec rails db:seed
 $ bundle exec rails test
 $ bundle exec rails test:controllers
 $ bundle exec rails test:integration
+$ bundle exec rails test:helpers
 ```
 
 ### Genarator
