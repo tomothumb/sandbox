@@ -12,6 +12,7 @@ $ bundle exec rails server
 
 # Console
 $ bundle exec rails console
+$ bundle exec rails console --sandbox
 
 
 $ bundle exec rails s
@@ -32,12 +33,19 @@ $ bundle exec rails test
 $ bundle exec rails test:controllers
 $ bundle exec rails test:integration
 $ bundle exec rails test:helpers
+$ bundle exec rails test:models
 ```
 
 ### Genarator
 ```
+#All
 $ bundle exec rails generate scaffold Micropost content:text user_id:integer
+
+# Controller
 $ bundle exec rails generate controller StaticPages home help
+
+# Model
+$ bundle exec rails generate model User name:string email:string
 ```
 
 ---
