@@ -24,9 +24,13 @@ $ bundle exec rails db:rollback
 $ bundle exec rails db:create
 $ bundle exec rails db:seed
 
-# Tests
-$ bundle exec rails test
+```
 
+### Test
+```
+$ bundle exec rails test
+$ bundle exec rails test:controllers
+$ bundle exec rails test:integration
 ```
 
 ### Genarator
