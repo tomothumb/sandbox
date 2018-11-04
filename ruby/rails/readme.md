@@ -9,6 +9,7 @@ $ bundle install --without production
 ```
 # Serve
 $ bundle exec rails server
+$ bundle exec rails server --environment production
 
 # Console
 $ bundle exec rails console
@@ -24,6 +25,7 @@ $ bundle exec rails db:migrate
 $ bundle exec rails db:rollback
 $ bundle exec rails db:create
 $ bundle exec rails db:seed
+$ bundle exec rails db:migrate RAILS_ENV=production
 
 ```
 
@@ -50,6 +52,17 @@ $ bundle exec rails generate model User name:string email:string
 
 ---
 
+```
+rails console
+> Rails.env
+=> development
+> user1 = User.first
+> puts user.attributes.to_yaml
+> y user.attributes
+
+```
+
+---
 
 ## Basic
 
