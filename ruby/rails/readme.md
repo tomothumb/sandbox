@@ -22,6 +22,7 @@ $ bundle exec rails new ~
 
 # Migration
 $ bundle exec rails db:migrate
+$ bundle exec rails db:migrate:reset
 $ bundle exec rails db:rollback
 $ bundle exec rails db:create
 $ bundle exec rails db:seed
