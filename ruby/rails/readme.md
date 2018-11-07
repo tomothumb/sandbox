@@ -51,6 +51,11 @@ $ bundle exec rails generate controller StaticPages home help
 
 # Model
 $ bundle exec rails generate model User name:string email:string
+
+# Mailer
+$ bundle exec rails generate mailer UserMailer account_activation password_reset
+
+
 ```
 
 ---
