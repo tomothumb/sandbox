@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
-
+  before_action :admin_user, only: [:destroy]
 
   # GET /users
   #
@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   # @user.id = params[:id]
   # GET /users.json
   def index
-    @users = User.all
+    # @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -69,6 +70,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
+      flash[:success] = "User deleted"
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -95,5 +97,9 @@ class UsersController < ApplicationController
 
     def correct_user
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end
