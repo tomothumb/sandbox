@@ -37,6 +37,8 @@ $ bundle exec rails test:controllers
 $ bundle exec rails test:integration
 $ bundle exec rails test:helpers
 $ bundle exec rails test:models
+$ bundle exec rails test test/foo/bar_test.rb
+
 ```
 
 ### Genarator
