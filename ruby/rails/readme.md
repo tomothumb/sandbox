@@ -57,6 +57,9 @@ $ bundle exec rails generate model User name:string email:string
 $ bundle exec rails generate mailer UserMailer account_activation password_reset
 
 
+# Mailer (REQUIRE gem carrierwave)
+$ bundle exec rails generate uploader Picture
+
 ```
 
 ---
