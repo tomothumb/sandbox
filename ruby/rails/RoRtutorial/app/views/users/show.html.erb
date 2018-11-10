@@ -33,6 +33,16 @@
       <%= link_to 'Back', users_path %>
 
     </section>
+    <section class="col-md-8">
+      <% if @user.microposts.any? %>
+      <h3>Microposts ( <%= @user.microposts.count %> )</h3>
+        <ol class="microposts">
+          <%= render @microposts %>
+        </ol>
+      <% end %>
+      <%= will_paginate @microposts %>
+
+    </section>
   </aside>
 </div>
 

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   before_save :downcase_email
   before_create :create_activation_digest
 
-  has_many :microposts
+  has_many :microposts, dependent: :destroy
 
   validates :name, presence:true, length: {maximum: 50}
 
