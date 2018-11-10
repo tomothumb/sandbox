@@ -14,7 +14,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
 
     # 無効な送信
     assert_no_difference 'Micropost.count' do
-      post micropost_path, params: { micropost: { content: ""}}
+      post microposts_path, params: { micropost: { content: ""}}
     end
     assert_select 'div#error_explanation'
 
@@ -22,12 +22,12 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     content = "This micropost really ties the room together"
     picture = fixture_file_upload('test/fixtures/rails.png', 'image/png')
     assert_difference "Micropost.count", 1 do
-      post micropost_path, params: { micropost: {
+      post microposts_path, params: { micropost: {
           content: content,
           picture: picture
       } }
     end
-    assert user.first.micropost.picture?
+    assert @user.microposts.first.picture?
     # assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body
@@ -51,7 +51,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_match "#{@user.microposts.count} micropost", response.body
 
     # まだmicropostを投稿していないuser
-    other_user = users(:malony)
+    other_user = users(:malory)
     log_in_as(other_user)
     get root_path
     assert_match "0 microposts", response.body
