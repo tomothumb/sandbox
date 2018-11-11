@@ -1,4 +1,11 @@
-blog
-====
+Symfony2 demo
+=============
 
-A Symfony project created on November 11, 2018, 12:33 pm.
+## console
+```
+$ php app/console server:start
+$ php app/console generate:controller
+$ php app/console cache:clear
+
+$ php app/console debug:router
+```

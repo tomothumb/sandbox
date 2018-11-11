@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Symfony2</title>
+</head>
+<body>
+<div>
+    <h1>クラシックシンフォニー楽団のページヘようこそ!</h1>
+    {{ include("Common/information.html.twig", {
+        information: "お知らせです"
+    }, with_context = false) }}
+    <h2>お知らせ</h2>
+    <p>{{ information }}</p>
+    <p><a href="{{ path("app_concert_index") }}">公演情報はこちら</a></p>
+
+    <div>新着ブログ記事</div>
+    {{ render(controller("AppBundle:Blog:latestList")) }}
+</div>
+
+</body>
+</html>
