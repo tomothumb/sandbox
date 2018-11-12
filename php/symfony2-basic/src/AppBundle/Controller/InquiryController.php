@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 
 /**
@@ -19,6 +20,40 @@ class InquiryController extends Controller
      * @Method("get")
      */
     public function indexAction()
+    {
+        return $this->render('Inquiry/index.html.twig', [
+            'form' => $this->createInquiryForm()->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/")
+     * @Method("post")
+     */
+    private function indexPostAction( Request $request)
+    {
+        $form = $this->createInquiryForm();
+        $form->handleRequest($request);
+        if( $form->isValid()){
+            return $this->redirect($this->generateUrl('app_inquiry_complete'));
+        }
+
+        return $this->render('Inquiry/index.html.twig',[
+            'form' => $form->createView()
+        ]);
+
+    }
+
+    /**
+     * @Route("/complete")
+     */
+    public function completeAction()
+    {
+        return $this->render('Inquiry/complete.html.twig');
+
+    }
+
+    private function createInquiryForm()
     {
         $form = $this->createFormBuilder()
             ->add('name', 'text',[
@@ -40,9 +75,7 @@ class InquiryController extends Controller
                 'label' => '送信'
             ])
             ->getForm();
-        return $this->render('Inquiry/index.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return $form;
     }
 
 }
