@@ -38,7 +38,7 @@ class Inquiry
     /**
      * @var string
      *
-     * @ORM\Column(name="tel", type="string", length=20)
+     * @ORM\Column(name="tel", type="string", length=20, nullable=true)
      */
     private $tel;
 
