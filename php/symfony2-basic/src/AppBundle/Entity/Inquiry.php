@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Inquiry
@@ -25,6 +26,8 @@ class Inquiry
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=30)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=30)
      */
     private $name;
 
@@ -32,6 +35,9 @@ class Inquiry
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=100)
+     * @Assert\Email()
      */
     private $email;
 
@@ -39,6 +45,8 @@ class Inquiry
      * @var string
      *
      * @ORM\Column(name="tel", type="string", length=20, nullable=true)
+     * @Assert\Length(max=20)
+     * @Assert\Regex(pattern="/^[0-9-]+$/")
      */
     private $tel;
 
@@ -46,6 +54,7 @@ class Inquiry
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=20)
+     * @Assert\NotBlank()
      */
     private $type;
 
@@ -53,9 +62,9 @@ class Inquiry
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
      */
     private $content;
-
 
     /**
      * Get id
@@ -186,5 +195,76 @@ class Inquiry
     {
         return $this->content;
     }
-}
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="process_status", type="string", length=20, nullable=true)
+     * @Assert\NotBlank(groups={"admin"})
+     */
+    private $processStatus;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="process_memo", type="text", nullable=true)
+     * @Assert\NotBlank(groups={"admin"})
+     */
+    private $processMemo;
+
+    public function __construct()
+    {
+        $this->processStatus = 0;
+        $this->processMemo = '';
+    }
+
+
+    /**
+     * Set processStatus
+     *
+     * @param string $processStatus
+     *
+     * @return Inquiry
+     */
+    public function setProcessStatus($processStatus)
+    {
+        $this->processStatus = $processStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get processStatus
+     *
+     * @return string
+     */
+    public function getProcessStatus()
+    {
+        return $this->processStatus;
+    }
+
+    /**
+     * Set processMemo
+     *
+     * @param string $processMemo
+     *
+     * @return Inquiry
+     */
+    public function setProcessMemo($processMemo)
+    {
+        $this->processMemo = $processMemo;
+
+        return $this;
+    }
+
+    /**
+     * Get processMemo
+     *
+     * @return string
+     */
+    public function getProcessMemo()
+    {
+        return $this->processMemo;
+    }
+}
