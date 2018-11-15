@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * InquiryRepository
  *
@@ -10,4 +12,18 @@ namespace AppBundle\Repository;
  */
 class InquiryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllByKeyword($keyword)
+    {
+        $query = $this->createQueryBuilder('i')
+            ->where('i.name Like :keyword')
+            ->orWhere('i.tel Like :keyword')
+            ->orWhere('i.email Like :keyword')
+            ->orderBy('i.id', 'DESC')
+            ->setParameters([
+                ':keyword' => '%' . $keyword . '%'
+            ])
+            ->getQuery()
+        ;
+        return new ArrayCollection($query->getResult());
+    }
 }

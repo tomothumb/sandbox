@@ -31,7 +31,7 @@ class InquiryController extends Controller
      * @Route("/")
      * @Method("post")
      */
-    private function indexPostAction( Request $request)
+    public function indexPostAction( Request $request)
     {
         $form = $this->createInquiryForm();
         $form->handleRequest($request);
@@ -63,7 +63,6 @@ class InquiryController extends Controller
         return $this->render('Inquiry/index.html.twig',[
             'form' => $form->createView()
         ]);
-
     }
 
     /**

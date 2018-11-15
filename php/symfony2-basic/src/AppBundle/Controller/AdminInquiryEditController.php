@@ -70,27 +70,14 @@ class AdminInquiryEditController extends Controller
 
             // DB Insert
             $em = $this->getDoctrine()->getManager();
-            $em->persist($inquiry);
             $em->flush();
 
-
-            // Send Mail
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Webサイトからのお問い合わせ')
-                ->setFrom('webmaster@example.com')
-                ->setTo('admin@example.com')
-                ->setBody(
-                    $this->renderView('mail/inquiry.txt.twig',[
-                        'data' => $inquiry
-                    ])
-                );
-            $this->get('mailer')->send($message);
-
-            return $this->redirect($this->generateUrl('app_inquiry_complete'));
+            return $this->redirect($this->generateUrl('app_admininquirylist_index'));
         }
 
-        return $this->render('Inquiry/index.html.twig',[
-            'form' => $form->createView()
+        return $this->render('Admin/Inquiry/edit.html.twig',[
+            'form' => $form->createView(),
+            'inquiry' => $inquiry
         ]);
 
     }
