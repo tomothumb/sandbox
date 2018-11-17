@@ -4,6 +4,8 @@ Symfony2 demo
 ## console
 ```
 $ php app/console server:start
+$ php app/console server:start 127.0.0.1:8888
+
 $ php app/console generate:controller
 $ php app/console doctrine:database:create
 $ php app/console doctrine:generate:entity
