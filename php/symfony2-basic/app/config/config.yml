@@ -79,3 +79,13 @@ nelmio_cors:
         '^/api/':
             allow_origin: ['http://127.0.0.1:8888']
             allow_methods: ['GET']
+
+jms_di_extra:
+    locations:
+        all_bundles: true
+        directories: ["%kernel.root_dir%/../src"]
+
+app:
+    members:
+        山田: {part: トランペット, joinedDate: "2018-10-01"}
+        田中: {part: バイオリン, joinedDate: "2008-10-01"}
