@@ -6,6 +6,10 @@ use AppBundle\Entity\Inquiry;
 use League\Csv\Writer;
 use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * Class InquiryCsvBuilder
+ * @DI\Service("app.inquiry_csv_builder")
+ */
 class InquiryCsvBuilder
 {
     private $encoding;

@@ -35,7 +35,7 @@ class Member
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -43,7 +43,7 @@ class Member
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -51,7 +51,7 @@ class Member
     /**
      * @return string
      */
-    public function getPart(): string
+    public function getPart()
     {
         return $this->part;
     }
@@ -59,7 +59,7 @@ class Member
     /**
      * @param string $part
      */
-    public function setPart(string $part): void
+    public function setPart(string $part)
     {
         $this->part = $part;
     }
@@ -67,7 +67,7 @@ class Member
     /**
      * @return \DateTime
      */
-    public function getJoinedDate(): \DateTime
+    public function getJoinedDate()
     {
         return $this->joinedDate;
     }
@@ -75,7 +75,7 @@ class Member
     /**
      * @param \DateTime $joinedDate
      */
-    public function setJoinedDate(\DateTime $joinedDate): void
+    public function setJoinedDate(\DateTime $joinedDate)
     {
         $this->joinedDate = $joinedDate;
     }

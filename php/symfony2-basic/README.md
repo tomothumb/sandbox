@@ -20,4 +20,12 @@ $ php app/console cache:clear
 
 
 $ php app/console debug:router
+
+$ php app/console debug:container
+$ php app/console debug:container --parameters
+
+# Debug
+$ php app/console debug:config framework
+$ php app/console config:dump-reference framework
+
 ```
