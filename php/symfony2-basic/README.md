@@ -29,3 +29,20 @@ $ php app/console debug:config framework
 $ php app/console config:dump-reference framework
 
 ```
+
+## Test
+```
+$ phpunit -c app
+$ phpunit -c app --debug
+
+# load testsuite setting which is written on phpunit.xml.dist, then run them.
+$ phpunit -c app --testsuite=unit
+$ phpunit -c app --testsuite=functional
+$ phpunit -c app --testsuite=all
+$ phpunit -c app --testsuite=unit --exclude-group slow
+    /**
+     * @group slow
+     */
+
+
+```
