@@ -35,6 +35,8 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.0",
+        "hautelook/alice-bundle": "0.2",
+        "liip/functional-test-bundle": "^1.10",
         "nelmio/api-doc-bundle": "^2.13.3",
         "phpunit/phpunit": "^4",
         "sensio/generator-bundle": "~3.0",

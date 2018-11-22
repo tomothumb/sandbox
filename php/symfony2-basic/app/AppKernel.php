@@ -33,6 +33,9 @@ class AppKernel extends Kernel
 
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
             $bundles[] = new \Nelmio\ApiDocBundle\NelmioApiDocBundle();
+
+            $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
+            $bundles[] = new \Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
         }
 
         return $bundles;

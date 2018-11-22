@@ -3,6 +3,9 @@ Symfony2 demo
 
 ## console
 ```
+$ php app/console --env=dev
+$ php app/console --env=test
+
 $ php app/console server:start
 $ php app/console server:start 127.0.0.1:8888
 
@@ -15,6 +18,7 @@ $ php app/console doctrine:schema:validate
 
 $ php app/console doctrine:schema:update --dump-sql
 $ php app/console doctrine:schema:update --force
+$ php app/console doctrine:fixtures:load
 
 $ php app/console cache:clear
 
@@ -44,5 +48,5 @@ $ phpunit -c app --testsuite=unit --exclude-group slow
      * @group slow
      */
 
-
+$ php vendor/phpunit/phpunit/phpunit -c app
 ```
