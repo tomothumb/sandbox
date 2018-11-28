@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use League\Flysystem\FileNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -36,6 +37,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        $this->_notifyThroughSms($e);
         parent::report($exception);
     }
 
@@ -49,5 +51,48 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
+    }
+
+    private function _notifyThroughSms($e)
+    {
+        foreach ($this->_notifycationRecipients() as $recipient()){
+            $this->_sendSms(
+                $recipient->phone_number,
+                '[This is a test] It appears the server' .
+                ' is having issues. Exception: ' . $e->getMessage() .
+                ' Go to http://newrelic.com for more details.'
+            );
+        }
+    }
+
+    private function _notifycationRecipients()
+    {
+        $adminsFile = base_path() . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'administrations.json';
+        try{
+            $adminsFileContents = \File::get($adminsFile);
+            return json_decode($adminsFileContents);
+        } catch (FileNotFoundException $e){
+            \Log::error('could not find ' . $adminsFile . ' to notify admins through SMS');
+            return [];
+        }
+
+    }
+
+    private function _sendSms($phone_number, string $string)
+    {
+        $accountSid = env('TWILIO_ACCOUNT_SID');
+        $authToken = env('TWILIO_AUTH_TOKEN');
+        $twilioNumber = env( 'TWILIO_NUMBER');
+
+        $client = new Client($accountSid, $authToken);
+
+        try {
+
+        } catch (TwilioException $e){
+            \Log::error(
+                "Could not send SMS notification." .
+                ' Twilio replied with: ' . $e
+            );
+        }
     }
 }
