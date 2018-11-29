@@ -41,6 +41,9 @@ Route::get('/notification/data', 'NotificationDemoController@notificationData');
 Route::post('/notification/send', 'NotificationDemoController@send');
 Route::get('/notification/send', 'NotificationDemoController@send');
 
+Route::get('/twilio/', 'TwilioController@index');
+Route::get('/twilio/{phone_number}/sendsms', 'TwilioController@sendSMS');
+
 
 Route::get('/crawler/yahoo_news', 'CrawlerSettingController@getYahooNews');
 Route::get('/phantomjs/yahoo_news', 'CrawlerSettingController@getYahooNewsByPhantomjs');

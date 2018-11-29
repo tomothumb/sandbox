@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use League\Flysystem\FileNotFoundException;
 
 class Handler extends ExceptionHandler
 {
