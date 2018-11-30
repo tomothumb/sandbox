@@ -14,9 +14,8 @@ class TwilioController extends Controller
 
     public function sendSMS($phone_number)
     {
-        $body_message = 'こんにちは! This is TwilioServiceのデモです!';
-        $twilio_client = app()->get('TwilioService');
-        $twilio_client->sendSMS($phone_number, $body_message);
+        $body_message = 'こんにちは! This is TwilioServiceのFacadeデモです!';
+        \App\Facades\Twilio::sendSMS($phone_number, $body_message);
 
         return redirect('/twilio/');
     }
