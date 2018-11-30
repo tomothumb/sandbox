@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use App\Service\TwilioService\Twilio;
 use Illuminate\Support\ServiceProvider;
-use Twilio\Rest\Client;
 
 class TwilioServiceProvider extends ServiceProvider
 {
@@ -15,10 +15,8 @@ class TwilioServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Twilio\Rest\Client', function ($app){
-//            config('TWILIO_SID');
-//            config('TWILIO_TOKEN');
-            return new Client(env('TWILIO_SID'), env('TWILIO_TOKEN'));
+        $this->app->singleton('TwilioService', function($app){
+            return new Twilio( env('TWILIO_SID'), env('TWILIO_TOKEN'), env('TWILIO_PHONE_NUMBER') );
         });
     }
 }

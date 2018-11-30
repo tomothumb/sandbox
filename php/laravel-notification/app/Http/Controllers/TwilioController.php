@@ -14,14 +14,10 @@ class TwilioController extends Controller
 
     public function sendSMS($phone_number)
     {
-        $twilio_client = app()->get('Twilio\Rest\Client');
-        $twilio_client->messages->create(
-            $phone_number,
-            array(
-                'from' => env('TWILIO_PHONE_NUMBER'),
-                'body' => 'こんにちは! This is Twilio デモです!'
-            )
-        );
+        $body_message = 'こんにちは! This is TwilioServiceのデモです!';
+        $twilio_client = app()->get('TwilioService');
+        $twilio_client->sendSMS($phone_number, $body_message);
+
         return redirect('/twilio/');
     }
 
