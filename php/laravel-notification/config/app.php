@@ -247,6 +247,10 @@ return [
          */
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
+        /**
+         * My Facade
+         */
+        'Twilio' => \App\Facades\Twilio::class,
     ],
 
 ];
