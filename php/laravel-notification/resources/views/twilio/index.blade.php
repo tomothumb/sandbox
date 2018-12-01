@@ -21,6 +21,9 @@
 
 
 <p><a href="/twilio/{{env('TWILIO_DEBUG_PHONE_NUMBER')}}/sendsms">Send SMS Message</a>.</p>
+<p><a href="/twilio/{{env('TWILIO_DEBUG_PHONE_NUMBER')}}/sendsms_by_di">Send SMS Message (with DI)</a>.</p>
+
+
 
 </body>
 </html>

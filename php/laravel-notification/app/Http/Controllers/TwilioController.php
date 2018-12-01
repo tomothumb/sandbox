@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Service\SmsSender\Contracts\SmsSendable;
 use Illuminate\Http\Request;
 
 class TwilioController extends Controller
@@ -14,9 +15,15 @@ class TwilioController extends Controller
 
     public function sendSMS($phone_number)
     {
-        $body_message = 'こんにちは! This is TwilioServiceのFacadeデモLastです!';
+        $body_message = 'こんにちは! This is TwilioServiceのFacadeデモ。';
         \Twilio::sendSMS($phone_number, $body_message);
+        return redirect('/twilio/');
+    }
 
+    public function sendSMSByDI($phone_number, SmsSendable $sms_service)
+    {
+        $body_message = 'こんにちは! This is TwilioServiceのFacadeデモ。DI Provider';
+        $sms_service->sendSMS($phone_number, $body_message);
         return redirect('/twilio/');
     }
 

@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Service\TwilioService;
+namespace App\Service\SmsSender\Provider;
 
+
+use App\Service\SmsSender\Contracts\SmsSendable;
 use Twilio\Exceptions\ConfigurationException;
 use Twilio\Rest\Client;
 
-class Twilio
+class Twilio implements SmsSendable
 {
     private $client;
     private $from;
@@ -20,7 +22,8 @@ class Twilio
         }
     }
 
-    public function sendSMS($to, $body){
+    public function sendSMS($to, $body)
+    {
         $this->client->messages->create(
             $to,
             array(
@@ -29,5 +32,4 @@ class Twilio
             )
         );
     }
-
 }
