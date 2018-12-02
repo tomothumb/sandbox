@@ -1,0 +1,30 @@
+{
+    "name": "tomothumb/laravel_samplepkg",
+    "description": "Sample",
+    "authors": [
+        {
+            "name": "Tomoyuki Tsujimoto",
+            "email": "tomo.tsujimoto@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "laravel/framework": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers": [
+//                "Barryvdh\\Debugbar\\ServiceProvider"
+            ],
+            "aliases": {
+//                "Debugbar": "Barryvdh\\Debugbar\\Facade"
+            }
+        }
+
+    }
+}
