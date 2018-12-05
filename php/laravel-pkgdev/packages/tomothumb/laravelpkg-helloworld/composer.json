@@ -15,7 +15,14 @@
     },
     "autoload": {
         "psr-4": {
-
+            "Tomothumb\\LaravelpkgHelloworld\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tomothumb\\LaravelpkgHelloworld\\HelloworldServiceProvider"
+            ]
         }
     }
 }
