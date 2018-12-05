@@ -2,7 +2,9 @@
 
 namespace Tomothumb\LaravelpkgHelloworld\Service;
 
-class SampleService
+use Tomothumb\LaravelpkgHelloworld\Contracts\SampleContracts;
+
+class SampleService implements SampleContracts
 {
     private $message;
 
@@ -18,5 +20,10 @@ class SampleService
     public function print()
     {
         echo $this->message;
+    }
+
+    public function printDouble()
+    {
+        echo $this->message . $this->message;
     }
 }
