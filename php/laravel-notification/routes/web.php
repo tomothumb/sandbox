@@ -45,6 +45,8 @@ Route::get('/twilio/', 'TwilioController@index');
 Route::get('/twilio/{phone_number}/sendsms', 'TwilioController@sendSMS');
 Route::get('/twilio/{phone_number}/sendsms_by_di', 'TwilioController@sendSMSByDI');
 
+Route::get('/static/', 'StaticController@index');
+
 
 Route::get('/crawler/yahoo_news', 'CrawlerSettingController@getYahooNews');
 Route::get('/phantomjs/yahoo_news', 'CrawlerSettingController@getYahooNewsByPhantomjs');
