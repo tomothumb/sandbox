@@ -15,6 +15,15 @@ class HelloworldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Distribute Config File
+        $this->publishes([
+            __DIR__ . '/Resource/Config/helloworld.php' => config_path('helloworld.php')
+        ]);
+
+        // Route
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
+
+
 
     }
 
@@ -25,7 +34,6 @@ class HelloworldServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__ . '/routes.php';
 
         // Service
         $this->app->singleton('Tomothumb\LaravelpkgHelloworld\Contracts\HelloworldContracts', function($app){
