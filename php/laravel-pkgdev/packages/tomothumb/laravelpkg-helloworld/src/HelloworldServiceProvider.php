@@ -24,6 +24,7 @@ class HelloworldServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         // Migration
+//        $this->loadMigrationsFrom(__DIR__.'/path/to/migrations');
 //        $this->publishes([
 //            __DIR__.'/../database/migrations/' => database_path('migrations')
 //        ], 'migrations');
