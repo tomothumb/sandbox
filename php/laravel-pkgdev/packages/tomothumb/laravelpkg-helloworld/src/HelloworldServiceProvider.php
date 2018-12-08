@@ -39,6 +39,11 @@ class HelloworldServiceProvider extends ServiceProvider
             __DIR__.'/Resource/View' => resource_path('views/vendor/laravelpkg_helloworld'),
         ]);
 
+        //Resources
+        $this->publishes([
+            __DIR__.'/Resource/Assets' => public_path('vendor/laravelpkg_helloworld'),
+        ], 'public');
+
     }
 
     /**
