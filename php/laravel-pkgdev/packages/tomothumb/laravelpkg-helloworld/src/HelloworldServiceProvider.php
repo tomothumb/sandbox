@@ -18,10 +18,15 @@ class HelloworldServiceProvider extends ServiceProvider
         // Distribute Config File
         $this->publishes([
             __DIR__ . '/Resource/Config/helloworld.php' => config_path('helloworld.php')
-        ]);
+        ], 'config');
 
         // Route
         $this->loadRoutesFrom(__DIR__.'/routes.php');
+
+        // Migration
+//        $this->publishes([
+//            __DIR__.'/../database/migrations/' => database_path('migrations')
+//        ], 'migrations');
 
 
         // Translation
@@ -30,14 +35,14 @@ class HelloworldServiceProvider extends ServiceProvider
         // Distribute Translation File
         $this->publishes([
             __DIR__.'/Resource/Translation' => resource_path('lang/vendor/helloworld'),
-        ]);
+        ],'lang');
 
         // view
         $this->loadViewsFrom(__DIR__.'/Resource/View', 'laravelpkg_helloworld');
 
         $this->publishes([
             __DIR__.'/Resource/View' => resource_path('views/vendor/laravelpkg_helloworld'),
-        ]);
+        ],'view');
 
         //Resources
         $this->publishes([
