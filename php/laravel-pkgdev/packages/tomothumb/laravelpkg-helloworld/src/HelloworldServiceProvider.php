@@ -24,6 +24,13 @@ class HelloworldServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/routes.php');
 
 
+        // Translation
+        $this->loadTranslationsFrom(__DIR__ . '/Resource/Translation', 'helloworld');
+
+        // Distribute Translation File
+        $this->publishes([
+            __DIR__.'/Resource/Translation' => resource_path('lang/vendor/helloworld'),
+        ]);
 
     }
 
