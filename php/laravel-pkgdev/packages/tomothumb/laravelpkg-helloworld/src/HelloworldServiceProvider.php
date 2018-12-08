@@ -32,6 +32,13 @@ class HelloworldServiceProvider extends ServiceProvider
             __DIR__.'/Resource/Translation' => resource_path('lang/vendor/helloworld'),
         ]);
 
+        // view
+        $this->loadViewsFrom(__DIR__.'/Resource/View', 'laravelpkg_helloworld');
+
+        $this->publishes([
+            __DIR__.'/Resource/View' => resource_path('views/vendor/laravelpkg_helloworld'),
+        ]);
+
     }
 
     /**
