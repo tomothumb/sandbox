@@ -12,6 +12,7 @@
         "fabpot/goutte": "^3.2",
         "fideloper/proxy": "~3.3",
         "jonnyw/php-phantomjs": "4.*",
+        "kris/laravel-form-builder": "^1.15",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "spatie/laravel-menu": "^3.2",
