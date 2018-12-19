@@ -47,8 +47,8 @@ Route::get('/twilio/{phone_number}/sendsms_by_di', 'TwilioController@sendSMSByDI
 
 Route::get('/static/', 'StaticController@index');
 
-Route::get('/form/create', 'FormController@create');
-Route::get('/form/store', 'FormController@store');
+Route::get('/form/create', 'FormController@create')->name('form.create');
+Route::post('/form/store', 'FormController@store')->name('form.store');
 
 
 Route::get('/crawler/yahoo_news', 'CrawlerSettingController@getYahooNews');

@@ -13,8 +13,7 @@ class FormController extends Controller
             'method' => 'POST',
             'url' => route('form.store')
         ]);
-
-        return view('song.create', compact('form'));
+        return view('form.create', compact('form'));
     }
 
     public function store(FormBuilder $formBuilder)
@@ -24,7 +23,7 @@ class FormController extends Controller
         if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
-
-        // Do saving and other things...
+        return redirect()->to('/form/create');
     }
+
 }
