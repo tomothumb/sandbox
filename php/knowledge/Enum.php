@@ -19,6 +19,10 @@ abstract class Enum
     final public static function __callStatic($label, $args)
     {
         $class = get_called_class();
+        if( !defined("$class::$label") ){
+            throw new InvalidArgumentException("no static method {$label}");
+        }
+
         $const = constant("$class::$label");
         return new $class($const);
     }
