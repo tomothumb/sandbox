@@ -45,6 +45,14 @@ Route::get('/twilio/', 'TwilioController@index');
 Route::get('/twilio/{phone_number}/sendsms', 'TwilioController@sendSMS');
 Route::get('/twilio/{phone_number}/sendsms_by_di', 'TwilioController@sendSMSByDI');
 
+Route::get('/ip/', 'IpController@index');
+Route::get('/ip/new', 'IpController@form');
+Route::post('/ip/new', 'IpController@create');
+Route::get('/ip/{id}', 'IpController@detail');
+Route::post('/ip/{id}/edit', 'IpController@update');
+Route::get('/ip/{id}/delete', 'IpController@delete');
+
+
 Route::get('/static/', 'StaticController@index');
 
 Route::get('/form/create', 'FormController@create')->name('form.create');
