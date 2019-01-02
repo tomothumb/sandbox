@@ -12,9 +12,11 @@
         "fabpot/goutte": "^3.2",
         "fideloper/proxy": "~3.3",
         "jonnyw/php-phantomjs": "4.*",
+        "jsmitty12/phpwhois": "^5.5",
         "kris/laravel-form-builder": "^1.15",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "markrogoyski/ipv4-subnet-calculator": "^3.1",
         "spatie/laravel-menu": "^3.2",
         "twilio/sdk": "^5.25"
     },
