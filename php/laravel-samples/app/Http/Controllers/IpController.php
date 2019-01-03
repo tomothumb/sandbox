@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Ip;
+use App\Service\Whois\Parser\JpnicParser;
+use App\Service\Whois\Parser\Parser;
+use App\Service\Whois\WhoisService;
 use Illuminate\Http\Request;
+use IPv4\SubnetCalculator;
+use phpWhois\Whois;
 
 class IpController extends Controller
 {
 
-
     public function index()
     {
-        $ips = Ip::paginate(100);
-//        $ips = collect([]);
+        $WhoisService = new WhoisService( new JpnicParser() );
 
+        $result = $WhoisService->lookup('117.103.185.0');
+        $result = $WhoisService->lookup('117.103.184.4');
+        $WhoisService->save($result);
+
+        $ips = Ip::paginate(100);
 
         return view('ip.list',compact('ips'));
     }
@@ -53,13 +61,18 @@ class IpController extends Controller
     }
 
     private function addIp($ip_address){
-        $ip = Ip::firstOrCreate([
-            'ip_from' => $ip_address
-        ]);
-        $ip->ip_from = $ip_address;
+        $WhoisService = new WhoisService( new JpnicParser() );
+
+        $result = $WhoisService->lookup($ip_address);
+        $WhoisService->save($result);
+
+//        $ip = Ip::firstOrCreate([
+//            'ip_from' => $ip_address
+//        ]);
+//        $ip->ip_from = $ip_address;
 //            $ip->domain = $ip_address;
 //            $ip->org = $ip_address;
-        $ip->save();
+//        $ip->save();
     }
 
 }
