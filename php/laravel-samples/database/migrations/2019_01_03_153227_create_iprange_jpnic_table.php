@@ -14,9 +14,9 @@ class CreateIprangeJpnicTable extends Migration
     public function up()
     {
         Schema::create('iprange_jpnic', function (Blueprint $table) {
-            $table->increments('id');
-            $table->ipAddress('ip_from')->nullable();
-            $table->ipAddress('ip_to')->nullable();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('ip_from')->nullable();
+            $table->unsignedBigInteger('ip_to')->nullable();
             $table->timestamps();
         });
     }
