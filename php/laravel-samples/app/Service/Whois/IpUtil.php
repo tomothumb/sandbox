@@ -37,7 +37,7 @@ class IpUtil
             (int) $ip_sep[2],
             (int) $ip_sep[3] + 1
         ];
-        
+
         if($nextip_sep[3] >= 256 ){
             $nextip_sep[3] = 0;
             $nextip_sep[2] += 1;
