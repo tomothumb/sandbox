@@ -4,6 +4,8 @@ namespace App\Service\Whois\Parser;
 
 class Parser implements WhoisParserInterface
 {
+
+    const LABEL_NO = 'This network range is not allocated to';
     protected $whois;
 
     public function getServer()

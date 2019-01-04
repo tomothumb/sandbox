@@ -3,6 +3,9 @@
 namespace App\Service\Whois;
 
 use App\Ip;
+use App\IpRangeJpnic;
+use App\Service\Whois\Parser\DefaultParser;
+use App\Service\Whois\Parser\JpnicParser;
 use App\Service\Whois\Parser\WhoisParserInterface;
 use phpWhois\Whois;
 
@@ -26,7 +29,7 @@ class WhoisService
     {
         $this->ip = $ip;
         $whois = new Whois();
-        if ($this->parser->getServer()) {
+        if ($this->parser->getServer() != false) {
             $whois->useServer('ip', $this->parser->getServer());
         }
         $result = $whois->lookup($ip, true);
@@ -54,21 +57,57 @@ class WhoisService
             $result = $this->result;
         }
 
-        if ($result['parseddata']['ip_range']
-            && $result['parseddata']['ip_range']['from']
+        if (isset($result['parseddata']['ip_range'])
+            && isset($result['parseddata']['ip_range']['from'])
         ) {
             $ip = Ip::firstOrNew([
-                'ip_from' => $result['parseddata']['ip_range']['from']
+                'ip_from' => IpUtil::ipv4ToInt($result['parseddata']['ip_range']['from'])
             ]);
-            $ip->ip_from = ($result['parseddata']['ip_range']['from']) ?
-                $result['parseddata']['ip_range']['from'] : "";
+            $ip->ip_from = isset($result['parseddata']['ip_range']['from']) ?
+                IpUtil::ipv4ToInt($result['parseddata']['ip_range']['from']) : "";
 
-            $ip->ip_to = ($result['parseddata']['ip_range']['to']) ?
-                $result['parseddata']['ip_range']['to'] : "";
+            $ip->ip_to = isset($result['parseddata']['ip_range']['to']) ?
+                IpUtil::ipv4ToInt($result['parseddata']['ip_range']['to']) : "";
         }
-        $ip->org = $result['parseddata']['organization'];
+        if (isset($result['parseddata']['organization'])
+        ) {
+            $ip->org = isset($result['parseddata']['organization']) ?
+                $result['parseddata']['organization'] : "";
+        }
+
         $ip->save();
         return $this;
+    }
+
+
+    public static function hasIp($ip_address)
+    {
+        $ip = Ip::where('ip_from', "<=", IpUtil::ipv4ToInt($ip_address))
+            ->where('ip_to', ">=", IpUtil::ipv4ToInt($ip_address))
+            ->get();
+        return !($ip->count() == 0);
+    }
+
+    public static function addIp($ip_address)
+    {
+        $WhoisService = new self(self::detectWhoisServer($ip_address));
+        $result = $WhoisService->lookup($ip_address);
+        $WhoisService->save($result);
+    }
+
+    /**
+     * @param $ip_address
+     * @return WhoisParserInterface
+     */
+    public static function detectWhoisServer($ip_address)
+    {
+        $iprange = IpRangeJpnic::where('ip_from', "<=", IpUtil::ipv4ToInt($ip_address))
+            ->where('ip_to', ">=", IpUtil::ipv4ToInt($ip_address))
+            ->get();
+        if ($iprange->count() >= 1) {
+            return new JpnicParser();
+        }
+        return new DefaultParser();
     }
 
 }

@@ -89,6 +89,11 @@ class JpnicParser extends Parser implements WhoisParserInterface
             'to' => $address_range[1]
         ];
     }
+    public function setIp($ip)
+    {
+        $this->whois['parseddata']['ip'] = $ip;
+        return $this;
+    }
 
 }
 

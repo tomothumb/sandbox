@@ -3,27 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Ip;
-use App\Service\Whois\Parser\JpnicParser;
-use App\Service\Whois\Parser\Parser;
+use App\Service\Whois\Parser\WhoisParserInterface;
 use App\Service\Whois\WhoisService;
 use Illuminate\Http\Request;
-use IPv4\SubnetCalculator;
-use phpWhois\Whois;
 
 class IpController extends Controller
 {
 
     public function index()
     {
-        $WhoisService = new WhoisService( new JpnicParser() );
-
-        $result = $WhoisService->lookup('117.103.185.0');
-        $result = $WhoisService->lookup('117.103.184.4');
-        $WhoisService->save($result);
-
         $ips = Ip::paginate(100);
-
-        return view('ip.list',compact('ips'));
+        return view('ip.list', compact('ips'));
     }
 
     public function form()
@@ -37,8 +27,11 @@ class IpController extends Controller
             'ip_address' => 'required|ip'
         ]);
 
-        if($validatedData){
-            $this->addIp($request->ip_address);
+        if ($validatedData) {
+            $ip_address = $request->ip_address;
+            if(! WhoisService::hasIp($ip_address)){
+                WhoisService::addIp($ip_address);
+            }
         }
         return redirect('/ip/');
     }
@@ -58,21 +51,6 @@ class IpController extends Controller
     {
         Ip::destroy($id);
         return redirect('/ip/');
-    }
-
-    private function addIp($ip_address){
-        $WhoisService = new WhoisService( new JpnicParser() );
-
-        $result = $WhoisService->lookup($ip_address);
-        $WhoisService->save($result);
-
-//        $ip = Ip::firstOrCreate([
-//            'ip_from' => $ip_address
-//        ]);
-//        $ip->ip_from = $ip_address;
-//            $ip->domain = $ip_address;
-//            $ip->org = $ip_address;
-//        $ip->save();
     }
 
 }
