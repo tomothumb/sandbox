@@ -24,12 +24,21 @@ Artisan::command('ipv4crawl',function(){
 
     if(! WhoisService::hasIp($nextip)){
         $parser = WhoisService::detectWhoisServer($nextip);
-        if($parser instanceof JpnicParser){
+//        if($parser instanceof JpnicParser){
             $ip_obj = WhoisService::addIp($nextip);
             if($ip_obj->ip_to != "" ){
                 $nextip = \App\Service\Whois\WhoisService::setIpv4Counter($ip_obj->ip_to);
             }
-        }
+//        }
     }
     echo "{$nextip}\n";
+});
+
+Artisan::command('ipv4whois {ipv4}',function($ipv4){
+
+    if(! WhoisService::hasIp($ipv4)){
+        $parser = WhoisService::detectWhoisServer($ipv4);
+        $ip_obj = WhoisService::addIp($ipv4);
+    }
+    echo "{$ipv4}\n";
 });
