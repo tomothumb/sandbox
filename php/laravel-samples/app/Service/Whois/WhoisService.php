@@ -77,15 +77,18 @@ class WhoisService
         }
 
         $ip->save();
-        return $this;
+        return $ip;
     }
 
 
     public static function hasIp($ip_address)
     {
-        $ip = Ip::where('ip_from', "<=", IpUtil::ipv4ToInt($ip_address))
-            ->where('ip_to', ">=", IpUtil::ipv4ToInt($ip_address))
-            ->get();
+        $ip = Ip::where('ip_from', "=", IpUtil::ipv4ToInt($ip_address))->get();
+        if($ip->count() == 0){
+            $ip = Ip::where('ip_from', "<=", IpUtil::ipv4ToInt($ip_address))
+                ->where('ip_to', ">=", IpUtil::ipv4ToInt($ip_address))
+                ->get();
+        }
         return !($ip->count() == 0);
     }
 
@@ -93,7 +96,7 @@ class WhoisService
     {
         $WhoisService = new self(self::detectWhoisServer($ip_address));
         $result = $WhoisService->lookup($ip_address);
-        $WhoisService->save($result);
+        return $WhoisService->save($result);
     }
 
     /**

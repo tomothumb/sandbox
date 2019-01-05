@@ -13,6 +13,9 @@ class JpnicIpsTableSeeder extends Seeder
      */
     public function run()
     {
+        // @refer https://www.nic.ad.jp/ja/dns/ap-addr-block.html
+        // @refer https://www.nic.ad.jp/ja/dns/jp-addr-block.html
+        // @refer https://github.com/matsumotory/Create-IP-List-from-JPNIC
         \DB::table("iprange_jpnic")->truncate();
         $file = new SplFileObject('database/csv/ipv4_jpnic.csv');
         $file->setFlags(

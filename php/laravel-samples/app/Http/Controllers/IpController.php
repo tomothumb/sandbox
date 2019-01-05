@@ -6,12 +6,15 @@ use App\Ip;
 use App\Service\Whois\Parser\WhoisParserInterface;
 use App\Service\Whois\WhoisService;
 use Illuminate\Http\Request;
+use IPv4\SubnetCalculator;
 
 class IpController extends Controller
 {
 
     public function index()
     {
+        $subnet = SubnetCalculator::build('49.212.146.0/24');
+dd($subnet->getIPAddressRange() );
         $ips = Ip::paginate(100);
         return view('ip.list', compact('ips'));
     }

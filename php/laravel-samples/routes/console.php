@@ -1,5 +1,7 @@
 <?php
 
+use App\Service\Whois\Parser\JpnicParser;
+use App\Service\Whois\WhoisService;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -17,7 +19,17 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-//Artisan::command('sample',function(){
-//    $nextip = \App\Service\Whois\WhoisService::incrementIpv4Counter();
-//    echo "{$nextip}\n";
-//});
+Artisan::command('ipv4crawl',function(){
+    $nextip = \App\Service\Whois\WhoisService::incrementIpv4Counter();
+
+    if(! WhoisService::hasIp($nextip)){
+        $parser = WhoisService::detectWhoisServer($nextip);
+        if($parser instanceof JpnicParser){
+            $ip_obj = WhoisService::addIp($nextip);
+            if($ip_obj->ip_to != "" ){
+                $nextip = \App\Service\Whois\WhoisService::setIpv4Counter($ip_obj->ip_to);
+            }
+        }
+    }
+    echo "{$nextip}\n";
+});
