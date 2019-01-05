@@ -18,9 +18,9 @@
         tr{}
         td,
         th{
-            font-size: 13px;
+            font-size: 12px;
             border: 1px solid #CCCCCC;
-            padding:5px 10px;
+            padding:2px 10px;
         }
     </style>
 </head>
@@ -42,23 +42,15 @@
                 <td>ドメイン</td>
                 <td>IP - Start</td>
                 <td>IP - End</td>
-                <td></td>
+                <td>&nbsp;</td>
             </tr>
             </thead>
             @foreach ($ips as $ip)
                 <tr>
-                    <td>
-                        <p>{{$ip->org}}</p>
-                    </td>
-                    <td>
-                        <p>{{$ip->domain}}</p>
-                    </td>
-                    <td>
-                        <p>{{$ip->ip_from}}</p>
-                    </td>
-                    <td>
-                        <p>{{$ip->ip_to}}</p>
-                    </td>
+                    <td>{{$ip->org}}</td>
+                    <td>{{$ip->domain}}</td>
+                    <td>{{$ip->ip_from}}</td>
+                    <td>{{$ip->ip_to}}</td>
                     <td>
                         <a href="/ip/{{$ip->id}}">詳細</a>
                         <a href="/ip/{{$ip->id}}/delete">削除</a>
