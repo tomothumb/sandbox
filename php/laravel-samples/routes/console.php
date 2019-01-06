@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Repository\IpRepository;
 use App\Service\Whois\Parser\JpnicParser;
 use App\Service\Whois\WhoisService;
 use Illuminate\Foundation\Inspiring;
@@ -22,20 +23,23 @@ Artisan::command('inspire', function () {
 Artisan::command('ipv4crawl',function(){
     $nextip = \App\Service\Whois\WhoisService::incrementIpv4Counter();
 
-    if(! WhoisService::hasIp($nextip)){
-        $parser = WhoisService::detectWhoisServer($nextip);
+    if($ip_addreses = IpRepository::find($nextip)){
+        $ip_model = $ip_addreses->first();
+        $nextip = \App\Service\Whois\WhoisService::setIpv4Counter($ip_model->ip_to);
+        echo "EXIST IP ADDRESS [IP RANGE FINISH]:{$nextip}\n";
+    }else{
+//        $parser = WhoisService::detectWhoisServer($nextip);
 //        if($parser instanceof JpnicParser){
             $ip_obj = WhoisService::addIp($nextip);
             if($ip_obj->ip_to != "" ){
                 $nextip = \App\Service\Whois\WhoisService::setIpv4Counter($ip_obj->ip_to);
             }
 //        }
+        echo "{$nextip}\n";
     }
-    echo "{$nextip}\n";
 });
 
 Artisan::command('ipv4whois {ipv4}',function($ipv4){
-
     if(! WhoisService::hasIp($ipv4)){
         $parser = WhoisService::detectWhoisServer($ipv4);
         $ip_obj = WhoisService::addIp($ipv4);
