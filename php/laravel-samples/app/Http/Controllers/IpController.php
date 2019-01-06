@@ -11,7 +11,7 @@ class IpController extends Controller
 
     public function index()
     {
-        $ips = Ip::paginate(500);
+        $ips = Ip::orderBy('ip_from',"DESC")->paginate(500);
         return view('ip.list', compact('ips'));
     }
 

@@ -17,8 +17,8 @@ class CreateIpsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('ip_from')->nullable();
             $table->unsignedBigInteger('ip_to')->nullable();
-            $table->string('domain', 100)->nullable();
-            $table->string('org', 100)->nullable();
+            $table->string('domain', 255)->nullable();
+            $table->string('org', 255)->nullable();
             $table->timestamps();
         });
     }
