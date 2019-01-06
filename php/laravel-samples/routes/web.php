@@ -1,15 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Auth::routes();
 
 Route::get('/', function () {
     $user1 = \App\User::firstOrNew([
@@ -35,28 +26,37 @@ Route::get('/', function () {
 });
 
 
-Route::get('/notification/', 'NotificationDemoController@welcome');
-Route::post('/notification/subscript', 'NotificationDemoController@subscript');
-Route::get('/notification/data', 'NotificationDemoController@notificationData');
-Route::post('/notification/send', 'NotificationDemoController@send');
-Route::get('/notification/send', 'NotificationDemoController@send');
+Route::group(['prefix' => 'notification'], function () {
+    Route::get('/', 'NotificationDemoController@welcome');
+    Route::post('/subscript', 'NotificationDemoController@subscript');
+    Route::get('/data', 'NotificationDemoController@notificationData');
+    Route::post('/send', 'NotificationDemoController@send');
+    Route::get('/send', 'NotificationDemoController@send');
+});
 
-Route::get('/twilio/', 'TwilioController@index');
-Route::get('/twilio/{phone_number}/sendsms', 'TwilioController@sendSMS');
-Route::get('/twilio/{phone_number}/sendsms_by_di', 'TwilioController@sendSMSByDI');
+Route::group(['prefix' => 'twilio'], function () {
+    Route::get('/', 'TwilioController@index');
+    Route::get('/{phone_number}/sendsms', 'TwilioController@sendSMS');
+    Route::get('/{phone_number}/sendsms_by_di', 'TwilioController@sendSMSByDI');
+});
 
-Route::get('/ip/', 'IpController@index');
-Route::get('/ip/new', 'IpController@form');
-Route::post('/ip/new', 'IpController@create');
-Route::get('/ip/{id}', 'IpController@detail');
-Route::post('/ip/{id}/edit', 'IpController@update');
-Route::get('/ip/{id}/delete', 'IpController@delete');
+Route::group(['prefix' => 'ip'], function () {
+    Route::get('/', 'IpController@index');
+    Route::get('/new', 'IpController@form');
+    Route::post('/new', 'IpController@create');
+    Route::get('/{id}', 'IpController@detail');
+    Route::post('/{id}/edit', 'IpController@update');
+    Route::get('/{id}/delete', 'IpController@delete');
+});
 
 
 Route::get('/static/', 'StaticController@index');
 
-Route::get('/form/create', 'FormController@create')->name('form.create');
-Route::post('/form/store', 'FormController@store')->name('form.store');
+Route::group(['prefix' => 'form'], function () {
+    Route::get('/create', 'FormController@create')->name('form.create');
+    Route::post('/store', 'FormController@store')->name('form.store');
+});
+
 
 
 Route::get('/crawler/yahoo_news', 'CrawlerSettingController@getYahooNews');
@@ -131,15 +131,7 @@ Route::group(['prefix' => '/user/{user_id}'], function(){
 
             return redirect("/user/{$user_id}/post/{$post_id}");
         });
-
     });
-
-
 });
-
-
-
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
