@@ -139,3 +139,7 @@ Route::group(['prefix' => '/user/{user_id}'], function(){
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
