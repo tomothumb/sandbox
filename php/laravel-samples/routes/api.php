@@ -22,3 +22,21 @@ Route::group(['prefix' => '/whois'], function(){
     Route::get('/forcelookup/{ipv4}', 'Api\WhoisController@forcelookup');
 });
 
+//JSONP
+Route::get('/jsonp', function(){
+    $callback_fn = request()->get('_callback');
+    return response()->jsonp($callback_fn, ['a','b','c']);
+
+    /*
+     * # javascript
+        callbackfunc = function(json){
+            console.log(json);
+        };
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://127.0.0.1:9090/api/whois/lookup/11.22.33.45?_callback=callbackfunc',
+            dataType: 'jsonp'
+        });
+     */
+});
