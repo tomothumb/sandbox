@@ -135,3 +135,8 @@ Route::group(['prefix' => '/user/{user_id}'], function(){
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['prefix' => 'db'], function () {
+    Route::get('/', 'DbController@getList');
+});
