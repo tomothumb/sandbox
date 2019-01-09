@@ -11,6 +11,7 @@
         "chrome-php/chrome": "^0.2.1",
         "fabpot/goutte": "^3.2",
         "fideloper/proxy": "~3.3",
+        "guzzlehttp/guzzle": "^6.3",
         "jonnyw/php-phantomjs": "4.*",
         "jsmitty12/phpwhois": "^5.5",
         "kris/laravel-form-builder": "^1.15",
