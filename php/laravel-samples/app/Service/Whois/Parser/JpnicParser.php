@@ -4,7 +4,7 @@ namespace App\Service\Whois\Parser;
 
 use IPv4\SubnetCalculator;
 
-class JpnicParser extends Parser implements WhoisParserInterface
+class JpnicParser extends DefaultParser
 {
     const SERVER = 'whois.nic.ad.jp';
     const LABEL_NETWORK_IP_RANGE = [
@@ -24,22 +24,17 @@ class JpnicParser extends Parser implements WhoisParserInterface
         "\[Organization\]"
     ];
 
-    protected $whois;
-
-    public function getServer()
-    {
-        return self::SERVER;
-    }
-
-    public function parse($source)
+    public function parse()
     {
         $arr = [];
-        foreach ($source['rawdata'] as $data) {
+        foreach ($this->source['rawdata'] as $data) {
             $arr[] = iconv('ISO-2022-JP', 'UTF-8', $data);
         }
-        $source['rawdata'] = $arr;
-        $source['parseddata'] = [];
-        $this->whois = $source;
+        $this->result = [
+            'rawdata' => $arr,
+            'parseddata' => []
+        ];
+
         $this->setOrganization();
         $this->setOrganizationEn();
         $this->setNetwork();
@@ -47,53 +42,14 @@ class JpnicParser extends Parser implements WhoisParserInterface
         return $this;
     }
 
-    private function setNetwork()
+    public function setIpRange()
     {
-        foreach ($this->whois['rawdata'] as $data) {
-            foreach (self::LABEL_NETWORK_NAME as $search_key){
-                if (preg_match("/" . $search_key . "/", $data, $matches)) {
-                    $network_name = preg_replace("/" . $search_key . "/", "", $data);
-                    $this->whois['parseddata']['network_name'] = trim($network_name);
-                    return;
-                }
-            }
-        }
-    }
-
-    private function setOrganization()
-    {
-        foreach ($this->whois['rawdata'] as $data) {
-            foreach (self::LABEL_ORG as $search_key) {
-                if (preg_match("/" . $search_key . "/", $data, $matches)) {
-                    $organization = preg_replace("/" . $search_key . "/", "", $data);
-                    $this->whois['parseddata']['organization'] = trim($organization);
-                    return;
-                }
-            }
-        }
-    }
-
-    private function setOrganizationEn()
-    {
-        foreach ($this->whois['rawdata'] as $data) {
-            foreach (self::LABEL_ORG_EN as $search_key) {
-                if (preg_match("/" . $search_key . "/", $data, $matches)) {
-                    $organization_en = preg_replace("/" . $search_key . "/", "", $data);
-                    $this->whois['parseddata']['organization_en'] = trim($organization_en);
-                    return;
-                }
-            }
-        }
-    }
-
-    private function setIpRange()
-    {
-        foreach ($this->whois['rawdata'] as $data) {
+        foreach ($this->result['rawdata'] as $data) {
             foreach (self::LABEL_NETWORK_IP_RANGE as $search_key) {
                 if (preg_match("/" . $search_key . "/", $data, $matches)) {
                     $ip_range = preg_replace("/" . $search_key . "/", "", $data);
-                    $this->whois['parseddata']['ip_range'] = $this->calcIpRange(trim($ip_range));
-                    $this->whois['parseddata']['ip_subnet'] = trim($ip_range);
+                    $this->result['parseddata']['ip_range'] = $this->calcIpRange(trim($ip_range));
+                    $this->result['parseddata']['ip_subnet'] = trim($ip_range);
                     return;
                 }
             }
@@ -107,17 +63,55 @@ class JpnicParser extends Parser implements WhoisParserInterface
 
         $subnet = SubnetCalculator::factory($ip_range);
 
-        $address_range = $subnet->getIPAddressRange();         // [192.168.112.0, 192.168.113.255]
+        // [192.168.112.0, 192.168.113.255]
+        $address_range = $subnet->getIPAddressRange();
         return [
             'from' => $address_range[0],
             'to' => $address_range[1]
         ];
     }
-    public function setIp($ip)
+
+
+
+    public function setNetwork()
     {
-        $this->whois['parseddata']['ip'] = $ip;
-        return $this;
+        foreach ($this->result['rawdata'] as $data) {
+            foreach (self::LABEL_NETWORK_NAME as $search_key){
+                if (preg_match("/" . $search_key . "/", $data, $matches)) {
+                    $network_name = preg_replace("/" . $search_key . "/", "", $data);
+                    $this->result['parseddata']['network_name'] = trim($network_name);
+                    return;
+                }
+            }
+        }
     }
+
+    public function setOrganization()
+    {
+        foreach ($this->result['rawdata'] as $data) {
+            foreach (self::LABEL_ORG as $search_key) {
+                if (preg_match("/" . $search_key . "/", $data, $matches)) {
+                    $organization = preg_replace("/" . $search_key . "/", "", $data);
+                    $this->result['parseddata']['organization'] = trim($organization);
+                    return;
+                }
+            }
+        }
+    }
+
+    public function setOrganizationEn()
+    {
+        foreach ($this->result['rawdata'] as $data) {
+            foreach (self::LABEL_ORG_EN as $search_key) {
+                if (preg_match("/" . $search_key . "/", $data, $matches)) {
+                    $organization_en = preg_replace("/" . $search_key . "/", "", $data);
+                    $this->result['parseddata']['organization_en'] = trim($organization_en);
+                    return;
+                }
+            }
+        }
+    }
+
 
 }
 

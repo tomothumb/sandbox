@@ -4,8 +4,13 @@ namespace App\Service\Whois\Parser;
 
 interface WhoisParserInterface
 {
-    public function parse($source);
+    public function setSource($source);
+    public function parse();
     public function setIp($ip);
-    public function getServer();
     public function get();
+
+    public function setNetwork();
+    public function setOrganization();
+    public function setOrganizationEn();
+    public function setIpRange();
 }

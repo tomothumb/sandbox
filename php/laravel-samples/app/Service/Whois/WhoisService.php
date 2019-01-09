@@ -3,16 +3,15 @@
 namespace App\Service\Whois;
 
 use App\Ip;
-use App\IpRangeJpnic;
-use App\Service\Whois\Parser\DefaultParser;
-use App\Service\Whois\Parser\JpnicParser;
 use App\Service\Whois\Parser\WhoisParserInterface;
+use App\Service\Whois\Request\WhoisRequestInterface;
 use phpWhois\Whois;
 
 class WhoisService
 {
-    const FILEPATH_COUNTER = 'database/data/ipv4_counter.txt';
     public $parser;
+    public $request;
+
     public $result;
     public $source;
     public $ip;
@@ -21,36 +20,29 @@ class WhoisService
      * WhoisService constructor.
      * @param $parser
      */
-    public function __construct(WhoisParserInterface $parser)
+    public function __construct(WhoisRequestInterface $request, WhoisParserInterface $parser)
     {
+        $this->request = $request;
         $this->parser = $parser;
+    }
+
+    public static function factory($ip_address){
+        $whoisServerPrefix = WhoisServiceResolver::resolve($ip_address);
+        $parser_class_name = "App\Service\Whois\Parser\\".$whoisServerPrefix."Parser";
+        $request_class_name = "App\Service\Whois\Request\\".$whoisServerPrefix."Request";
+        $parser = new $parser_class_name($ip_address);
+        $request = new $request_class_name($ip_address);
+        return new self($request,$parser);
     }
 
     public function lookup($ip)
     {
         $this->ip = $ip;
-        $whois = new Whois();
-        if ($this->parser->getServer() != false) {
-            $whois->useServer('ip', $this->parser->getServer());
-        }
-        $result = $whois->lookup($ip, true);
-        $this->setSource($result);
-        $this->parse();
+        $response = $this->request->lookup($ip);
+        $this->result = $this->parser->setSource($response)->parse()->get();
         return $this->result;
     }
 
-    public function setSource($source)
-    {
-        $this->source = $source;
-    }
-
-    public function parse()
-    {
-        $this->result = $this->parser
-            ->parse($this->source)
-            ->setIp($this->ip)
-            ->get();
-    }
 
     public function save($result = null)
     {
@@ -75,11 +67,17 @@ class WhoisService
             $ip->org = isset($result['parseddata']['organization']) ?
                 $result['parseddata']['organization'] : "";
         }
-
         $ip->save();
         return $ip;
     }
 
+    public static function addIp($ip_address)
+    {
+
+        $WhoisService = self::factory($ip_address);
+        $result = $WhoisService->lookup($ip_address);
+        return $WhoisService->save($result);
+    }
 
     public static function hasIp($ip_address)
     {
@@ -90,50 +88,6 @@ class WhoisService
                 ->get();
         }
         return !($ip->count() == 0);
-    }
-
-    public static function addIp($ip_address)
-    {
-        $WhoisService = new self(self::detectWhoisServer($ip_address));
-        $result = $WhoisService->lookup($ip_address);
-        return $WhoisService->save($result);
-    }
-
-    /**
-     * @param $ip_address
-     * @return WhoisParserInterface
-     */
-    public static function detectWhoisServer($ip_address)
-    {
-        $iprange = IpRangeJpnic::where('ip_from', "<=", IpUtil::ipv4ToInt($ip_address))
-            ->where('ip_to', ">=", IpUtil::ipv4ToInt($ip_address))
-            ->get();
-        if ($iprange->count() >= 1) {
-            return new JpnicParser();
-        }
-        return new DefaultParser();
-    }
-
-
-    public static function incrementIpv4Counter($ip = null)
-    {
-        if($ip == null){
-            $file_path = base_path(self::FILEPATH_COUNTER);
-            // Read File
-            $ip = file_get_contents($file_path);
-        }
-        $next_ip = \App\Service\Whois\IpUtil::increment($ip);
-
-        return self::setIpv4Counter($next_ip);
-    }
-
-    public static function setIpv4Counter($next_ip)
-    {
-        $file_path = base_path(self::FILEPATH_COUNTER);
-
-        // Write File
-        file_put_contents($file_path, $next_ip);
-        return $next_ip;
     }
 
 }

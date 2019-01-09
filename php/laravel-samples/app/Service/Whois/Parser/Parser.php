@@ -4,28 +4,46 @@ namespace App\Service\Whois\Parser;
 
 class Parser implements WhoisParserInterface
 {
-
     const LABEL_NO = 'This network range is not allocated to';
-    protected $whois;
+    protected $result;
+    protected $source;
 
-    public function getServer()
+    public function setSource($source)
     {
+        $this->source = $source;
+        return $this;
     }
 
-    public function parse($source)
+    public function parse()
     {
-        $this->whois = $source;
+        $this->result = [
+            'rawdata' => $this->source,
+            'parseddata' => []
+        ];
+        $this->setOrganization();
+        $this->setOrganizationEn();
+        $this->setNetwork();
+        $this->setIpRange();
         return $this;
     }
 
     public function setIp($ip)
     {
-        $this->whois['parseddata']['ip'] = $ip;
+        $this->result['parseddata']['ip'] = $ip;
         return $this;
     }
 
     public function get()
     {
-        return $this->whois;
+        return $this->result;
     }
+
+    public function setNetwork(){}
+
+    public function setOrganization(){}
+
+    public function setOrganizationEn(){}
+
+    public function setIpRange(){}
+
 }

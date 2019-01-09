@@ -2,21 +2,8 @@
 
 namespace App\Service\Whois\Parser;
 
-class ApnicParser
+class ApnicParser extends Parser
 {
-    protected $result;
-    protected $source;
-
-    public function setSource($source)
-    {
-        $this->source = $source;
-        return $this;
-    }
-
-    public function get()
-    {
-        return $this->result;
-    }
 
     public function parse()
     {
@@ -31,22 +18,30 @@ class ApnicParser
         return $this;
     }
 
-    private function setNetwork()
+    public function setNetwork()
     {
         $this->result['parseddata']['network_name'] = $this->result['rawdata']->remarks[0]->description[0];
     }
 
-    private function setOrganization()
+    public function setOrganization()
     {
-        $this->result['parseddata']['organization'] = $this->result['rawdata']->remarks[0]->description[1];
+        if( isset($this->result['rawdata']->remarks[0]->description[1])){
+            $this->result['parseddata']['organization'] = $this->result['rawdata']->remarks[0]->description[1];
+        }else{
+            $this->result['parseddata']['organization'] = $this->result['rawdata']->remarks[0]->description[0];
+        }
     }
 
-    private function setOrganizationEn()
+    public function setOrganizationEn()
     {
-        $this->result['parseddata']['organization_en'] = $this->result['rawdata']->remarks[0]->description[1];
+        if( isset($this->result['rawdata']->remarks[0]->description[1])){
+            $this->result['parseddata']['organization_en'] = $this->result['rawdata']->remarks[0]->description[1];
+        }else{
+            $this->result['parseddata']['organization_en'] = $this->result['rawdata']->remarks[0]->description[0];
+        }
     }
 
-    private function setIpRange()
+    public function setIpRange()
     {
         $this->result['parseddata']['ip_range'] = [
             'from' => $this->result['rawdata']->startAddress,
@@ -57,12 +52,6 @@ class ApnicParser
 
     private function setCountry(){
         $this->result['parseddata']['ip_subnet'] = $this->result['rawdata']->country;
-    }
-
-    public function setIp($ip)
-    {
-        $this->result['parseddata']['ip'] = $ip;
-        return $this;
     }
 
 }
