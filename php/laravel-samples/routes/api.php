@@ -20,11 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => '/whois'], function(){
     Route::get('/lookup/{ipv4}', 'Api\WhoisController@lookup');
     Route::get('/forcelookup/{ipv4}', 'Api\WhoisController@forcelookup');
+    Route::get('/lookup/{ipv4}/jsonp', 'Api\WhoisController@lookupJsonp');
+    Route::get('/forcelookup/{ipv4}/jsonp', 'Api\WhoisController@forcelookupJsonp');
 });
 
 //JSONP
 Route::get('/jsonp', function(){
-    $callback_fn = request()->get('_callback');
+    $callback_fn = request()->get('jsonp_callback');
     return response()->jsonp($callback_fn, ['a','b','c']);
 
     /*
