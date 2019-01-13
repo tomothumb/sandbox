@@ -61,6 +61,14 @@ class JpnicParser extends DefaultParser
 //        $network = explode('/', $ip_range);
 //        $subnet = new SubnetCalculator($network[0], $network[1]);
 
+        if(preg_match("/\-/",$ip_range)){
+            $address_range = explode("-",$ip_range);
+            return [
+                'from' => trim($address_range[0]),
+                'to' => trim($address_range[1])
+            ];
+        }
+
         $subnet = SubnetCalculator::factory($ip_range);
 
         // [192.168.112.0, 192.168.113.255]
