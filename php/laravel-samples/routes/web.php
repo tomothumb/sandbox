@@ -140,3 +140,35 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'db'], function () {
     Route::get('/', 'DbController@getList');
 });
+
+Route::group(['prefix'=>'checkout'], function(){
+    Route::get("/",function(){
+        return view('checkout.index');
+
+    });
+    Route::post("/send",function(){
+        //ここにstripeアカウントのAPIキーをコピペ
+　　　　　　　\Stripe\Stripe::setApiKey("sk_test_mhRh1CO1e9csfOCDLEFdhO7X");
+
+        /* 以下「Creating Charges」からのコピペ */
+
+        // Get the credit card details submitted by the form
+        $token = $_POST['stripeToken'];
+
+        // Create a charge: this will charge the user's card
+        try {
+            $charge = \Stripe\Charge::create(array(
+                "amount" => 1000, // 課金額はココで調整
+                "currency" => "jpy",
+                "source" => $token,
+                "description" => "Example charge"
+            ));
+        } catch(\Stripe\Error\Card $e) {
+            // The card has been declined
+        }
+
+        // サンクスメール送る...
+
+        return view('home');
+    });
+});
