@@ -8,6 +8,14 @@
 
 import UIKit
 
+extension UIColor {
+    static let normalText = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+}
+
+extension UIFont {
+    static let normalText = UIFont.systemFont(ofSize: 14)
+}
+
 class ViewController: UIViewController {
 
     let label = UILabel()
