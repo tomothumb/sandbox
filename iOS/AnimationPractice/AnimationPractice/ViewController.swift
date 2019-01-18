@@ -18,32 +18,27 @@ class ViewController: UIViewController {
         let containerView = UIView()
         containerView.backgroundColor = .white
         
-//        let redView = UIView()
-//        redView.backgroundColor = .red
-//
-//        let blueView = UIView()
-//        blueView.backgroundColor = .blue
-//
-//        let greenView = UIView()
-//        greenView.backgroundColor = .green
-//        let yellowView = UIView()
-//        yellowView.backgroundColor = .yellow
-//
-//        let arrangedSubviews = [redView, blueView, greenView, yellowView]
-
         // configration options
-        let iconHeight: CGFloat = 40
+        let iconHeight: CGFloat = 30
         let iconWidth: CGFloat = iconHeight
-        let padding: CGFloat = 6
+        let padding: CGFloat = 8
         
+        let images = [
+            UIImage(named: "smiling.png"),
+            UIImage(named: "disappointed.png"),
+            UIImage(named: "heart.png"),
+            UIImage(named: "thumbs-up"),
+            UIImage(named: "thumbs-down"),
+        ]
 
-        let arrangedSubviews = [UIColor.red, .orange, .green, .yellow].map({ (color) -> UIView in
-            let v = UIView()
-            v.backgroundColor = color
-            v.layer.cornerRadius = iconHeight / 2
-            return v
+        let arrangedSubviews = images.map({ (image) -> UIView in
+            let imageView = UIImageView(image: image)
+//            imageView.layer.co
+//            v.backgroundColor = color
+            imageView.layer.cornerRadius = iconHeight / 2
+            return imageView
         })
-        
+
         let stackView = UIStackView(arrangedSubviews: arrangedSubviews)
         stackView.distribution = .fillEqually
         
