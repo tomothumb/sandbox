@@ -9,22 +9,77 @@ import UIKit
 
 class ViewController: UIViewController {
     
-//    let bgImageView: UIImageView = {
-//        let imageView = UIImageView(image: )
-//        return imageView
-//    }()
+    let bgImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "smiling.png"))
+        return imageView
+    }()
     
     let iconsContainerView: UIView = {
         let containerView = UIView()
-        containerView.backgroundColor = .red
-        containerView.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
+        containerView.backgroundColor = .white
+        
+//        let redView = UIView()
+//        redView.backgroundColor = .red
+//
+//        let blueView = UIView()
+//        blueView.backgroundColor = .blue
+//
+//        let greenView = UIView()
+//        greenView.backgroundColor = .green
+//        let yellowView = UIView()
+//        yellowView.backgroundColor = .yellow
+//
+//        let arrangedSubviews = [redView, blueView, greenView, yellowView]
+
+        // configration options
+        let iconHeight: CGFloat = 40
+        let iconWidth: CGFloat = iconHeight
+        let padding: CGFloat = 6
+        
+
+        let arrangedSubviews = [UIColor.red, .orange, .green, .yellow].map({ (color) -> UIView in
+            let v = UIView()
+            v.backgroundColor = color
+            v.layer.cornerRadius = iconHeight / 2
+            return v
+        })
+        
+        let stackView = UIStackView(arrangedSubviews: arrangedSubviews)
+        stackView.distribution = .fillEqually
+        
+        
+        stackView.spacing = padding
+        stackView.layoutMargins = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        
+        containerView.addSubview(stackView)
+        
+        let numberOfIcons: CGFloat = CGFloat(arrangedSubviews.count);
+        containerView.frame = CGRect(x: 0, y: 0,
+                                     width: numberOfIcons * iconWidth + (numberOfIcons+1) * padding,
+                                     height: iconHeight + 2 * padding)
+        containerView.layer.cornerRadius = containerView.frame.height / 2
+        // shadow
+        containerView.layer.shadowColor = UIColor(white: 0.0, alpha: 0.7).cgColor
+        containerView.layer.shadowRadius = 8
+        containerView.layer.shadowOpacity = 0.5
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        
+        stackView.frame = containerView.frame
         return containerView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.view.didAddSubview(bgImageView)
-//        bgImageView.frame = view.frame
+
+        // 画面の横幅を取得
+        let screenWidth:CGFloat = view.frame.size.width
+        let screenHeight:CGFloat = view.frame.size.height
+        // 画像の中心を画面の中心に設定
+        bgImageView.center = CGPoint(x:screenWidth/2, y:screenHeight/2)
+        self.view.addSubview(bgImageView)
+
+        
         setupLongPressGesture()
     }
     
