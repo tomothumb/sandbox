@@ -30,12 +30,14 @@ class ViewController: UIViewController {
             UIImage(named: "thumbs-up"),
             UIImage(named: "thumbs-down"),
         ]
-
+        
+    
         let arrangedSubviews = images.map({ (image) -> UIView in
             let imageView = UIImageView(image: image)
-//            imageView.layer.co
-//            v.backgroundColor = color
+            
             imageView.layer.cornerRadius = iconHeight / 2
+            imageView.isUserInteractionEnabled = true
+            
             return imageView
         })
 
@@ -90,8 +92,43 @@ class ViewController: UIViewController {
             self.handleGestureBegan(gesture: gesture)
         } else if gesture.state == .ended {
             print("ended")
-            iconsContainerView.removeFromSuperview()
+            // clean up the animation
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut,
+               animations: {
+                let stackView = self.iconsContainerView.subviews.first
+                stackView?.subviews.forEach({ (imageView) in
+                    imageView.transform = .identity
+                })
+                self.iconsContainerView.transform = self.iconsContainerView.transform.translatedBy(x: 0, y: 50)
+                self.iconsContainerView.alpha = 0
+                
+            },completion: { (_) in
+                self.iconsContainerView.removeFromSuperview()
+            })
+        } else if gesture.state == .changed {
+            self.handleGestureChanged(gesture: gesture)
         }
+    }
+
+    fileprivate func handleGestureChanged(gesture: UILongPressGestureRecognizer){
+        let pressedLocation = gesture.location(in: self.iconsContainerView)
+        print(pressedLocation)
+        
+        let hitTestView = iconsContainerView.hitTest(pressedLocation, with: nil)
+        
+        if hitTestView is UIImageView {
+//            hitTestView?.alpha = 0
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut,
+               animations: {
+                let stackView = self.iconsContainerView.subviews.first
+                stackView?.subviews.forEach({ (imageView) in
+                    imageView.transform = .identity
+                })
+                hitTestView?.transform = CGAffineTransform(translationX: 0, y: -50)
+            })
+        }
+
+
     }
     
     // 初期化
