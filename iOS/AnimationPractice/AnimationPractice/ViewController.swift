@@ -7,8 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
+
+//class ViewController: UIViewController {
+class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+
+    var cnt: Int = 0
+
     let bgImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "smiling.png"))
         return imageView
