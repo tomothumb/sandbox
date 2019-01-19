@@ -7,6 +7,10 @@
 
 import UIKit
 
+class Post {
+    var name: String?
+    var statusText: String?
+}
 
 //class ViewController: UIViewController {
 class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -69,9 +73,23 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         stackView.frame = containerView.frame
         return containerView
     }()
+    
+    var posts = [Post]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let postMark = Post()
+        postMark.name = "Mark"
+        postMark.statusText = "I am Mark"
+        
+        let postSteave = Post()
+        postSteave.name = "Steave"
+        postSteave.statusText = "abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg \n\n ABCDEFG "
+        
+        posts.append(postMark)
+        posts.append(postSteave)
+        
 
         navigationItem.title = "Feed"
 
@@ -92,15 +110,32 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        
+        return posts.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let feedCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FeedCell
+        
+        feedCell.post = posts[indexPath.item]
+        
+//        if let name = posts[indexPath.item].name {
+//            feedCell.nameLabel.text = name
+//        }
+        
+        return feedCell
+//        return collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
+        if let statusText = posts[indexPath.item].statusText {
+            let rect = NSString(string: statusText).boundingRect(with: CGSize(width: view.frame.width, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 11
+                )], context: nil)
+            
+            let knownHeight:CGFloat = 8 + 44 + 4 + 4 + 150 + 8 + 24 + 8 + 0.5 + 8 + 30
+            return CGSize(width:view.frame.width,height: rect.height + knownHeight + 16)
+        }
         return CGSize(width: view.frame.width, height: 300)
     }
 
@@ -189,6 +224,43 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 let cellId = "cellId"
 
 class FeedCell: UICollectionViewCell {
+    
+    var post: Post? {
+        didSet {
+            
+            if let statusText = post?.statusText {
+                statusTextView.text = statusText
+                statusTextView.font = UIFont.systemFont(ofSize: 14)
+                
+            }
+            if let name = post?.name {
+                // テキスト
+                let attributedText = NSMutableAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)])
+                
+                // テキスト追加
+                attributedText.append(NSAttributedString(
+                    string: "\n- December 111 - abc",
+                    attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1),
+                                 NSAttributedString.Key.backgroundColor: UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 1),
+                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)
+                    ]
+                ))
+                
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 4
+                attributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.count))
+                
+                // 画像
+                let attachmentImg = NSTextAttachment()
+                attachmentImg.image = UIImage(named: "smiling")
+                attachmentImg.bounds = CGRect(x: 0, y: -4, width: 16, height: 16)
+                attributedText.append(NSAttributedString(attachment: attachmentImg))
+
+                nameLabel.attributedText = attributedText
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -201,34 +273,7 @@ class FeedCell: UICollectionViewCell {
 
     let nameLabel: UILabel = {
         let label = UILabel()
-
-        // テキスト
-        let attributedText = NSMutableAttributedString(string: "Sample Name", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
-
-        // テキスト追加
-        attributedText.append(NSAttributedString(
-                string: " - December 111 - abc",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1),
-                             NSAttributedString.Key.backgroundColor: UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 1),
-                             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)
-                ]
-        ))
-
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
-        paragraphStyle.lineBreakMode = .byTruncatingTail
-        attributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.count))
-
-        // 画像
-        let attachmentImg = NSTextAttachment()
-        attachmentImg.image = UIImage(named: "smiling")
-        attachmentImg.bounds = CGRect(x: 0, y: -4, width: 16, height: 16)
-        attributedText.append(NSAttributedString(attachment: attachmentImg))
-
-        label.attributedText = attributedText
-
-        // このViewだけAutoLayoutを適応する（False:AutoLayoutを解除）
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 2
         return label
     }()
 
@@ -252,8 +297,7 @@ class FeedCell: UICollectionViewCell {
 
     let statusTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "Hi, there. \n I'm here."
-        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.isScrollEnabled = false
         return textView
     }()
 
@@ -320,7 +364,7 @@ class FeedCell: UICollectionViewCell {
         addConstraintsWithFormat(format: "H:|[v0(v2)][v1(v2)][v2]|", views: likeButton,commentButton,heartButton)
         
         addConstraintsWithFormat(format: "V:|-12-[v0]", views: nameLabel)
-        addConstraintsWithFormat(format: "V:|-8-[v0(44)]-4-[v1(35)]-4-[v2]-8-[v3(24)]-8-[v4(0.5)]-8-[v5(30)]|", views: profileImageView, statusTextView, statusImageView, likesCommentsLabel,dividerLineView,likeButton)
+        addConstraintsWithFormat(format: "V:|-8-[v0(44)]-4-[v1]-4-[v2(150)]-8-[v3(24)]-8-[v4(0.5)]-8-[v5(30)]|", views: profileImageView, statusTextView, statusImageView, likesCommentsLabel,dividerLineView,likeButton)
         addConstraintsWithFormat(format: "V:[v0(30)]|", views:commentButton)
         addConstraintsWithFormat(format: "V:[v0(30)]|", views:heartButton)
 
