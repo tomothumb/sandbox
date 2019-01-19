@@ -271,9 +271,30 @@ class FeedCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "400 Likes   10.7k Comments"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor.rgb(red: 200, green: 200, blue: 200)
+        label.textColor = UIColor.rgb(red: 150, green: 150, blue: 150)
         return label
     }()
+    
+    let dividerLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.rgb(red: 200, green: 200, blue: 200)
+        return view
+    }()
+    
+    let likeButton = buttonForTitle(title: "like", imageName: "thumbs-up")
+    let commentButton = buttonForTitle(title: "hate", imageName: "thumbs-down")
+    let heartButton = buttonForTitle(title: "heart", imageName: "heart")
+
+    static func buttonForTitle(title: String, imageName: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle(title, for: UIControl.State.normal)
+        button.setTitleColor(UIColor.rgb(red: 150, green: 150, blue: 255), for: UIControl.State.normal)
+        button.setImage(UIImage(named: imageName), for: UIControl.State.normal)
+        
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        return button
+    }
 
     func setupViews() {
         backgroundColor = UIColor.white
@@ -283,14 +304,25 @@ class FeedCell: UICollectionViewCell {
         addSubview(statusTextView)
         addSubview(statusImageView)
         addSubview(likesCommentsLabel)
+        addSubview(dividerLineView)
+        addSubview(likeButton)
+        addSubview(commentButton)
+        addSubview(heartButton)
+        
 
         addConstraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
         addConstraintsWithFormat(format: "H:|-4-[v0]-4-|", views: statusTextView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: statusImageView)
         addConstraintsWithFormat(format: "H:|-12-[v0]|", views: likesCommentsLabel)
-
+        addConstraintsWithFormat(format: "H:|-12-[v0]-12-|", views: dividerLineView)
+        
+        // button constraints
+        addConstraintsWithFormat(format: "H:|[v0(v2)][v1(v2)][v2]|", views: likeButton,commentButton,heartButton)
+        
         addConstraintsWithFormat(format: "V:|-12-[v0]", views: nameLabel)
-        addConstraintsWithFormat(format: "V:|-8-[v0(44)]-4-[v1(35)]-4-[v2]-8-[v3(24)]-8-|", views: profileImageView, statusTextView, statusImageView, likesCommentsLabel)
+        addConstraintsWithFormat(format: "V:|-8-[v0(44)]-4-[v1(35)]-4-[v2]-8-[v3(24)]-8-[v4(0.5)]-8-[v5(30)]|", views: profileImageView, statusTextView, statusImageView, likesCommentsLabel,dividerLineView,likeButton)
+        addConstraintsWithFormat(format: "V:[v0(30)]|", views:commentButton)
+        addConstraintsWithFormat(format: "V:[v0(30)]|", views:heartButton)
 
     }
 }
