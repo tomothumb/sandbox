@@ -72,6 +72,13 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "Feed"
+        
+        collectionView?.alwaysBounceVertical = true
+        collectionView?.backgroundColor = UIColor(white: 0.90, alpha: 1)
+        
+        collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: cellId)
 
         // 画面の横幅を取得
         let screenWidth:CGFloat = view.frame.size.width
@@ -84,6 +91,19 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupLongPressGesture()
     }
     
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: view.frame.width, height: 60)
+    }
+    
     fileprivate func setupLongPressGesture(){
         view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
     }
@@ -91,6 +111,9 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
     @objc func handleLongPress(gesture: UILongPressGestureRecognizer){
         print("Long Pressed:", Date())
         
+        self.cnt = self.cnt + 1
+        navigationItem.title = String(self.cnt)
+
         if gesture.state == .began {
             print("began")
             self.handleGestureBegan(gesture: gesture)
@@ -156,8 +179,80 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     // Status bar を消す
-    override var prefersStatusBarHidden: Bool { return true }
+//    override var prefersStatusBarHidden: Bool { return true }
 
+//    override var preferredStatusBarStyle: UIStatusBarStyle = .lightContent
 
 }
 
+
+let cellId = "cellId"
+
+class FeedCell: UICollectionViewCell{
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Sample"
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        // このViewだけAutoLayoutを適応する（False:AutoLayoutを解除）
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = UIColor.red
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        //        label.text = "Sample"
+        //        label.font = UIFont.boldSystemFont(ofSize: 14)
+        //        // このViewだけAutoLayoutを適応する（False:AutoLayoutを解除）
+        //        label.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    func setupViews(){
+        backgroundColor = UIColor.white
+        
+        addSubview(nameLabel)
+        addSubview(profileImageView)
+        
+        addConstraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: nameLabel)
+        addConstraintsWithFormat(format: "V:|-8-[v0(44)]", views: profileImageView)
+
+        
+//        addConstraints(NSLayoutConstraint.constraints(
+//            withVisualFormat: "H:|-8-[v0(44)]-8-[v1]|",
+//            options: NSLayoutConstraint.FormatOptions(),
+//            metrics: nil,
+//            views: ["v0" : profileImageView, "v1" : nameLabel]
+//        ))
+        
+//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : nameLabel]))
+//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v0(44)]", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : profileImageView]))
+        
+    }
+}
+
+extension UIView {
+    func addConstraintsWithFormat(format: String, views: UIView...){
+        var viewsDictionary = [String: UIView]()
+        for(index, view) in views.enumerated() {
+            let key = "v\(index)"
+            viewsDictionary[key] = view
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
+    }
+}
