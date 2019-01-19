@@ -17,16 +17,16 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let imageView = UIImageView(image: UIImage(named: "smiling.png"))
         return imageView
     }()
-    
+
     let iconsContainerView: UIView = {
         let containerView = UIView()
         containerView.backgroundColor = .white
-        
+
         // configration options
         let iconHeight: CGFloat = 30
         let iconWidth: CGFloat = iconHeight
         let padding: CGFloat = 8
-        
+
         let images = [
             UIImage(named: "smiling.png"),
             UIImage(named: "disappointed.png"),
@@ -34,83 +34,83 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
             UIImage(named: "thumbs-up"),
             UIImage(named: "thumbs-down"),
         ]
-        
-    
+
+
         let arrangedSubviews = images.map({ (image) -> UIView in
             let imageView = UIImageView(image: image)
-            
+
             imageView.layer.cornerRadius = iconHeight / 2
             imageView.isUserInteractionEnabled = true
-            
+
             return imageView
         })
 
         let stackView = UIStackView(arrangedSubviews: arrangedSubviews)
         stackView.distribution = .fillEqually
-        
-        
+
+
         stackView.spacing = padding
         stackView.layoutMargins = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         stackView.isLayoutMarginsRelativeArrangement = true
-        
+
         containerView.addSubview(stackView)
-        
+
         let numberOfIcons: CGFloat = CGFloat(arrangedSubviews.count);
         containerView.frame = CGRect(x: 0, y: 0,
-                                     width: numberOfIcons * iconWidth + (numberOfIcons+1) * padding,
-                                     height: iconHeight + 2 * padding)
+                width: numberOfIcons * iconWidth + (numberOfIcons + 1) * padding,
+                height: iconHeight + 2 * padding)
         containerView.layer.cornerRadius = containerView.frame.height / 2
         // shadow
         containerView.layer.shadowColor = UIColor(white: 0.0, alpha: 0.7).cgColor
         containerView.layer.shadowRadius = 8
         containerView.layer.shadowOpacity = 0.5
         containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        
+
         stackView.frame = containerView.frame
         return containerView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationItem.title = "Feed"
-        
+
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = UIColor(white: 0.90, alpha: 1)
-        
+
         collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: cellId)
 
         // 画面の横幅を取得
-        let screenWidth:CGFloat = view.frame.size.width
-        let screenHeight:CGFloat = view.frame.size.height
+        let screenWidth: CGFloat = view.frame.size.width
+        let screenHeight: CGFloat = view.frame.size.height
         // 画像の中心を画面の中心に設定
-        bgImageView.center = CGPoint(x:screenWidth/2, y:screenHeight/2)
+        bgImageView.center = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
         self.view.addSubview(bgImageView)
 
-        
+
         setupLongPressGesture()
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: view.frame.width, height: 60)
+
+        return CGSize(width: view.frame.width, height: 300)
     }
-    
-    fileprivate func setupLongPressGesture(){
+
+    fileprivate func setupLongPressGesture() {
         view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
     }
-    
-    @objc func handleLongPress(gesture: UILongPressGestureRecognizer){
+
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
         print("Long Pressed:", Date())
-        
+
         self.cnt = self.cnt + 1
         navigationItem.title = String(self.cnt)
 
@@ -121,15 +121,15 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
             print("ended")
             // clean up the animation
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut,
-               animations: {
-                let stackView = self.iconsContainerView.subviews.first
-                stackView?.subviews.forEach({ (imageView) in
-                    imageView.transform = .identity
-                })
-                self.iconsContainerView.transform = self.iconsContainerView.transform.translatedBy(x: 0, y: 50)
-                self.iconsContainerView.alpha = 0
-                
-            },completion: { (_) in
+                    animations: {
+                        let stackView = self.iconsContainerView.subviews.first
+                        stackView?.subviews.forEach({ (imageView) in
+                            imageView.transform = .identity
+                        })
+                        self.iconsContainerView.transform = self.iconsContainerView.transform.translatedBy(x: 0, y: 50)
+                        self.iconsContainerView.alpha = 0
+
+                    }, completion: { (_) in
                 self.iconsContainerView.removeFromSuperview()
             })
         } else if gesture.state == .changed {
@@ -137,44 +137,44 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
 
-    fileprivate func handleGestureChanged(gesture: UILongPressGestureRecognizer){
+    fileprivate func handleGestureChanged(gesture: UILongPressGestureRecognizer) {
         let pressedLocation = gesture.location(in: self.iconsContainerView)
         print(pressedLocation)
-        
+
         let hitTestView = iconsContainerView.hitTest(pressedLocation, with: nil)
-        
+
         if hitTestView is UIImageView {
 //            hitTestView?.alpha = 0
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut,
-               animations: {
-                let stackView = self.iconsContainerView.subviews.first
-                stackView?.subviews.forEach({ (imageView) in
-                    imageView.transform = .identity
-                })
-                hitTestView?.transform = CGAffineTransform(translationX: 0, y: -50)
-            })
+                    animations: {
+                        let stackView = self.iconsContainerView.subviews.first
+                        stackView?.subviews.forEach({ (imageView) in
+                            imageView.transform = .identity
+                        })
+                        hitTestView?.transform = CGAffineTransform(translationX: 0, y: -50)
+                    })
         }
 
 
     }
-    
+
     // 初期化
-    fileprivate func handleGestureBegan(gesture: UILongPressGestureRecognizer){
+    fileprivate func handleGestureBegan(gesture: UILongPressGestureRecognizer) {
         view.addSubview(iconsContainerView)
-        
+
         let pressedLocation = gesture.location(in: self.view)
         print(pressedLocation)
-        
+
         // init transformation
         let centerX = (view.frame.width - iconsContainerView.frame.width) / 2
-        self.iconsContainerView.transform = CGAffineTransform(translationX: centerX, y: pressedLocation.y )
+        self.iconsContainerView.transform = CGAffineTransform(translationX: centerX, y: pressedLocation.y)
         // alpha
         iconsContainerView.alpha = 0
-        
+
         // Animation
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.iconsContainerView.alpha = 1
-            self.iconsContainerView.transform = CGAffineTransform(translationX: centerX, y: pressedLocation.y - (self.iconsContainerView.frame.height/2) )
+            self.iconsContainerView.transform = CGAffineTransform(translationX: centerX, y: pressedLocation.y - (self.iconsContainerView.frame.height / 2))
         })
     }
 
@@ -188,71 +188,128 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
 let cellId = "cellId"
 
-class FeedCell: UICollectionViewCell{
+class FeedCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setupViews()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Sample"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+
+        // テキスト
+        let attributedText = NSMutableAttributedString(string: "Sample Name", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+
+        // テキスト追加
+        attributedText.append(NSAttributedString(
+                string: " - December 111 - abc",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1),
+                             NSAttributedString.Key.backgroundColor: UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 1),
+                             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)
+                ]
+        ))
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        attributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.count))
+
+        // 画像
+        let attachmentImg = NSTextAttachment()
+        attachmentImg.image = UIImage(named: "smiling")
+        attachmentImg.bounds = CGRect(x: 0, y: -4, width: 16, height: 16)
+        attributedText.append(NSAttributedString(attachment: attachmentImg))
+
+        label.attributedText = attributedText
+
         // このViewだけAutoLayoutを適応する（False:AutoLayoutを解除）
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "face")
+        // 引き延ばす
+//        imageView.contentMode = .scaleToFill
+        // 全て含める
+//        imageView.contentMode = .scaleAspectFit
+        // いっぱい
+        imageView.contentMode = .scaleAspectFill
+        // はみ出た分をトリミング
+        imageView.clipsToBounds = true
         imageView.backgroundColor = UIColor.red
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        //        label.text = "Sample"
-        //        label.font = UIFont.boldSystemFont(ofSize: 14)
-        //        // このViewだけAutoLayoutを適応する（False:AutoLayoutを解除）
-        //        label.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = imageView.frame.height / 2
+
         return imageView
     }()
-    
-    func setupViews(){
+
+    let statusTextView: UITextView = {
+        let textView = UITextView()
+        textView.text = "Hi, there. \n I'm here."
+        textView.font = UIFont.systemFont(ofSize: 14)
+        return textView
+    }()
+
+    let statusImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "face")
+        // 塗りつぶし
+        imageView.contentMode = .scaleAspectFill
+        // トリミング
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+
+    let likesCommentsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "400 Likes   10.7k Comments"
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.rgb(red: 200, green: 200, blue: 200)
+        return label
+    }()
+
+    func setupViews() {
         backgroundColor = UIColor.white
-        
+
         addSubview(nameLabel)
         addSubview(profileImageView)
-        
-        addConstraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: nameLabel)
-        addConstraintsWithFormat(format: "V:|-8-[v0(44)]", views: profileImageView)
+        addSubview(statusTextView)
+        addSubview(statusImageView)
+        addSubview(likesCommentsLabel)
 
-        
-//        addConstraints(NSLayoutConstraint.constraints(
-//            withVisualFormat: "H:|-8-[v0(44)]-8-[v1]|",
-//            options: NSLayoutConstraint.FormatOptions(),
-//            metrics: nil,
-//            views: ["v0" : profileImageView, "v1" : nameLabel]
-//        ))
-        
-//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : nameLabel]))
-//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v0(44)]", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : profileImageView]))
-        
+        addConstraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
+        addConstraintsWithFormat(format: "H:|-4-[v0]-4-|", views: statusTextView)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: statusImageView)
+        addConstraintsWithFormat(format: "H:|-12-[v0]|", views: likesCommentsLabel)
+
+        addConstraintsWithFormat(format: "V:|-12-[v0]", views: nameLabel)
+        addConstraintsWithFormat(format: "V:|-8-[v0(44)]-4-[v1(35)]-4-[v2]-8-[v3(24)]-8-|", views: profileImageView, statusTextView, statusImageView, likesCommentsLabel)
+
+    }
+}
+
+extension UIColor {
+    static func rgb(red:CGFloat, green:CGFloat, blue:CGFloat) -> UIColor {
+        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha:1)
     }
 }
 
 extension UIView {
-    func addConstraintsWithFormat(format: String, views: UIView...){
+    func addConstraintsWithFormat(format: String, views: UIView...) {
         var viewsDictionary = [String: UIView]()
-        for(index, view) in views.enumerated() {
+        for (index, view) in views.enumerated() {
             let key = "v\(index)"
             viewsDictionary[key] = view
             view.translatesAutoresizingMaskIntoConstraints = false
         }
-        
+
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
     }
 }
