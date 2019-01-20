@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E505D41121F45DC60027C009 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41021F45DC60027C009 /* FeedCell.swift */; };
+		E505D41321F45E0A0027C009 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41221F45E0A0027C009 /* extension.swift */; };
+		E505D41521F45E380027C009 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41421F45E380027C009 /* Posts.swift */; };
 		E5701CC121F1DCAC009951CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5701CC021F1DCAC009951CE /* AppDelegate.swift */; };
 		E5701CC321F1DCAC009951CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5701CC221F1DCAC009951CE /* ViewController.swift */; };
 		E5701CC621F1DCAC009951CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5701CC421F1DCAC009951CE /* Main.storyboard */; };
@@ -35,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E505D41021F45DC60027C009 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		E505D41221F45E0A0027C009 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		E505D41421F45E380027C009 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		E5701CBD21F1DCAC009951CE /* AnimationPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimationPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5701CC021F1DCAC009951CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5701CC221F1DCAC009951CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,7 +107,10 @@
 			children = (
 				E5701CC021F1DCAC009951CE /* AppDelegate.swift */,
 				E5701CC221F1DCAC009951CE /* ViewController.swift */,
+				E505D41021F45DC60027C009 /* FeedCell.swift */,
+				E505D41421F45E380027C009 /* Posts.swift */,
 				E5701CC421F1DCAC009951CE /* Main.storyboard */,
+				E505D41221F45E0A0027C009 /* extension.swift */,
 				E5701CCA21F1DCAF009951CE /* Assets.xcassets */,
 				E5701CCC21F1DCAF009951CE /* LaunchScreen.storyboard */,
 				E5701CCF21F1DCAF009951CE /* Info.plist */,
@@ -259,7 +268,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5701CC321F1DCAC009951CE /* ViewController.swift in Sources */,
+				E505D41521F45E380027C009 /* Posts.swift in Sources */,
+				E505D41121F45DC60027C009 /* FeedCell.swift in Sources */,
 				E5701CC121F1DCAC009951CE /* AppDelegate.swift in Sources */,
+				E505D41321F45E0A0027C009 /* extension.swift in Sources */,
 				E5701CC921F1DCAC009951CE /* AnimationPractice.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
