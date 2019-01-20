@@ -23,15 +23,21 @@ class CustomTabBarController: UITabBarController {
         secondNavigationController.title = "Friends"
         secondNavigationController.tabBarItem.image = UIImage(named: "thumbs-up")
 
+        let chatController = ChatController()
+        let thirdNavigationController = UINavigationController(rootViewController: chatController)
+        thirdNavigationController.title = "Chat"
+        thirdNavigationController.tabBarItem.image = UIImage(named: "thumbs-down")
+
         let otherController = OtherController()
-        let thirdNavigationController = UINavigationController(rootViewController: otherController)
-        thirdNavigationController.title = "Other"
-        thirdNavigationController.tabBarItem.image = UIImage(named: "disappointed")
+        let forthNavigationController = UINavigationController(rootViewController: otherController)
+        forthNavigationController.title = "Other"
+        forthNavigationController.tabBarItem.image = UIImage(named: "disappointed")
 
         viewControllers = [
+            thirdNavigationController,
             navigationController,
             secondNavigationController,
-            thirdNavigationController
+            forthNavigationController
         ]
         
         tabBar.isTranslucent = false

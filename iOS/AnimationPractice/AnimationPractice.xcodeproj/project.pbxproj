@@ -20,6 +20,8 @@
 		E5701CCE21F1DCAF009951CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5701CCC21F1DCAF009951CE /* LaunchScreen.storyboard */; };
 		E5701CD921F1DCAF009951CE /* AnimationPracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5701CD821F1DCAF009951CE /* AnimationPracticeTests.swift */; };
 		E5701CE421F1DCAF009951CE /* AnimationPracticeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5701CE321F1DCAF009951CE /* AnimationPracticeUITests.swift */; };
+		E584E49621F4C3F900365C7B /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584E49521F4C3F900365C7B /* ChatController.swift */; };
+		E584E49821F4CA9B00365C7B /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584E49721F4CA9B00365C7B /* ChatMessageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		E5701CDF21F1DCAF009951CE /* AnimationPracticeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimationPracticeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5701CE321F1DCAF009951CE /* AnimationPracticeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationPracticeUITests.swift; sourceTree = "<group>"; };
 		E5701CE521F1DCAF009951CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E584E49521F4C3F900365C7B /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		E584E49721F4CA9B00365C7B /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,8 @@
 			children = (
 				E5701CC021F1DCAC009951CE /* AppDelegate.swift */,
 				E5701CC221F1DCAC009951CE /* ViewController.swift */,
+				E584E49721F4CA9B00365C7B /* ChatMessageCell.swift */,
+				E584E49521F4C3F900365C7B /* ChatController.swift */,
 				E505D41021F45DC60027C009 /* FeedCell.swift */,
 				E505D41621F475A60027C009 /* CustomTabBarController.swift */,
 				E505D41821F477920027C009 /* FriendsController.swift */,
@@ -274,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5701CC321F1DCAC009951CE /* ViewController.swift in Sources */,
+				E584E49821F4CA9B00365C7B /* ChatMessageCell.swift in Sources */,
 				E505D41921F477920027C009 /* FriendsController.swift in Sources */,
 				E505D41721F475A60027C009 /* CustomTabBarController.swift in Sources */,
 				E505D41521F45E380027C009 /* Posts.swift in Sources */,
@@ -281,6 +288,7 @@
 				E5701CC121F1DCAC009951CE /* AppDelegate.swift in Sources */,
 				E505D41321F45E0A0027C009 /* extension.swift in Sources */,
 				E5701CC921F1DCAC009951CE /* AnimationPractice.xcdatamodeld in Sources */,
+				E584E49621F4C3F900365C7B /* ChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
