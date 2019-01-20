@@ -16,10 +16,31 @@ class FeedCell: UICollectionViewCell {
         didSet {
             statusImageView.image = nil
             
-            
-            if let statusImageName = post?.statusImageName{
-                statusImageView.image = UIImage(named: statusImageName)
+            if let statusImageUrl = post?.statusImageUrl{
+                
+                if let image = imageCache[statusImageUrl]{
+                    statusImageView.image = image
+                }else{
+                    let url: URL = URL(string: statusImageUrl)!
+                    
+                    URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: {(data, response, error) -> Void in
+                        
+                        if error != nil {
+                            print(error!)
+                            return
+                        }
+                        
+                        let image = UIImage(data: data!)
+                        DispatchQueue.main.async {
+                            self.statusImageView.image = image
+                            //                        self.loader.stopAnimation()
+                        }
+                    }).resume()
+                }
             }
+//            if let statusImageName = post?.statusImageName{
+//                statusImageView.image = UIImage(named: statusImageName)
+//            }
             
             setupNameLocationStatusAndProfileImage()
         }
