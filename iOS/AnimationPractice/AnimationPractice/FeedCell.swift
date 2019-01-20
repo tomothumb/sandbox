@@ -10,6 +10,28 @@ import UIKit
 
 class FeedCell: UICollectionViewCell {
     
+    var feedController: FeedController?
+    
+    @objc func zoomAnimateStatusImg(){
+        feedController?.animateZoomImageView(oriImageView: statusImageView)
+    }
+    
+    @objc func zoomAnimateProfileImg(){
+        let view = UIView()
+        view.backgroundColor = UIColor.red
+        view.frame = profileImageView.frame
+        addSubview(view)
+    }
+    
+    private func animate(){
+        UIView.animate(withDuration: 0.75, animations: {() -> Void in
+            //            let height = (self.view.frame.width / self.statingFrame.width) * self.statingFrame.height
+            //            let y = (self.view.frame.height / 2) - (height / 2)
+            //            self.zoomImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: height)
+            //            self.zoomImageView.backgroundColor = UIColor.blue
+        })
+    }
+    
     var post: Post? {
         didSet {
             statusImageView.image = nil
@@ -121,6 +143,8 @@ class FeedCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = imageView.frame.height / 2
         
+        imageView.isUserInteractionEnabled = true
+        
         return imageView
     }()
     
@@ -137,6 +161,7 @@ class FeedCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         // トリミング
         imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -169,6 +194,8 @@ class FeedCell: UICollectionViewCell {
         return button
     }
     
+
+    
     func setupViews() {
         backgroundColor = UIColor.white
         
@@ -181,6 +208,9 @@ class FeedCell: UICollectionViewCell {
         addSubview(likeButton)
         addSubview(commentButton)
         addSubview(heartButton)
+        
+        statusImageView.addGestureRecognizer(UITapGestureRecognizer( target: self, action: #selector(zoomAnimateStatusImg)))
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer( target: self, action: #selector(zoomAnimateProfileImg)))
         
         
         addConstraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)

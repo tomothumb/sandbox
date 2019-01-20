@@ -191,9 +191,6 @@ class OtherController: UIViewController{
             }
         }).resume()
         
-    
-        
-        
         view.addSubview(zoomImageView)
     }
     

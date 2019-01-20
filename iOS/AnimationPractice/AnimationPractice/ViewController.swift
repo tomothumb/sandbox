@@ -39,7 +39,8 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let feedCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FeedCell
         
-        feedCell.post = posts.members()[indexPath.item] as! Post
+        feedCell.post = posts.members()[indexPath.item] as? Post
+        feedCell.feedController = self
         
         return feedCell
 //        return collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
@@ -62,5 +63,110 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
 //    override var preferredStatusBarStyle: UIStatusBarStyle = .lightContent
 
+    
+//    @objc func zoomAnimateStatusImg(){
+//        let view = UIView()
+//        view.backgroundColor = UIColor.red
+//        view.frame = statusImageView.frame
+//        addSubview(view)
+//    }
+//
+//    @objc func zoomAnimateProfileImg(){
+//        let view = UIView()
+//        view.backgroundColor = UIColor.red
+//        view.frame = profileImageView.frame
+//        addSubview(view)
+//    }
+
+    let blackBackgroundView = UIView()
+    let zoomImageView = UIImageView()
+    let navBarCoverView = UIView()
+    let tabBarCoverView = UIView()
+
+    var statusImageView = UIImageView()
+
+    @objc func animateCloseZoomImageView(){
+        
+        if let startingFrame = statusImageView.superview?.convert(statusImageView.frame, to: nil){
+            UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {() -> Void in
+                self.zoomImageView.frame = startingFrame
+                self.blackBackgroundView.alpha = 0
+                self.navBarCoverView.alpha = 0
+                self.tabBarCoverView.alpha = 0
+            }, completion: {(didComplete) -> Void in
+                self.zoomImageView.removeFromSuperview()
+                self.blackBackgroundView.removeFromSuperview()
+                self.navBarCoverView.removeFromSuperview()
+                self.tabBarCoverView.removeFromSuperview()
+                self.statusImageView.alpha = 1
+            })
+        }
+    }
+    
+    func animateZoomImageView(oriImageView: UIImageView){
+        self.statusImageView = oriImageView
+        
+        if let startingFrame = oriImageView.superview?.convert(oriImageView.frame, to: nil){
+            oriImageView.alpha = 0
+            
+            // 背景
+            blackBackgroundView.frame = self.view.frame
+            blackBackgroundView.alpha = 0
+            blackBackgroundView.backgroundColor = .black
+            view.addSubview(blackBackgroundView)
+            
+            if let keyWindow = UIApplication.shared.keyWindow{
+                // ナビバー
+                // 20+40 : ナビバーの高さ
+                navBarCoverView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20 + 44)
+                navBarCoverView.backgroundColor = .black
+                navBarCoverView.alpha = 0
+                keyWindow.addSubview(navBarCoverView)
+
+                // Tabバー
+                // 49 : ナビバーの高さ
+                tabBarCoverView.frame = CGRect(x: 0, y: keyWindow.frame.height - 49, width: self.view.frame.width, height: 49)
+                tabBarCoverView.backgroundColor = .black
+                tabBarCoverView.alpha = 0
+                keyWindow.addSubview(tabBarCoverView)
+
+            }
+            
+            zoomImageView.backgroundColor = UIColor.red
+            zoomImageView.frame = startingFrame
+            zoomImageView.image = oriImageView.image
+            zoomImageView.contentMode = .scaleAspectFill
+            zoomImageView.isUserInteractionEnabled = true
+            view.addSubview(zoomImageView)
+            
+            // 閉じるアクションイベントリスナ
+            blackBackgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animateCloseZoomImageView)))
+            zoomImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animateCloseZoomImageView)))
+            
+            
+            // 開くアニメーション
+            // アニメーション調整
+            UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {() -> Void in
+                
+                let height = (self.view.frame.width / startingFrame.width) * startingFrame.height
+                let y = (self.view.frame.height / 2) - (height / 2)
+                self.zoomImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: height)
+                self.blackBackgroundView.alpha = 1
+                self.navBarCoverView.alpha = 1
+                self.tabBarCoverView.alpha = 1
+                
+            }, completion: nil)
+            
+//            // シンプルアニメーション
+//            UIView.animate(withDuration: 0.75, animations: {() -> Void in
+//                let height = (self.view.frame.width / startingFrame.width) * startingFrame.height
+//                let y = (self.view.frame.height / 2) - (height / 2)
+//                self.zoomImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: height)
+//                self.blackBackgroundView.alpha = 1
+//                self.navBarCoverView.alpha = 1
+//                self.tabBarCoverView.alpha = 1
+//            })
+        }
+    }
 }
 
