@@ -10,6 +10,10 @@ import UIKit
 class Post {
     var name: String?
     var statusText: String?
+    var statusImageName: String?
+    var profileImageName: String?
+    var numLikes: Int?
+    var numComments: Int?
 }
 
 //class ViewController: UIViewController {
@@ -287,6 +291,11 @@ class FeedCell: UICollectionViewCell {
 
                 nameLabel.attributedText = attributedText
             }
+            
+            // 型変換
+            let numLikesStr:String = String( post?.numLikes! ?? 0 )
+            let numCommentsStr:String = String( post?.numComments! ?? 0 )
+            likesCommentsLabel.text = numLikesStr  + " Likes   " + numCommentsStr + " Comments"
         }
     }
     
