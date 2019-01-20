@@ -82,14 +82,34 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let postMark = Post()
         postMark.name = "Mark"
         postMark.statusText = "I am Mark"
+        postMark.profileImageName = "smiling"
+        postMark.statusImageName = "smiling"
+        postMark.numLikes = 100
+        postMark.numComments = 100
+        
         
         let postSteave = Post()
         postSteave.name = "Steave"
         postSteave.statusText = "abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg \n\n ABCDEFG "
+        postSteave.profileImageName = "heart"
+        postSteave.statusImageName = "smiling"
+        postSteave.numLikes = 120
+        postSteave.numComments = 130
+
+        
+        let postGandhi = Post()
+        postGandhi.name = "Gandhi"
+        postGandhi.statusText = "blah blah blah blah blah blah blah blah blah blah blah blah blah"
+        postGandhi.profileImageName = "thumbs-up"
+        postGandhi.statusImageName = "smiling"
+        postGandhi.numLikes = 10
+        postGandhi.numComments = 30
+
         
         posts.append(postMark)
         posts.append(postSteave)
-        
+        posts.append(postGandhi)
+
 
         navigationItem.title = "Feed"
 
@@ -231,8 +251,17 @@ class FeedCell: UICollectionViewCell {
             if let statusText = post?.statusText {
                 statusTextView.text = statusText
                 statusTextView.font = UIFont.systemFont(ofSize: 14)
-                
             }
+            
+            if let statusImageName = post?.statusImageName{
+                statusImageView.image = UIImage(named: statusImageName)
+            }
+
+            if let profileImageName = post?.profileImageName{
+                profileImageView.image = UIImage(named: profileImageName)
+            }
+            
+            
             if let name = post?.name {
                 // テキスト
                 let attributedText = NSMutableAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)])
@@ -288,7 +317,7 @@ class FeedCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         // はみ出た分をトリミング
         imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.red
+        imageView.backgroundColor = UIColor.rgb(red: 200, green: 200, blue: 200)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = imageView.frame.height / 2
 
