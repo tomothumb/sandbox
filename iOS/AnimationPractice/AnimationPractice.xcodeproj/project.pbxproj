@@ -10,6 +10,8 @@
 		E505D41121F45DC60027C009 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41021F45DC60027C009 /* FeedCell.swift */; };
 		E505D41321F45E0A0027C009 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41221F45E0A0027C009 /* extension.swift */; };
 		E505D41521F45E380027C009 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41421F45E380027C009 /* Posts.swift */; };
+		E505D41721F475A60027C009 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41621F475A60027C009 /* CustomTabBarController.swift */; };
+		E505D41921F477920027C009 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41821F477920027C009 /* FriendsController.swift */; };
 		E5701CC121F1DCAC009951CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5701CC021F1DCAC009951CE /* AppDelegate.swift */; };
 		E5701CC321F1DCAC009951CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5701CC221F1DCAC009951CE /* ViewController.swift */; };
 		E5701CC621F1DCAC009951CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5701CC421F1DCAC009951CE /* Main.storyboard */; };
@@ -41,6 +43,8 @@
 		E505D41021F45DC60027C009 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		E505D41221F45E0A0027C009 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		E505D41421F45E380027C009 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		E505D41621F475A60027C009 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		E505D41821F477920027C009 /* FriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
 		E5701CBD21F1DCAC009951CE /* AnimationPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimationPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5701CC021F1DCAC009951CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5701CC221F1DCAC009951CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 				E5701CC021F1DCAC009951CE /* AppDelegate.swift */,
 				E5701CC221F1DCAC009951CE /* ViewController.swift */,
 				E505D41021F45DC60027C009 /* FeedCell.swift */,
+				E505D41621F475A60027C009 /* CustomTabBarController.swift */,
+				E505D41821F477920027C009 /* FriendsController.swift */,
 				E505D41421F45E380027C009 /* Posts.swift */,
 				E5701CC421F1DCAC009951CE /* Main.storyboard */,
 				E505D41221F45E0A0027C009 /* extension.swift */,
@@ -268,6 +274,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5701CC321F1DCAC009951CE /* ViewController.swift in Sources */,
+				E505D41921F477920027C009 /* FriendsController.swift in Sources */,
+				E505D41721F475A60027C009 /* CustomTabBarController.swift in Sources */,
 				E505D41521F45E380027C009 /* Posts.swift in Sources */,
 				E505D41121F45DC60027C009 /* FeedCell.swift in Sources */,
 				E5701CC121F1DCAC009951CE /* AppDelegate.swift in Sources */,
