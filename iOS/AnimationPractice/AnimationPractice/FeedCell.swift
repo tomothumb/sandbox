@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-var imageCache = [String: UIImage]()
+var imageCache = NSCache<AnyObject, AnyObject>()
 
 class FeedCell: UICollectionViewCell {
     
@@ -18,7 +18,7 @@ class FeedCell: UICollectionViewCell {
             
             if let statusImageUrl = post?.statusImageUrl{
                 
-                if let image = imageCache[statusImageUrl]{
+                if let image = imageCache.object(forKey: statusImageUrl as AnyObject) as? UIImage {
                     statusImageView.image = image
                 }else{
                     let url: URL = URL(string: statusImageUrl)!
@@ -31,6 +31,9 @@ class FeedCell: UICollectionViewCell {
                         }
                         
                         let image = UIImage(data: data!)
+                        
+                        imageCache.setObject(image!, forKey: statusImageUrl as AnyObject)
+                        
                         DispatchQueue.main.async {
                             self.statusImageView.image = image
                             //                        self.loader.stopAnimation()
