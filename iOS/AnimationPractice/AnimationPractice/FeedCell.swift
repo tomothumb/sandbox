@@ -26,7 +26,7 @@ class FeedCell: UICollectionViewCell {
                     }
                     
                     let image = UIImage(data: data!)
-                                        
+                    
                     DispatchQueue.main.async {
                         self.statusImageView.image = image
                         //                        self.loader.stopAnimation()

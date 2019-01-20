@@ -9,6 +9,7 @@ import UIKit
 
 let cellId = "cellId"
 
+let posts = Posts()
 
 //class ViewController: UIViewController {
 class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -73,8 +74,6 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return containerView
     }()
     
-    var posts = [Post]()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,41 +81,6 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let discCapacity = 500 * 1024 * 1024
         let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: discCapacity, diskPath: "myDiskPath")
         URLCache.shared = urlCache
-
-        let postMark = Post()
-        postMark.name = "Mark"
-        postMark.statusText = "I am Mark"
-        postMark.profileImageName = "smiling"
-        postMark.statusImageName = "smiling"
-        postMark.statusImageUrl = "https://placeimg.com/640/480/any"
-        postMark.numLikes = 100
-        postMark.numComments = 100
-        
-        
-        let postSteave = Post()
-        postSteave.name = "Steave"
-        postSteave.statusText = "abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg ABCDEFG abcdefg \n\n ABCDEFG "
-        postSteave.profileImageName = "heart"
-        postSteave.statusImageName = "smiling"
-        postSteave.statusImageUrl = "https://placeimg.com/640/550/any"
-        postSteave.numLikes = 120
-        postSteave.numComments = 130
-
-        
-        let postGandhi = Post()
-        postGandhi.name = "Gandhi"
-        postGandhi.statusText = "blah blah blah blah blah blah blah blah blah blah blah blah blah"
-        postGandhi.profileImageName = "thumbs-up"
-        postGandhi.statusImageName = "smiling"
-        postGandhi.statusImageUrl = "https://placeimg.com/300/550/any"
-        postGandhi.numLikes = 10
-        postGandhi.numComments = 30
-
-        
-        posts.append(postMark)
-        posts.append(postSteave)
-        posts.append(postGandhi)
-
 
         navigationItem.title = "Feed"
 
@@ -138,13 +102,13 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return posts.count
+        return posts.numberOfPosts()
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let feedCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FeedCell
         
-        feedCell.post = posts[indexPath.item]
+        feedCell.post = posts.members()[indexPath.item] as! Post
         
 //        if let name = posts[indexPath.item].name {
 //            feedCell.nameLabel.text = name
@@ -156,7 +120,7 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if let statusText = posts[indexPath.item].statusText {
+        if let statusText = (posts.members()[indexPath.item] as! Post).statusText {
             let rect = NSString(string: statusText).boundingRect(with: CGSize(width: view.frame.width, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 11
                 )], context: nil)
             
