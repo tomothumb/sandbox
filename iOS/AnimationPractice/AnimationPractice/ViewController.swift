@@ -78,6 +78,11 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let memoryCapacity = 500 * 1024 * 1024
+        let discCapacity = 500 * 1024 * 1024
+        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: discCapacity, diskPath: "myDiskPath")
+        URLCache.shared = urlCache
+
         let postMark = Post()
         postMark.name = "Mark"
         postMark.statusText = "I am Mark"

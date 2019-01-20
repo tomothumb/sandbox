@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 
-var imageCache = NSCache<AnyObject, AnyObject>()
-
 class FeedCell: UICollectionViewCell {
     
     var post: Post? {
@@ -18,28 +16,23 @@ class FeedCell: UICollectionViewCell {
             
             if let statusImageUrl = post?.statusImageUrl{
                 
-                if let image = imageCache.object(forKey: statusImageUrl as AnyObject) as? UIImage {
-                    statusImageView.image = image
-                }else{
-                    let url: URL = URL(string: statusImageUrl)!
+                let url: URL = URL(string: statusImageUrl)!
+                
+                URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: {(data, response, error) -> Void in
                     
-                    URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: {(data, response, error) -> Void in
-                        
-                        if error != nil {
-                            print(error!)
-                            return
-                        }
-                        
-                        let image = UIImage(data: data!)
-                        
-                        imageCache.setObject(image!, forKey: statusImageUrl as AnyObject)
-                        
-                        DispatchQueue.main.async {
-                            self.statusImageView.image = image
-                            //                        self.loader.stopAnimation()
-                        }
-                    }).resume()
-                }
+                    if error != nil {
+                        print(error!)
+                        return
+                    }
+                    
+                    let image = UIImage(data: data!)
+                                        
+                    DispatchQueue.main.async {
+                        self.statusImageView.image = image
+                        //                        self.loader.stopAnimation()
+                    }
+                }).resume()
+            
             }
 //            if let statusImageName = post?.statusImageName{
 //                statusImageView.image = UIImage(named: statusImageName)
