@@ -17,29 +17,75 @@ class ChatController: UITableViewController{
     
     fileprivate let cellId = "id123"
     
-    let chatMessages = [
-        [
-            ChatMessage( text: "First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "12/01/2018") ),
-            ChatMessage( text: "Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "12/01/2018") ),
-            ChatMessage( text: "Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "12/01/2018") ),
-            ChatMessage( text: "Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "12/01/2018") ),
-            ],
-        [
-            ChatMessage( text: "2First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/18/2019") ),
-            ChatMessage( text: "2Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/18/2019") ),
-            ChatMessage( text: "2Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/18/2019") ),
-            ChatMessage( text: "2Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/18/2019") ),
-            ],
-        [
-            ChatMessage( text: "3First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/20/2019") ),
-            ChatMessage( text: "3Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/20/2019") ),
-            ChatMessage( text: "3Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/20/2019") ),
-            ChatMessage( text: "3Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/20/2019") ),
-            ]
-    ]
+    let messagesFromServer = [
+        ChatMessage( text: "First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "12/01/2018") ),
+        ChatMessage( text: "Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "12/01/2018") ),
+        ChatMessage( text: "Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "12/01/2018") ),
+        ChatMessage( text: "Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "09/01/2018") ),
+        ChatMessage( text: "2First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/18/2019") ),
+        ChatMessage( text: "2Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/18/2019") ),
+        ChatMessage( text: "2Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/21/2019") ),
+        ChatMessage( text: "2Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/18/2019") ),
+        ChatMessage( text: "3First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/20/2019") ),
+        ChatMessage( text: "3Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/20/2019") ),
+        ChatMessage( text: "3Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/20/2019") ),
+        ChatMessage( text: "3Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/20/2019") ),
+        ]
+    
+    var chatMessages = [[ChatMessage]]()
+    
+//    let chatMessages = [
+//        [
+//            ChatMessage( text: "First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "12/01/2018") ),
+//            ChatMessage( text: "Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "12/01/2018") ),
+//            ChatMessage( text: "Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "12/01/2018") ),
+//            ChatMessage( text: "Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "12/01/2018") ),
+//            ],
+//        [
+//            ChatMessage( text: "2First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/18/2019") ),
+//            ChatMessage( text: "2Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/18/2019") ),
+//            ChatMessage( text: "2Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/18/2019") ),
+//            ChatMessage( text: "2Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/18/2019") ),
+//            ],
+//        [
+//            ChatMessage( text: "3First message. First message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/20/2019") ),
+//            ChatMessage( text: "3Second message. Second message. Second message. Second message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/20/2019") ),
+//            ChatMessage( text: "3Third message. Third message. Third message. Third message. Third message. Third message. Third message.", isIncoming: false, date: Date.dateFromCustomString(customString: "01/20/2019") ),
+//            ChatMessage( text: "3Forth message. Forth message. Forth message. Forth message.", isIncoming: true, date: Date.dateFromCustomString(customString: "01/20/2019") ),
+//            ]
+//    ]
+    
+    fileprivate func attemptToAssembleGroupedMessage(){
+        
+        let groupedMessages = Dictionary(grouping: messagesFromServer) { (element) -> Date in
+            return element.date
+        }
+        
+        let sortedKeys = groupedMessages.keys.sorted()
+        sortedKeys.forEach { (key) in
+            let values = groupedMessages[key]
+            //            print(values ?? "")
+            chatMessages.append(values ?? [])
+        }
+        
+////        groupedMessages.keys
+////        groupedMessages.values
+//        groupedMessages.keys.forEach { (key) in
+////            print(key)
+//            let values = groupedMessages[key]
+////            print(values ?? "")
+//            
+//            chatMessages.append(values ?? [])
+//        }
+        
+        
+//        print (groupedMessages)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        attemptToAssembleGroupedMessage()
         
         navigationItem.title = "Chat"
         navigationController?.navigationBar.prefersLargeTitles = true
