@@ -17,7 +17,28 @@ class MiscController: UIViewController{
         super.viewDidLoad()
         navigationItem.title = "Other"
         
+        // Textbox
+        let textView = UITextView()
+        textView.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
+        textView.backgroundColor = .lightGray
+        textView.font = UIFont.preferredFont(forTextStyle: .headline)
+        view.addSubview(textView)
+        // auto layout
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        [
+            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            textView.heightAnchor.constraint(equalToConstant: 50)
+            ].forEach { (c) in
+                c.isActive = true
+        }
+        textView.delegate = self
+        textView.isScrollEnabled = false
+        textView.text = "default text default text default text default text default texttext default text default text default texttext default text default text default text"
+        textViewDidChange(textView)
         
+        // Zoom
         zoomImageView.frame = statingFrame
         zoomImageView.backgroundColor = UIColor.red
         zoomImageView.image = nil
@@ -27,6 +48,7 @@ class MiscController: UIViewController{
         zoomImageView.isUserInteractionEnabled = true
         zoomImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animate) ))
         
+        // Image View
         let imageUrl = "https://placeimg.com/640/480/any"
         let url: URL = URL(string: imageUrl)!
         URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: {(data, response, error) -> Void in
@@ -41,6 +63,7 @@ class MiscController: UIViewController{
         }).resume()
         
         view.addSubview(zoomImageView)
+        
     }
     
     @objc func animate(){
@@ -53,3 +76,20 @@ class MiscController: UIViewController{
     }
     
 }
+
+
+extension MiscController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+//        print(textView.text)
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        textView.constraints.forEach { (constraint) in
+            if constraint.firstAttribute == .height {
+                constraint.constant = estimatedSize.height
+            }
+        }
+    }
+}
+
+
