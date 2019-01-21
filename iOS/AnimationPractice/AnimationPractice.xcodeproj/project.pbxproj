@@ -12,6 +12,7 @@
 		E505D41521F45E380027C009 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41421F45E380027C009 /* Posts.swift */; };
 		E505D41721F475A60027C009 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41621F475A60027C009 /* CustomTabBarController.swift */; };
 		E505D41921F477920027C009 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D41821F477920027C009 /* FriendsController.swift */; };
+		E56B585C21F58E1A00091E9C /* MiscController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B585B21F58E1A00091E9C /* MiscController.swift */; };
 		E5701CC121F1DCAC009951CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5701CC021F1DCAC009951CE /* AppDelegate.swift */; };
 		E5701CC321F1DCAC009951CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5701CC221F1DCAC009951CE /* ViewController.swift */; };
 		E5701CC621F1DCAC009951CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5701CC421F1DCAC009951CE /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		E505D41421F45E380027C009 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		E505D41621F475A60027C009 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		E505D41821F477920027C009 /* FriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
+		E56B585B21F58E1A00091E9C /* MiscController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscController.swift; sourceTree = "<group>"; };
 		E5701CBD21F1DCAC009951CE /* AnimationPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimationPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5701CC021F1DCAC009951CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5701CC221F1DCAC009951CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				E5701CCC21F1DCAF009951CE /* LaunchScreen.storyboard */,
 				E5701CCF21F1DCAF009951CE /* Info.plist */,
 				E5701CC721F1DCAC009951CE /* AnimationPractice.xcdatamodeld */,
+				E56B585B21F58E1A00091E9C /* MiscController.swift */,
 			);
 			path = AnimationPractice;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				E505D41121F45DC60027C009 /* FeedCell.swift in Sources */,
 				E5701CC121F1DCAC009951CE /* AppDelegate.swift in Sources */,
 				E505D41321F45E0A0027C009 /* extension.swift in Sources */,
+				E56B585C21F58E1A00091E9C /* MiscController.swift in Sources */,
 				E5701CC921F1DCAC009951CE /* AnimationPractice.xcdatamodeld in Sources */,
 				E584E49621F4C3F900365C7B /* ChatController.swift in Sources */,
 			);
