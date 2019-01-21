@@ -39,9 +39,9 @@ class CustomTabBarController: UITabBarController {
         fifthNavigationController.tabBarItem.image = UIImage(named: "disappointed")
 
         viewControllers = [
+            secondNavigationController,
             forthNavigationController,
             navigationController,
-            secondNavigationController,
             thirdNavigationController,
             fifthNavigationController,
         ]

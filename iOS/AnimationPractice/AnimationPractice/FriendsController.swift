@@ -68,10 +68,12 @@ class FriendsController: UIViewController{
         return containerView
     }()
     
-    
+    let shapeLayer = CAShapeLayer()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Feed"
+        navigationItem.title = "Friend"
+        view.backgroundColor = .lightGray
         
         // 画面の横幅を取得
         let screenWidth: CGFloat = view.frame.size.width
@@ -79,9 +81,46 @@ class FriendsController: UIViewController{
         // 画像の中心を画面の中心に設定
         bgImageView.center = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
         self.view.addSubview(bgImageView)
-        
         setupLongPressGesture()
+        
+//        let mainView = UIView()
+//        mainView.backgroundColor = .lightGray
+//        mainView.frame = CGRect(x: 30, y: 100, width: 100, height: 100)
+//        self.view.addSubview(mainView)
+        
+        let chapeCenter = view.center
+        let circularPath = UIBezierPath(arcCenter: chapeCenter, radius: 80, startAngle: -CGFloat.pi/2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        
+        let trackLayer = CAShapeLayer()
+        trackLayer.path = circularPath.cgPath
+        trackLayer.strokeColor = UIColor.gray.cgColor
+        trackLayer.lineWidth = 15
+        trackLayer.lineCap = .round
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.strokeEnd = 1
+        view.layer.addSublayer(trackLayer)
 
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.lineCap = .round
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeEnd = 0
+        view.layer.addSublayer(shapeLayer)
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+    }
+    
+    @objc private func handleTap(){
+        print("attempting to animate stroke")
+        
+        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        
+        basicAnimation.toValue = 1
+        basicAnimation.duration = 3
+        basicAnimation.fillMode = .forwards
+        basicAnimation.isRemovedOnCompletion = false
+        shapeLayer.add(basicAnimation,forKey: "urSoBasic")
     }
     
     fileprivate func setupLongPressGesture() {
@@ -157,6 +196,3 @@ class FriendsController: UIViewController{
     }
 
 }
-
-
-
