@@ -8,11 +8,10 @@
 import Foundation
 import UIKit
 
-class FriendsController: UIViewController{
-    
+class FriendsController: UIViewController, URLSessionDownloadDelegate{
+
     var cnt: Int = 0
-    
-    
+
     let bgImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "smiling.png"))
         return imageView
@@ -69,17 +68,31 @@ class FriendsController: UIViewController{
     }()
     
     let shapeLayer = CAShapeLayer()
-
+    
+    let percentageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Start"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 32)
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Friend"
         view.backgroundColor = .lightGray
         
+        // パーセンテージ
+        view.addSubview(percentageLabel)
+        percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        percentageLabel.center = view.center
+
         // 画面の横幅を取得
         let screenWidth: CGFloat = view.frame.size.width
         let screenHeight: CGFloat = view.frame.size.height
+
         // 画像の中心を画面の中心に設定
-        bgImageView.center = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
+        bgImageView.center = CGPoint(x: screenWidth / 2, y: screenHeight / 4)
         self.view.addSubview(bgImageView)
         setupLongPressGesture()
         
@@ -99,21 +112,49 @@ class FriendsController: UIViewController{
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.strokeEnd = 1
         view.layer.addSublayer(trackLayer)
-
+        
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = UIColor.red.cgColor
         shapeLayer.lineWidth = 10
         shapeLayer.lineCap = .round
         shapeLayer.fillColor = UIColor.clear.cgColor
+//        shapeLayer.position = view.center
         shapeLayer.strokeEnd = 0
+//        shapeLayer.transform = CATransform3DMakeRotation( -CGFloat.pi / 2, 0, 0, 1)
         view.layer.addSublayer(shapeLayer)
-        
+
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
     
-    @objc private func handleTap(){
-        print("attempting to animate stroke")
-        
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let percentage = CGFloat(totalBytesWritten) / CGFloat(totalBytesExpectedToWrite)
+        DispatchQueue.main.async {
+            self.percentageLabel.text = "\(Int(percentage * 100))%"
+            self.shapeLayer.strokeEnd = percentage
+        }
+        print(percentage, totalBytesWritten,totalBytesExpectedToWrite)
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        print("Finished downloading file")
+    }
+
+    let downloadVideoUrlString = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
+    
+    private func beginDownloadingFIle(){
+        print("Attempting to donwload file")
+        shapeLayer.strokeEnd = 0
+
+        let configuration = URLSessionConfiguration.default
+        let operationQueue = OperationQueue()
+        let urlSession = URLSession(configuration: configuration, delegate: self, delegateQueue: operationQueue)
+
+        guard let url = URL(string: downloadVideoUrlString) else {return}
+        let downloadTask = urlSession.downloadTask(with: url)
+        downloadTask.resume()
+    }
+
+    fileprivate func animateCircle() {
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         
         basicAnimation.toValue = 1
@@ -121,6 +162,14 @@ class FriendsController: UIViewController{
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basicAnimation,forKey: "urSoBasic")
+    }
+    
+    @objc private func handleTap(){
+        print("attempting to animate stroke")
+        
+        beginDownloadingFIle()
+        
+//        animateCircle()
     }
     
     fileprivate func setupLongPressGesture() {
@@ -194,5 +243,5 @@ class FriendsController: UIViewController{
             self.iconsContainerView.transform = CGAffineTransform(translationX: centerX, y: pressedLocation.y - (self.iconsContainerView.frame.height / 2))
         })
     }
-
+    
 }
