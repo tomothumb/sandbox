@@ -101,8 +101,8 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
 //        mainView.frame = CGRect(x: 30, y: 100, width: 100, height: 100)
 //        self.view.addSubview(mainView)
         
-        let chapeCenter = view.center
-        let circularPath = UIBezierPath(arcCenter: chapeCenter, radius: 80, startAngle: -CGFloat.pi/2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: 80, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
         
         let trackLayer = CAShapeLayer()
         trackLayer.path = circularPath.cgPath
@@ -110,6 +110,7 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         trackLayer.lineWidth = 15
         trackLayer.lineCap = .round
         trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.position = view.center
         trackLayer.strokeEnd = 1
         view.layer.addSublayer(trackLayer)
         
@@ -118,9 +119,9 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         shapeLayer.lineWidth = 10
         shapeLayer.lineCap = .round
         shapeLayer.fillColor = UIColor.clear.cgColor
-//        shapeLayer.position = view.center
+        shapeLayer.position = view.center
         shapeLayer.strokeEnd = 0
-//        shapeLayer.transform = CATransform3DMakeRotation( -CGFloat.pi / 2, 0, 0, 1)
+        shapeLayer.transform = CATransform3DMakeRotation( -CGFloat.pi / 2, 0, 0, 1)
         view.layer.addSublayer(shapeLayer)
 
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
