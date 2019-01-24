@@ -67,6 +67,7 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         return containerView
     }()
     
+    let pulsatingLayer = CAShapeLayer()
     let shapeLayer = CAShapeLayer()
     
     let percentageLabel: UILabel = {
@@ -77,15 +78,27 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         return label
     }()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
+    
+    // 閉じて開き直した後にアニメーションを再開させる
+    private func setupNotificationObservers(){
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification, object:nil)
+    }
+    
+    @objc private func handleEnterForeground(){
+        animatePulsatingLayer()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Friend"
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .black
         
-        // パーセンテージ
-        view.addSubview(percentageLabel)
-        percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        percentageLabel.center = view.center
+        setupNotificationObservers()
+        
 
         // 画面の横幅を取得
         let screenWidth: CGFloat = view.frame.size.width
@@ -96,13 +109,18 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         self.view.addSubview(bgImageView)
         setupLongPressGesture()
         
-//        let mainView = UIView()
-//        mainView.backgroundColor = .lightGray
-//        mainView.frame = CGRect(x: 30, y: 100, width: 100, height: 100)
-//        self.view.addSubview(mainView)
-        
         
         let circularPath = UIBezierPath(arcCenter: .zero, radius: 80, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        
+        pulsatingLayer.path = circularPath.cgPath
+        pulsatingLayer.strokeColor = UIColor.clear.cgColor
+        pulsatingLayer.lineWidth = 15
+        pulsatingLayer.lineCap = .round
+        pulsatingLayer.fillColor = UIColor.yellow.cgColor
+        pulsatingLayer.position = view.center
+        pulsatingLayer.strokeEnd = 1
+        view.layer.addSublayer(pulsatingLayer)
+        animatePulsatingLayer()
         
         let trackLayer = CAShapeLayer()
         trackLayer.path = circularPath.cgPath
@@ -125,6 +143,24 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         view.layer.addSublayer(shapeLayer)
 
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+
+        // パーセンテージ
+        view.addSubview(percentageLabel)
+        percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        percentageLabel.center = view.center
+
+        
+    }
+
+    
+    private func animatePulsatingLayer(){
+        let myanimation = CABasicAnimation(keyPath: "transform.scale")
+        myanimation.toValue = 1.2
+        myanimation.duration = 2
+        myanimation.autoreverses = true
+        myanimation.repeatCount = Float.infinity
+        myanimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        pulsatingLayer.add(myanimation, forKey: "pulsing")
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
