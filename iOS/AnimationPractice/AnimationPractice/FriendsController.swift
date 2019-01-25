@@ -67,8 +67,8 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         return containerView
     }()
     
-    let pulsatingLayer = CAShapeLayer()
-    let shapeLayer = CAShapeLayer()
+    var pulsatingLayer: CAShapeLayer!
+    var shapeLayer: CAShapeLayer!
     
     let percentageLabel: UILabel = {
         let label = UILabel()
@@ -91,6 +91,42 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
     @objc private func handleEnterForeground(){
         animatePulsatingLayer()
     }
+    
+    private func createCircleShapeLayer( strokeColor: UIColor, fillColor: UIColor) -> CAShapeLayer {
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: 80, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+
+        let layer = CAShapeLayer()
+        layer.path =  circularPath.cgPath
+        layer.strokeColor = strokeColor.cgColor
+        layer.lineWidth = 15
+        layer.lineCap = .round
+        layer.fillColor = fillColor.cgColor
+        layer.position = view.center
+//        layer.strokeEnd = 1
+        return layer
+    }
+    
+    private func setupCircleLayer(){
+        pulsatingLayer = createCircleShapeLayer(strokeColor: .clear, fillColor: .yellow)
+        view.layer.addSublayer(pulsatingLayer)
+        animatePulsatingLayer()
+        
+        let trackLayer = createCircleShapeLayer(strokeColor: .gray, fillColor: .clear)
+//        trackLayer.strokeEnd = 1
+        view.layer.addSublayer(trackLayer)
+        
+        shapeLayer = createCircleShapeLayer(strokeColor: .red, fillColor: .clear)
+        shapeLayer.lineWidth = 10
+        shapeLayer.strokeEnd = 0
+        shapeLayer.transform = CATransform3DMakeRotation( -CGFloat.pi / 2, 0, 0, 1)
+        view.layer.addSublayer(shapeLayer)
+    }
+    
+    private func setupPercentageLabel(){
+        view.addSubview(percentageLabel)
+        percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        percentageLabel.center = view.center
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +135,6 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         
         setupNotificationObservers()
         
-
         // 画面の横幅を取得
         let screenWidth: CGFloat = view.frame.size.width
         let screenHeight: CGFloat = view.frame.size.height
@@ -109,49 +144,16 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         self.view.addSubview(bgImageView)
         setupLongPressGesture()
         
-        
-        let circularPath = UIBezierPath(arcCenter: .zero, radius: 80, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
-        
-        pulsatingLayer.path = circularPath.cgPath
-        pulsatingLayer.strokeColor = UIColor.clear.cgColor
-        pulsatingLayer.lineWidth = 15
-        pulsatingLayer.lineCap = .round
-        pulsatingLayer.fillColor = UIColor.yellow.cgColor
-        pulsatingLayer.position = view.center
-        pulsatingLayer.strokeEnd = 1
-        view.layer.addSublayer(pulsatingLayer)
-        animatePulsatingLayer()
-        
-        let trackLayer = CAShapeLayer()
-        trackLayer.path = circularPath.cgPath
-        trackLayer.strokeColor = UIColor.gray.cgColor
-        trackLayer.lineWidth = 15
-        trackLayer.lineCap = .round
-        trackLayer.fillColor = UIColor.clear.cgColor
-        trackLayer.position = view.center
-        trackLayer.strokeEnd = 1
-        view.layer.addSublayer(trackLayer)
-        
-        shapeLayer.path = circularPath.cgPath
-        shapeLayer.strokeColor = UIColor.red.cgColor
-        shapeLayer.lineWidth = 10
-        shapeLayer.lineCap = .round
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.position = view.center
-        shapeLayer.strokeEnd = 0
-        shapeLayer.transform = CATransform3DMakeRotation( -CGFloat.pi / 2, 0, 0, 1)
-        view.layer.addSublayer(shapeLayer)
+        // サークル
+        setupCircleLayer()
 
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
         // パーセンテージ
-        view.addSubview(percentageLabel)
-        percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        percentageLabel.center = view.center
+        setupPercentageLabel()
 
-        
     }
-
+    
     
     private func animatePulsatingLayer(){
         let myanimation = CABasicAnimation(keyPath: "transform.scale")
@@ -160,6 +162,9 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         myanimation.autoreverses = true
         myanimation.repeatCount = Float.infinity
         myanimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        // カスタマイズ
+        // http://cubic-bezier.com/#.17,.67,.83,.67
+//        myanimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.55, 0, 0.59, 0.13)
         pulsatingLayer.add(myanimation, forKey: "pulsing")
     }
     
