@@ -221,7 +221,15 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         DispatchQueue.main.async {
             self.percentageLabel.text = "\(Int(percentage * 100))%"
             self.shapeLayer.strokeEnd = percentage
+            if(Int(percentage) == 1){
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    
+                    self.percentageLabel.alpha = 0
+                    self.percentageLabel.transform = self.percentageLabel.transform.translatedBy(x: 0, y: -20)
+                })
+            }
         }
+        
         print(percentage, totalBytesWritten,totalBytesExpectedToWrite)
     }
     
