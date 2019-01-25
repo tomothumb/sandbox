@@ -12,6 +12,10 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
 
     var cnt: Int = 0
 
+    let titleLabel = UILabel()
+    let bodyLabel = UILabel()
+    var labelStackView = UIStackView()
+
     let bgImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "smiling.png"))
         return imageView
@@ -132,28 +136,72 @@ class FriendsController: UIViewController, URLSessionDownloadDelegate{
         super.viewDidLoad()
         navigationItem.title = "Friend"
         view.backgroundColor = .black
-        
-        setupNotificationObservers()
-        
+
         // 画面の横幅を取得
         let screenWidth: CGFloat = view.frame.size.width
         let screenHeight: CGFloat = view.frame.size.height
-
         // 画像の中心を画面の中心に設定
         bgImageView.center = CGPoint(x: screenWidth / 2, y: screenHeight / 4)
         self.view.addSubview(bgImageView)
         setupLongPressGesture()
+
+        // ラベル
+        setupLabels()
+        setupStackView()
+        view.addGestureRecognizer(UISwipeGestureRecognizer(target:self, action:#selector(handleSwipeAnimation)))
+        
+        setupNotificationObservers()
         
         // サークル
         setupCircleLayer()
-
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
         // パーセンテージ
         setupPercentageLabel()
-
     }
     
+    fileprivate func setupLabels(){
+        titleLabel.text = "TITLE"
+        titleLabel.backgroundColor = .red
+        titleLabel.numberOfLines = 0
+        
+        bodyLabel.text = "BODY BODY BODY BODY BODY\nBODY BODY BODY\nBODY BODY"
+        bodyLabel.numberOfLines = 0
+        bodyLabel.backgroundColor = .green
+    }
+    
+    fileprivate func setupStackView(){
+        labelStackView = UIStackView(arrangedSubviews: [titleLabel, bodyLabel])
+        labelStackView.spacing = 10
+        labelStackView.axis = .vertical
+        labelStackView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+        labelStackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(labelStackView)
+        labelStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        labelStackView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor ,constant:-20).isActive = true
+        labelStackView.widthAnchor.constraint(equalTo:view.widthAnchor ,constant:-40).isActive = true
+    }
+    
+    @objc private func handleSwipeAnimation(){
+        print("swipe")
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            self.titleLabel.transform = CGAffineTransform(translationX: -30, y: 0)
+        }) { (_) in
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.titleLabel.alpha = 0
+                self.titleLabel.transform = self.titleLabel.transform.translatedBy(x: 0, y: -200)
+            })
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            self.bodyLabel.transform = CGAffineTransform(translationX: -30, y: 0)
+        }) { (_) in
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.bodyLabel.alpha = 0
+                self.bodyLabel.transform = self.bodyLabel.transform.translatedBy(x: 0, y: -200)
+            })
+        }
+    }
     
     private func animatePulsatingLayer(){
         let myanimation = CABasicAnimation(keyPath: "transform.scale")
