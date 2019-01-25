@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E5F416F821FB73D300614887 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F416F721FB73D300614887 /* AppDelegate.swift */; };
-		E5F416FA21FB73D300614887 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F416F921FB73D300614887 /* ViewController.swift */; };
+		E5F416FA21FB73D300614887 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F416F921FB73D300614887 /* HomeController.swift */; };
 		E5F416FD21FB73D300614887 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5F416FB21FB73D300614887 /* Main.storyboard */; };
 		E5F4170021FB73D300614887 /* YoutubeClone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E5F416FE21FB73D300614887 /* YoutubeClone.xcdatamodeld */; };
 		E5F4170221FB73D600614887 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5F4170121FB73D600614887 /* Assets.xcassets */; };
@@ -37,7 +37,7 @@
 /* Begin PBXFileReference section */
 		E5F416F421FB73D300614887 /* YoutubeClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5F416F721FB73D300614887 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E5F416F921FB73D300614887 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E5F416F921FB73D300614887 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		E5F416FC21FB73D300614887 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E5F416FF21FB73D300614887 /* YoutubeClone.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoutubeClone.xcdatamodel; sourceTree = "<group>"; };
 		E5F4170121FB73D600614887 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F416F721FB73D300614887 /* AppDelegate.swift */,
-				E5F416F921FB73D300614887 /* ViewController.swift */,
+				E5F416F921FB73D300614887 /* HomeController.swift */,
 				E5F416FB21FB73D300614887 /* Main.storyboard */,
 				E5F4170121FB73D600614887 /* Assets.xcassets */,
 				E5F4170321FB73D600614887 /* LaunchScreen.storyboard */,
@@ -260,7 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5F4170021FB73D300614887 /* YoutubeClone.xcdatamodeld in Sources */,
-				E5F416FA21FB73D300614887 /* ViewController.swift in Sources */,
+				E5F416FA21FB73D300614887 /* HomeController.swift in Sources */,
 				E5F416F821FB73D300614887 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
