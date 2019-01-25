@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Storyborad 無効化
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let layout = UICollectionViewLayout()
+        let layout = UICollectionViewFlowLayout()
         window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout ))
         
         return true
