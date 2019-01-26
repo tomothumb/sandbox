@@ -35,6 +35,24 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         // 初期起動時のメニューのアクティブ
         let selectedIndexPath = NSIndexPath(item: 0, section: 0)
         collectionView.selectItem(at: selectedIndexPath as IndexPath, animated: false, scrollPosition: [])
+        
+        setupHorizontalBar()
+    }
+    
+    // 選択中メニューの下線
+    func setupHorizontalBar(){
+        let horizontalBarView = UIView()
+        horizontalBarView.backgroundColor = UIColor(white: 1, alpha: 1)
+        addSubview(horizontalBarView)
+        
+        horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
+//        horizontalBarView.frame = CGRect(x: 0, y: 0, width: frame.width, height: 5)
+        horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4).isActive = true
+        horizontalBarView.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        
+        
     }
     
     // セルの数
