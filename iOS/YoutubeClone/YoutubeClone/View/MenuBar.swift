@@ -14,6 +14,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let imageNames = [
         "idea", "monitor", "user", "video-player"
     ]
+    var homeController: HomeController?
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -61,17 +62,21 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     // セレクトした時のアニメーション
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
-        // バーの位置調整
-        let x = CGFloat(indexPath.item) * frame.width / 4
-        horizontalBarLeftAnchorConstraint?.constant = x
-        
-        // バーのアニメーション
-        UIView.animate(withDuration: 0.50, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.layoutIfNeeded()
-        }, completion: nil)
-//        UIView.animate(withDuration: 0.75) {
+//        // バーの位置調整
+//        let x = CGFloat(indexPath.item) * frame.width / 4
+//        horizontalBarLeftAnchorConstraint?.constant = x
+//
+//        // バーのアニメーション
+//        UIView.animate(withDuration: 0.50, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
 //            self.layoutIfNeeded()
-//        }
+//        }, completion: nil)
+////        UIView.animate(withDuration: 0.75) {
+////            self.layoutIfNeeded()
+////        }
+        
+        // 場所をスクロールさせる
+        
+        homeController?.scrollToMenuIndex(menuIndex: indexPath.item)
     }
     
     // セルの数
