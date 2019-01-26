@@ -8,15 +8,19 @@
 
 import UIKit
 
-class VideoCell: UICollectionViewCell {
+class BaseCell: UICollectionViewCell{
     override init(frame: CGRect){
         super.init(frame:frame)
         setupView()
     }
-    
+    func setupView(){}
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+class VideoCell: BaseCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -61,8 +65,8 @@ class VideoCell: UICollectionViewCell {
     }()
     
     
-    fileprivate func setupView(){
-        //        backgroundColor = .green
+    override func setupView(){
+//        backgroundColor = .green
         addSubview(thumbnailImageView)
         thumbnailImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
