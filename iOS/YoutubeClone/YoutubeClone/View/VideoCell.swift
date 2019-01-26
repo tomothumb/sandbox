@@ -22,10 +22,47 @@ class BaseCell: UICollectionViewCell{
 
 class VideoCell: BaseCell {
     
+    var video: Video? {
+        
+        // データがセットされた時に実行
+        didSet {
+            print("set video")
+            titleLabel.text = video?.title
+            thumbnailImageView.image = UIImage(named: (video?.thumbnailImageName)!)
+            
+            if let profileImageName = video?.channel?.profileImageName{
+                userProfileImageView.image = UIImage(named: profileImageName)
+            }
+            
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfViews {
+                if let numberOfViewsString = numberFormatter.string(from: numberOfViews){
+                    let subtitleText = "\(channelName) * \(numberOfViewsString) Views * 2 years ago"
+                    subtitleTextView.text = subtitleText
+                }
+            }
+            
+            // titleLabelの行数によって、高さが変わるので、Viewの高さを計算し、autoLayoutの高さを変更する
+            if let title = video?.title {
+                let size = CGSize(width: frame.width - 16 - 44 - 8 - 16, height: 1000)
+                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+                let estimatedRect = NSString(string: title).boundingRect(with: size, options: options, attributes: [.font : UIFont.systemFont(ofSize: 14)], context: nil)
+                
+                if estimatedRect.size.height > 20 {
+                    titleLabelHeightConstraint?.constant = 44
+                }else{
+                    titleLabelHeightConstraint?.constant = 20
+                }
+            }
+            
+        }
+    }
+    
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .blue
-        imageView.image = UIImage(named: "thumb1")
+        imageView.image = UIImage(named: "")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -34,7 +71,7 @@ class VideoCell: BaseCell {
     let userProfileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .green
-        imageView.image = UIImage(named: "profile1")
+        imageView.image = UIImage(named: "taylor_swift_profile")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 22
@@ -64,6 +101,8 @@ class VideoCell: BaseCell {
         return view
     }()
     
+    var titleLabelHeightConstraint: NSLayoutConstraint?
+    
     
     override func setupView(){
 //        backgroundColor = .green
@@ -78,7 +117,7 @@ class VideoCell: BaseCell {
         addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
         addConstraintsWithFormat(format: "H:|-16-[v0(44)]", views: userProfileImageView)
         // Vertical
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, userProfileImageView,separatorView)
+        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-36-[v2(1)]|", views: thumbnailImageView, userProfileImageView,separatorView)
         addConstraintsWithFormat(format: "H:|[v0]|", views:  separatorView)
         
         //        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]-16-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil
@@ -93,7 +132,8 @@ class VideoCell: BaseCell {
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: 8))
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: userProfileImageView, attribute: .right, multiplier: 1, constant: 8))
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20))
+        titleLabelHeightConstraint = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 44)
+        addConstraint(titleLabelHeightConstraint!)
         
         // Subtitle
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 8))
