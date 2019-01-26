@@ -39,6 +39,8 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         setupHorizontalBar()
     }
     
+    var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
+    
     // 選択中メニューの下線
     func setupHorizontalBar(){
         let horizontalBarView = UIView()
@@ -46,13 +48,30 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         addSubview(horizontalBarView)
         
         horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
+        
 //        horizontalBarView.frame = CGRect(x: 0, y: 0, width: frame.width, height: 5)
-        horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        horizontalBarLeftAnchorConstraint = horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor)
+        horizontalBarLeftAnchorConstraint?.isActive = true
+//        horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4).isActive = true
-        horizontalBarView.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        horizontalBarView.heightAnchor.constraint(equalToConstant: 3).isActive = true
+    }
+    
+    // セレクトした時のアニメーション
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+        // バーの位置調整
+        let x = CGFloat(indexPath.item) * frame.width / 4
+        horizontalBarLeftAnchorConstraint?.constant = x
         
-        
+        // バーのアニメーション
+        UIView.animate(withDuration: 0.50, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.layoutIfNeeded()
+        }, completion: nil)
+//        UIView.animate(withDuration: 0.75) {
+//            self.layoutIfNeeded()
+//        }
     }
     
     // セルの数
