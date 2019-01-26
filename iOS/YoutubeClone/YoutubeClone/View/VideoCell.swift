@@ -28,11 +28,16 @@ class VideoCell: BaseCell {
         didSet {
             print("set video")
             titleLabel.text = video?.title
-            thumbnailImageView.image = UIImage(named: (video?.thumbnailImageName)!)
             
-            if let profileImageName = video?.channel?.profileImageName{
-                userProfileImageView.image = UIImage(named: profileImageName)
-            }
+            //サムネのセット
+            setupThumbnailImage()
+            setupProfileImage()
+            
+//            thumbnailImageView.image = UIImage(named: (video?.thumbnailImageName)!)
+            
+//            if let profileImageName = video?.channel?.profileImageName{
+//                userProfileImageView.image = UIImage(named: profileImageName)
+//            }
             
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -55,25 +60,40 @@ class VideoCell: BaseCell {
                     titleLabelHeightConstraint?.constant = 20
                 }
             }
-            
         }
     }
     
-    let thumbnailImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .blue
+    // JSON読み込み後、動画サムネを読み込み表示する
+    private func setupThumbnailImage(){
+        if let thumbnailImageUrl = video?.thumbnailImageName {
+            print("thumbnailImageUrl",thumbnailImageUrl)
+            self.thumbnailImageView.loadImageUsingUrlString(urlString: thumbnailImageUrl)
+        }
+    }
+    // JSON読み込み後、プロフィール画像を読み込み表示する
+    private func setupProfileImage(){
+        if let profileImageUrl = video?.channel?.profileImageName {
+            print("profileImageUrl",profileImageUrl)
+            self.userProfileImageView.loadImageUsingUrlString(urlString: profileImageUrl)
+        }
+    }
+    
+    let thumbnailImageView: CustomImageView = {
+        let imageView = CustomImageView()
+        imageView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         imageView.image = UIImage(named: "")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
     
-    let userProfileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .green
-        imageView.image = UIImage(named: "taylor_swift_profile")
+    let userProfileImageView: CustomImageView = {
+        let imageView = CustomImageView()
+        imageView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        imageView.image = UIImage(named: "")
         imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
+//        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 22
         return imageView
     }()
