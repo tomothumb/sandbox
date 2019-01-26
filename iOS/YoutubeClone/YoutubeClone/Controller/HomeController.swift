@@ -37,7 +37,49 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         
         setupMenuBar()
+        setupNavBarButtons()
+        
     }
+    
+    func setupNavBarButtons(){
+        
+        // 検索ボタン
+        let searchBtn = UIButton(type: .custom)
+        searchBtn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        searchBtn.setImage(UIImage(named: "search")?.withRenderingMode(.alwaysTemplate), for: UIControl.State.normal)
+        searchBtn.tintColor = UIColor(white: 1, alpha: 1)
+        searchBtn.addTarget(self, action: #selector(handleSearch), for: UIControl.Event.touchUpInside)
+        
+        let searchBtnItem = UIBarButtonItem(customView: searchBtn)
+        searchBtnItem.customView?.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        searchBtnItem.customView?.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        
+        // MOREボタン
+        let moreBtn = UIButton(type: .custom)
+        moreBtn.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        moreBtn.setImage(UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate), for: UIControl.State.normal)
+        moreBtn.tintColor = UIColor(white: 1, alpha: 1)
+        moreBtn.addTarget(self, action: #selector(handleMore), for: UIControl.Event.touchUpInside)
+        
+        let moreBtnItem = UIBarButtonItem(customView: moreBtn)
+        moreBtnItem.customView?.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        moreBtnItem.customView?.heightAnchor.constraint(equalToConstant: 24).isActive = true
+
+        // 右に並べる
+        navigationItem.rightBarButtonItems = [moreBtnItem, searchBtnItem]
+        
+    }
+    
+    // 検索ボタンアクション
+    @objc func handleSearch(){
+        print(111)
+    }
+    
+    // Moreボタンアクション
+    @objc func handleMore(){
+        print(222)
+    }
+
     
     let menuBar: MenuBar = {
         let mb = MenuBar()
