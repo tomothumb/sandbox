@@ -19,6 +19,7 @@
 		E5F4172D21FC540600614887 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4172C21FC540600614887 /* VideoCell.swift */; };
 		E5F4173021FC588600614887 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4172F21FC588600614887 /* MenuBar.swift */; };
 		E5F4173321FC964400614887 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4173221FC964400614887 /* Video.swift */; };
+		E5F4173621FCEB6F00614887 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4173521FCEB6F00614887 /* ApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		E5F4172C21FC540600614887 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		E5F4172F21FC588600614887 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		E5F4173221FC964400614887 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		E5F4173521FCEB6F00614887 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		E5F416F621FB73D300614887 /* YoutubeClone */ = {
 			isa = PBXGroup;
 			children = (
+				E5F4173421FCEB5600614887 /* Service */,
 				E5F4173121FC963100614887 /* Model */,
 				E5F4172E21FC543A00614887 /* Controller */,
 				E5F4172B21FC53DA00614887 /* View */,
@@ -170,6 +173,14 @@
 				E5F4173221FC964400614887 /* Video.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E5F4173421FCEB5600614887 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E5F4173521FCEB6F00614887 /* ApiService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,6 +320,7 @@
 				E5F416FA21FB73D300614887 /* HomeController.swift in Sources */,
 				E5F416F821FB73D300614887 /* AppDelegate.swift in Sources */,
 				E5F4173321FC964400614887 /* Video.swift in Sources */,
+				E5F4173621FCEB6F00614887 /* ApiService.swift in Sources */,
 				E5F4172A21FC539D00614887 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

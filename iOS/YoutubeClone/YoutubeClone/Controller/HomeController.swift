@@ -11,28 +11,6 @@ import UIKit
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var videos: [Video]?
-//    var videos: [Video] = {
-//        var kanyeChannel = Channel()
-//        kanyeChannel.name = "KanyeIsTheBestChannel"
-//        kanyeChannel.profileImageName = "kanye_profile"
-//
-//
-//        var blankSpaceVideo = Video()
-//        blankSpaceVideo.title = "TaylorSwift - Blank space"
-//        blankSpaceVideo.thumbnailImageName = "taylor_swift_blank_space"
-//        blankSpaceVideo.channel = kanyeChannel
-//        blankSpaceVideo.numberOfViews = 2000000
-//        blankSpaceVideo.channel = kanyeChannel
-//
-//
-//        var badBloodVideo = Video()
-//        badBloodVideo.title = "TaylorSwift - Bad Blood featuring Kendrick"
-//        badBloodVideo.thumbnailImageName = "taylor_swift_bad_blood"
-//        badBloodVideo.channel = kanyeChannel
-//        badBloodVideo.numberOfViews = 1333
-//
-//        return [blankSpaceVideo, badBloodVideo]
-//    }()
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
@@ -40,64 +18,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // Youtubeの再生リストのJSON リクエスト
     func fetchVideos(){
-        guard let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json") else { return }
-
-        URLSession.shared.dataTask(with: url) { (data, res, err) in
-
-            if err != nil {
-                print(err!)
-                return
-            }
-            
-            let str = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            print("success")
-            print(str!)
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
-                self.videos = [Video]()
-                
-                // jsonをパースし、videoオブジェクトに追加する。
-                for dictionary in json as! [[String: AnyObject]] {
-                    let video = Video()
-                    video.title = dictionary["title"] as? String
-                    // サムネのURLをセット
-                    video.thumbnailImageName = dictionary["thumbnail_image_name"] as? String
-                    //channelをセット
-                    let channelDictionary = dictionary["channel"] as! [String: AnyObject]
-                    let channel = Channel()
-                    channel.name = channelDictionary["name"] as? String
-                    channel.profileImageName = channelDictionary["profile_image_name"] as? String
-                    
-                    video.channel = channel
-                    self.videos?.append(video)
-                }
-
-                //Json読み込み後にViewをリロード
-                DispatchQueue.main.async {
-                    self.collectionView?.reloadData()
-                }
-
-
-            } catch let jsonErr {
-                print("Error serializing json:", jsonErr)
-            }
-
-//            guard let data = data else { return }
-//////            let dataAsString = String(data: data, encoding: String.Encoding.utf8)
-//////            print(dataAsString)
-//            do {
-//                // Courses widh Missing field
-//                let videos = try JSONDecoder().decode(Video.self, from: data)
-//                print(videos)
-//
-//                self.collectionView?.reloadData()
-//
-//            } catch let jsonErr {
-//                print("Error serializing json:", jsonErr)
-//            }
-            
-            }.resume()
+        ApiService.sharedInstance.fetchVideos { (videos: [Video]) in
+            self.videos = videos
+            self.collectionView?.reloadData()
+        }
     }
     
     override func viewDidLoad() {
