@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5D3F37121FDB09A00ECB5AE /* SettingsLancher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3F37021FDB09A00ECB5AE /* SettingsLancher.swift */; };
 		E5F416F821FB73D300614887 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F416F721FB73D300614887 /* AppDelegate.swift */; };
 		E5F416FA21FB73D300614887 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F416F921FB73D300614887 /* HomeController.swift */; };
 		E5F416FD21FB73D300614887 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5F416FB21FB73D300614887 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 		E5F4173021FC588600614887 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4172F21FC588600614887 /* MenuBar.swift */; };
 		E5F4173321FC964400614887 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4173221FC964400614887 /* Video.swift */; };
 		E5F4173621FCEB6F00614887 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4173521FCEB6F00614887 /* ApiService.swift */; };
+		E5F4173821FCFC5200614887 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4173721FCFC5200614887 /* FeedCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E5D3F37021FDB09A00ECB5AE /* SettingsLancher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLancher.swift; sourceTree = "<group>"; };
 		E5F416F421FB73D300614887 /* YoutubeClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5F416F721FB73D300614887 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5F416F921FB73D300614887 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 		E5F4172F21FC588600614887 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		E5F4173221FC964400614887 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		E5F4173521FCEB6F00614887 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		E5F4173721FCFC5200614887 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,7 @@
 			children = (
 				E5F4172C21FC540600614887 /* VideoCell.swift */,
 				E5F4172F21FC588600614887 /* MenuBar.swift */,
+				E5F4173721FCFC5200614887 /* FeedCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F416F921FB73D300614887 /* HomeController.swift */,
+				E5D3F37021FDB09A00ECB5AE /* SettingsLancher.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -320,8 +326,10 @@
 				E5F416FA21FB73D300614887 /* HomeController.swift in Sources */,
 				E5F416F821FB73D300614887 /* AppDelegate.swift in Sources */,
 				E5F4173321FC964400614887 /* Video.swift in Sources */,
+				E5D3F37121FDB09A00ECB5AE /* SettingsLancher.swift in Sources */,
 				E5F4173621FCEB6F00614887 /* ApiService.swift in Sources */,
 				E5F4172A21FC539D00614887 /* Extensions.swift in Sources */,
+				E5F4173821FCFC5200614887 /* FeedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

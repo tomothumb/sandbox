@@ -11,9 +11,9 @@ import UIKit
 class BaseCell: UICollectionViewCell{
     override init(frame: CGRect){
         super.init(frame:frame)
-        setupView()
+        setupViews()
     }
-    func setupView(){}
+    func setupViews(){}
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -124,7 +124,7 @@ class VideoCell: BaseCell {
     var titleLabelHeightConstraint: NSLayoutConstraint?
     
     
-    override func setupView(){
+    override func setupViews(){
 //        backgroundColor = .green
         addSubview(thumbnailImageView)
         thumbnailImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)

@@ -135,8 +135,8 @@ class MenuCell: BaseCell{
         }
     }
 
-    override func setupView() {
-        super.setupView()
+    override func setupViews() {
+        super.setupViews()
         addSubview(imageView)
         addConstraintsWithFormat(format: "H:[v0(25)]", views: imageView)
         addConstraintsWithFormat(format: "V:[v0(25)]", views: imageView)
