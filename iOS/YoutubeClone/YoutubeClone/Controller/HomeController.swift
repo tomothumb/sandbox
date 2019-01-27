@@ -110,11 +110,27 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         print(111)
     }
     
-    let settingsLancher = SettingLancher()
+    lazy var settingsLancher: SettingLancher = {
+        let lancher = SettingLancher()
+        lancher.homeController = self
+        return lancher
+    }()
     
     // Moreボタンアクション
     @objc func handleMore(){
+    
         settingsLancher.showSettings()
+    }
+    
+    func showControllerForSetting(setting: Setting){
+        let dummySettingsViewController = UIViewController()
+        dummySettingsViewController.view.backgroundColor = .white
+        dummySettingsViewController.navigationItem.title = setting.name
+        //ナビの色
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        // コントローラーをプッシュ
+        navigationController?.pushViewController(dummySettingsViewController, animated: true)
     }
 
     
