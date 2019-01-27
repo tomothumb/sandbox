@@ -9,13 +9,22 @@
 import UIKit
 
 class Setting: NSObject {
-    let name: String
+    let name: SettingName
     let imageName: String
     
-    init(name: String, imageName: String) {
+    init(name: SettingName, imageName: String) {
         self.name = name
         self.imageName = imageName
     }
+}
+
+enum SettingName: String {
+    case Cancel = "Cancel"
+    case Settings = "Settings"
+    case TermsPrivacy = "Terms & privacy policy"
+    case SendFeedback = "Send Feedback"
+    case Help = "Help"
+    case SwitchAccount = "Switch Account"
 }
 
 class SettingLancher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -32,13 +41,16 @@ class SettingLancher: NSObject, UICollectionViewDataSource, UICollectionViewDele
     
     let cellHeight: CGFloat = 50
     let cellId = "cellId"
+    
     let settings: [Setting] = {
-        return [Setting(name: "Settings", imageName: "settings"),
-                Setting(name: "Terms & privacy policy", imageName: "settings"),
-        Setting(name: "Send Feedback", imageName: "settings"),
-        Setting(name: "Help", imageName: "settings"),
-        Setting(name: "Switch Account", imageName: "settings"),
-        Setting(name: "Cancel", imageName: "settings")]
+        return [
+            Setting(name: .Settings, imageName: "settings"),
+            Setting(name: .TermsPrivacy, imageName: "search"),
+            Setting(name: .SendFeedback, imageName: "monitor"),
+            Setting(name: .Help, imageName: "idea"),
+            Setting(name: .SwitchAccount, imageName: "user"),
+            Setting(name: .Cancel, imageName: "settings"),
+        ]
     }()
     
     // Moreボタンアクション
@@ -75,7 +87,7 @@ class SettingLancher: NSObject, UICollectionViewDataSource, UICollectionViewDele
                 self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
             }
         }) { (completed: Bool) in
-            if !setting.isKind(of: UITapGestureRecognizer.self) && setting.name != "Cancel" {
+            if !setting.isKind(of: UITapGestureRecognizer.self) && setting.name != .Cancel {
                 self.homeController?.showControllerForSetting(setting: setting)
             }
         }
