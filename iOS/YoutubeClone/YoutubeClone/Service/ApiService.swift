@@ -11,9 +11,26 @@ import UIKit
 class ApiService: NSObject {
     static let sharedInstance = ApiService()
     
+    let baseUrl = "https://s3-us-west-2.amazonaws.com/youtubeassets"
+    
     // Youtubeの再生リストのJSON リクエスト
     func fetchVideos(completion: @escaping ([Video]) -> ()) {
-        guard let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json") else { return }
+        fetchFeedForUrlString(urlString: "\(baseUrl)/home.json", completion: completion)
+    }
+    
+    // Youtubeの再生リストのJSON リクエスト
+    func fetchTrandingFeed(completion: @escaping ([Video]) -> ()) {
+        fetchFeedForUrlString(urlString: "\(baseUrl)/trending.json", completion: completion)
+        
+    }
+    
+    // Youtubeの再生リストのJSON リクエスト
+    func fetchSubscriptionFeed(completion: @escaping ([Video]) -> ()) {
+        fetchFeedForUrlString(urlString: "\(baseUrl)/subscriptions.json", completion: completion)
+    }
+    
+    func fetchFeedForUrlString(urlString: String, completion: @escaping ([Video])->()){
+        guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, res, err) in
             
@@ -49,7 +66,7 @@ class ApiService: NSObject {
                 //Json読み込み後にViewをリロード
                 DispatchQueue.main.async {
                     completion(videos)
-//                    self.collectionView?.reloadData()
+                    //                    self.collectionView?.reloadData()
                 }
                 
                 
