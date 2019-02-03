@@ -7,7 +7,8 @@
 //
 
 import UIKit
-//import Firebase
+import Firebase
+import FirebaseDatabase
 
 //let docData = [
 //    "name":"FOO",
@@ -124,7 +125,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
     }
     

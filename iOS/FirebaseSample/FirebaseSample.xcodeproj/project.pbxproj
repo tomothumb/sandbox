@@ -11,6 +11,7 @@
 		76B1DBF2C93910D588CF4361 /* Pods_FirebaseSampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32542D1C9ABBF9B856B7E9E1 /* Pods_FirebaseSampleTests.framework */; };
 		CCB4593D05941F607484FE46 /* Pods_FirebaseSampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED8E07AEF5BB6666745EA1F /* Pods_FirebaseSampleUITests.framework */; };
 		E540BF4D2206C6D900004C69 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E540BF4C2206C6D900004C69 /* LoginController.swift */; };
+		E540BF4F2206D3C500004C69 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E540BF4E2206D3C500004C69 /* GoogleService-Info.plist */; };
 		E5F4178321FD6B2600614887 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4178221FD6B2600614887 /* AppDelegate.swift */; };
 		E5F4178521FD6B2600614887 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4178421FD6B2600614887 /* ViewController.swift */; };
 		E5F4178821FD6B2600614887 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5F4178621FD6B2600614887 /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		939DCE79A5DC67F53CCE4464 /* Pods_FirebaseSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C86B8DF14E50919183CA39FD /* Pods-FirebaseSampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseSampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FirebaseSampleUITests/Pods-FirebaseSampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E540BF4C2206C6D900004C69 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		E540BF4E2206D3C500004C69 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5F4177F21FD6B2600614887 /* FirebaseSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5F4178221FD6B2600614887 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5F4178421FD6B2600614887 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		E5F4178121FD6B2600614887 /* FirebaseSample */ = {
 			isa = PBXGroup;
 			children = (
+				E540BF4E2206D3C500004C69 /* GoogleService-Info.plist */,
 				E5F4178221FD6B2600614887 /* AppDelegate.swift */,
 				E5F4178421FD6B2600614887 /* ViewController.swift */,
 				E5F4178621FD6B2600614887 /* Main.storyboard */,
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5F4179021FD6B2700614887 /* LaunchScreen.storyboard in Resources */,
+				E540BF4F2206D3C500004C69 /* GoogleService-Info.plist in Resources */,
 				E5F4178D21FD6B2700614887 /* Assets.xcassets in Resources */,
 				E5F4178821FD6B2600614887 /* Main.storyboard in Resources */,
 			);
@@ -334,6 +338,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-FirebaseSample/Pods-FirebaseSample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
@@ -346,6 +351,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
