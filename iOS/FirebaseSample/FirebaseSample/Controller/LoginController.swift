@@ -59,15 +59,13 @@ class LoginController: UIViewController {
         // 認証
         Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
             if error != nil {
-                print(error)
+                print(error!)
                 return
             }
             guard let user = authResult?.user else { return }
-            
             guard let uid = authResult?.user.uid else {
                 return
             }
-            
             // success
             self.dismiss(animated: true, completion: nil)
         }
@@ -83,11 +81,10 @@ class LoginController: UIViewController {
         // 認証
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             if error != nil {
-                print(error)
+                print(error!)
                 return
             }
-            guard let user = authResult?.user else { return }
-            
+            guard let user = authResult?.user else { return }            
             guard let uid = authResult?.user.uid else {
                 return
             }
@@ -98,13 +95,13 @@ class LoginController: UIViewController {
             ref = Database.database().reference(fromURL: "https://sampleproj-5274f.firebaseio.com/")
             let userReference = ref.child("users").child(uid)
             let values = [
-                "name:" : name,
+                "name" : name,
                 "email" : email
             ]
 //            ref.updateChildValues(values)
             userReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
                 if err != nil {
-                    print(err)
+                    print(err!)
                     return
                 }
                 print("Saved user successfully into Firevase DB")
