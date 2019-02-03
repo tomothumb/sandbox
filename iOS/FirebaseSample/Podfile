@@ -6,8 +6,8 @@ target 'FirebaseSample' do
   use_frameworks!
 
   # Pods for FirebaseSample
-  pod 'Firebase/Core'
-  pod 'Firebase/Firestore'
+#  pod 'Firebase/Core'
+#  pod 'Firebase/Firestore'
 
   target 'FirebaseSampleTests' do
     inherit! :search_paths
