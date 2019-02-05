@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E540BF452204A4B400004C69 /* TrendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E540BF442204A4B400004C69 /* TrendingCell.swift */; };
+		E540BF472204A81E00004C69 /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E540BF462204A81E00004C69 /* SubscriptionCell.swift */; };
 		E5D3F37121FDB09A00ECB5AE /* SettingsLancher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3F37021FDB09A00ECB5AE /* SettingsLancher.swift */; };
 		E5D3F37321FDB8C400ECB5AE /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3F37221FDB8C400ECB5AE /* SettingCell.swift */; };
 		E5D3F37521FE1B9300ECB5AE /* VideoLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3F37421FE1B9300ECB5AE /* VideoLauncher.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E540BF442204A4B400004C69 /* TrendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCell.swift; sourceTree = "<group>"; };
+		E540BF462204A81E00004C69 /* SubscriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
 		E5D3F37021FDB09A00ECB5AE /* SettingsLancher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLancher.swift; sourceTree = "<group>"; };
 		E5D3F37221FDB8C400ECB5AE /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		E5D3F37421FE1B9300ECB5AE /* VideoLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLauncher.swift; sourceTree = "<group>"; };
@@ -165,7 +169,9 @@
 				E5F4172C21FC540600614887 /* VideoCell.swift */,
 				E5F4172F21FC588600614887 /* MenuBar.swift */,
 				E5F4173721FCFC5200614887 /* FeedCell.swift */,
+				E540BF442204A4B400004C69 /* TrendingCell.swift */,
 				E5D3F37221FDB8C400ECB5AE /* SettingCell.swift */,
+				E540BF462204A81E00004C69 /* SubscriptionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -328,6 +334,7 @@
 			files = (
 				E5F4172D21FC540600614887 /* VideoCell.swift in Sources */,
 				E5F4170021FB73D300614887 /* YoutubeClone.xcdatamodeld in Sources */,
+				E540BF472204A81E00004C69 /* SubscriptionCell.swift in Sources */,
 				E5F4173021FC588600614887 /* MenuBar.swift in Sources */,
 				E5F416FA21FB73D300614887 /* HomeController.swift in Sources */,
 				E5D3F37321FDB8C400ECB5AE /* SettingCell.swift in Sources */,
@@ -337,6 +344,7 @@
 				E5D3F37121FDB09A00ECB5AE /* SettingsLancher.swift in Sources */,
 				E5F4173621FCEB6F00614887 /* ApiService.swift in Sources */,
 				E5F4172A21FC539D00614887 /* Extensions.swift in Sources */,
+				E540BF452204A4B400004C69 /* TrendingCell.swift in Sources */,
 				E5F4173821FCFC5200614887 /* FeedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,7 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N6999D3QVH;
+				DEVELOPMENT_TEAM = 8RHS3655Q5;
 				INFOPLIST_FILE = YoutubeClone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -531,7 +539,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N6999D3QVH;
+				DEVELOPMENT_TEAM = 8RHS3655Q5;
 				INFOPLIST_FILE = YoutubeClone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

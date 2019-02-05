@@ -14,6 +14,7 @@
 		E51B0A1E2206F730001C706E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B0A1D2206F730001C706E /* User.swift */; };
 		E540BF4D2206C6D900004C69 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E540BF4C2206C6D900004C69 /* LoginController.swift */; };
 		E540BF4F2206D3C500004C69 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E540BF4E2206D3C500004C69 /* GoogleService-Info.plist */; };
+		E5BD0E502209D9DC00ABFAE9 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BD0E4F2209D9DC00ABFAE9 /* LoginController+handlers.swift */; };
 		E5F4178321FD6B2600614887 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4178221FD6B2600614887 /* AppDelegate.swift */; };
 		E5F4178521FD6B2600614887 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4178421FD6B2600614887 /* MessagesController.swift */; };
 		E5F4178821FD6B2600614887 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5F4178621FD6B2600614887 /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		E51B0A1D2206F730001C706E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E540BF4C2206C6D900004C69 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		E540BF4E2206D3C500004C69 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E5BD0E4F2209D9DC00ABFAE9 /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		E5F4177F21FD6B2600614887 /* FirebaseSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5F4178221FD6B2600614887 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5F4178421FD6B2600614887 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				E5F4178421FD6B2600614887 /* MessagesController.swift */,
 				E540BF4C2206C6D900004C69 /* LoginController.swift */,
+				E5BD0E4F2209D9DC00ABFAE9 /* LoginController+handlers.swift */,
 				E51B0A1A2206F218001C706E /* NewMessageController.swift */,
 			);
 			path = Controller;
@@ -441,6 +444,7 @@
 				E51B0A1B2206F218001C706E /* NewMessageController.swift in Sources */,
 				E51B0A1E2206F730001C706E /* User.swift in Sources */,
 				E540BF4D2206C6D900004C69 /* LoginController.swift in Sources */,
+				E5BD0E502209D9DC00ABFAE9 /* LoginController+handlers.swift in Sources */,
 				E5F4178B21FD6B2600614887 /* FirebaseSample.xcdatamodeld in Sources */,
 				E5F4178321FD6B2600614887 /* AppDelegate.swift in Sources */,
 			);
