@@ -20,9 +20,11 @@ class RdapRequest implements WhoisRequestInterface
         $client = new \GuzzleHttp\Client([
             'base_uri' => $this->getServer(),
             'headers' => [
-                'Accept' => 'application/json',
+//                'Accept' => 'application/json',
+                'Accept' => 'application/rdap+json',
             ]
         ]);
+
         $response = $client->request('GET', $this->getRequestPath($ipv4),
             [
                 'allow_redirects' => true,
