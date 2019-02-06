@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
 //        $this->call(JpnicIpsTableSeeder::class);
-        $this->call(ApnicIpsTableSeeder::class);
+//        $this->call(ApnicIpsTableSeeder::class);
+        $this->call(RipeIpsTableSeeder::class);
+        $this->call(AfrinicIpsTableSeeder::class);
+        $this->call(LacnicIpsTableSeeder::class);
     }
 }
