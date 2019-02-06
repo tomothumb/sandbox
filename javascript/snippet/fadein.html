@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample</title>
+    <style>
+        p{
+            margin-bottom: 50px;
+        }
+    </style>
+    <link rel="stylesheet" href="js/vendor/aha_fader/aha_fader.css">
+</head>
+<body>
+
+<div id="target" class="aha_fader">aaa</div>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p><a href="https://google.com/">Go to Google</a></p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+
+<script src="js/vendor/aha_fader/aha_fader.js"></script>
+<script>
+    // インスタンス
+    var aha_fader = new AHA_Fader({
+        target_selector : "#target",
+        offset : 0,
+        waitTime : 100,
+    });
+    // 実行
+    aha_fader.run();
+</script>
+</body>
+</html>
