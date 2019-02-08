@@ -165,11 +165,11 @@ class MessagesController: UIViewController {
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         titleView.backgroundColor = .red
-        
+
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         titleView.addSubview(containerView)
-        
+
         let profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .scaleAspectFill
@@ -178,17 +178,17 @@ class MessagesController: UIViewController {
         if let profileImageUrl = user.profileImageUrl {
             profileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
         }
-        
+
         containerView.addSubview(profileImageView)
-        
+
         profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
+
         let nameLabel = UILabel()
         containerView.addSubview(nameLabel)
-        
+
         nameLabel.text = user.name
         nameLabel.numberOfLines = 0
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -200,13 +200,23 @@ class MessagesController: UIViewController {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
-//        containerView.rightAnchor.constraint(equalTo: titleView.rightAnchor).isActive = true
-//        containerView.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
-
         
-//        nameLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         self.navigationItem.titleView = titleView
         
+//        titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
+        
+//        let button = UIButton()
+//        button.setTitle(user.name, for: .normal)
+//        button.addTarget(self, action: #selector(showChatController), for: .touchUpInside)
+//        self.navigationItem.titleView = button
+
+    }
+    
+    @objc func showChatControllerForUser(user: User){
+        print(123)
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogController.user = user
+        navigationController?.pushViewController(chatLogController, animated: true)
     }
     
     
@@ -224,6 +234,7 @@ class MessagesController: UIViewController {
     @objc func handleNewMessage(){
 
         let newMessageController = NewMessageController()
+        newMessageController.messagesController = self
         let navController = UINavigationController(rootViewController: newMessageController)
         present(navController, animated: true, completion: nil)
     }
