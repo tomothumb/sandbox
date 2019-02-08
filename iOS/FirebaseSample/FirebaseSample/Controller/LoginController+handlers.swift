@@ -63,10 +63,10 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 print(error!)
                 return
             }
-            guard let user = authResult?.user else { return }
             guard let uid = authResult?.user.uid else {
                 return
             }
+            self.messagesController?.fetchUserAndSetupNavBarTitle()
             // success
             self.dismiss(animated: true, completion: nil)
         }
@@ -91,14 +91,17 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             }
             
             // success
-            let imageName = NSUUID().uuidString // Unique string
+//            let imageName = NSUUID().uuidString // Unique string
             
             // Store
             let storageRef = Storage.storage().reference()
             let storageRefChild = storageRef.child("user_profile_pictures").child("\(uid).jpg")
+//            let storageRefChild = storageRef.child("user_profile_pictures").child("\(imageName).jpg")
 
+            if let profileImage = self.profileImageView.image, let uploadData = profileImage.jpegData(compressionQuality: 0.1){
+//            if let uploadData = self.profileImageView.image!.jpegData(compressionQuality: 0.1) {
 
-            if let uploadData = self.profileImageView.image!.pngData() {
+//            if let uploadData = self.profileImageView.image!.pngData() {
                 storageRefChild.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
                         print(error!)
@@ -138,6 +141,11 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             }
             print("Saved user successfully into Firevase DB")
             
+//            self.messagesController?.fetchUserAndSetupNavBarTitle()
+//            self.messagesController?.navigationItem.title = values["name"] as? String
+            let user = User(dictionary: values)
+            self.messagesController?.setupNavBarWithUser(user: user)
+
             self.dismiss(animated: true, completion: nil)
             
         })
