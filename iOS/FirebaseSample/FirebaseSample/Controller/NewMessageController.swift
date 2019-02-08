@@ -75,26 +75,27 @@ class NewMessageController: UITableViewController {
 
         if let profileImageUrl = user.profileImageUrl {
             
-            let url = URL(string: profileImageUrl)
-            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, err) in
-                if err != nil {
-                    print(err!)
-                    return
-                }
-                
-                // success
-                DispatchQueue.main.async {
-                    print("loaded")
-                    cell.profileImageView.image = UIImage(data: data!)
-//                    cell.imageView?.image = UIImage(data: data!)
-                }
-            }).resume()
+            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
+//            let url = URL(string: profileImageUrl)
+//            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, err) in
+//                if err != nil {
+//                    print(err!)
+//                    return
+//                }
+//
+//                // success
+//                DispatchQueue.main.async {
+//                    print("loaded")
+//                    cell.profileImageView.image = UIImage(data: data!)
+////                    cell.imageView?.image = UIImage(data: data!)
+//                }
+//            }).resume()
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 56
+        return 72
     }
 
 }
@@ -104,16 +105,17 @@ class UserCell: UITableViewCell{
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        textLabel?.frame = CGRect(x: 56, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
-        detailTextLabel?.frame = CGRect(x: 56, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
+        textLabel?.frame = CGRect(x: 64, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
+        detailTextLabel?.frame = CGRect(x: 64, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
     }
     
     let profileImageView: UIImageView = {
         let iv = UIImageView()
 //        iv.image = UIImage(named: "gameofthrones_splash")
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.layer.cornerRadius = 20
+        iv.layer.cornerRadius = 24
         iv.layer.masksToBounds = true
+        iv.contentMode = .scaleAspectFill
         return iv
     }()
     
@@ -124,8 +126,8 @@ class UserCell: UITableViewCell{
         
         profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 48).isActive = true
         
     }
 
