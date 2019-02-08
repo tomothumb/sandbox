@@ -49,69 +49,7 @@ class LoginController: UIViewController {
         }
     }
     
-    // ログインアクション
-    func handleLogin(){
-        guard let email = emailTextField.text , let password = passwordTextField.text else{
-            print("Form is not valid")
-            return
-        }
-        
-        // 認証
-        Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
-            if error != nil {
-                print(error!)
-                return
-            }
-            guard let user = authResult?.user else { return }
-            guard let uid = authResult?.user.uid else {
-                return
-            }
-            // success
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    // 登録アクション
-    func handleRegister(){
-        guard let email = emailTextField.text , let password = passwordTextField.text , let name = nameTextField.text else{
-            print("Form is not valid")
-            return
-        }
-        
-        // 認証
-        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
-            if error != nil {
-                print(error!)
-                return
-            }
-            guard let user = authResult?.user else { return }            
-            guard let uid = authResult?.user.uid else {
-                return
-            }
 
-            // success
-            var ref: DatabaseReference!
-    //        ref = Database.database().reference()
-            ref = Database.database().reference(fromURL: "https://sampleproj-5274f.firebaseio.com/")
-            let userReference = ref.child("users").child(uid)
-            let values = [
-                "name" : name,
-                "email" : email
-            ]
-//            ref.updateChildValues(values)
-            userReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
-                if err != nil {
-                    print(err!)
-                    return
-                }
-                print("Saved user successfully into Firevase DB")
-                
-                self.dismiss(animated: true, completion: nil)
-                
-            })
-    //        ref.child("someValue").setValue(["num": 123])
-        }
-    }
     
     let nameTextField:UITextField = {
         let tf = UITextField()
