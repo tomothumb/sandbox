@@ -37,7 +37,8 @@ class NewMessageController: UITableViewController {
                 
                 user.name = dictionary["name"] as? String
                 user.email = dictionary["email"] as? String
-                
+                user.profileImageUrl = dictionary["profileImageUrl"] as? String
+
                 print(user.name!, user.email!)
                 self.users.append(user)
                 
@@ -63,23 +64,73 @@ class NewMessageController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: cellId)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
     
         let user = users[indexPath.row]
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
 //        cell.textLabel?.text = "Dummy"
+//        cell.imageView?.image = UIImage(named:"??")
+//        cell.imageView?.contentMode = .scaleAspectFill
+
+        if let profileImageUrl = user.profileImageUrl {
+            
+            let url = URL(string: profileImageUrl)
+            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, err) in
+                if err != nil {
+                    print(err!)
+                    return
+                }
+                
+                // success
+                DispatchQueue.main.async {
+                    print("loaded")
+                    cell.profileImageView.image = UIImage(data: data!)
+//                    cell.imageView?.image = UIImage(data: data!)
+                }
+            }).resume()
+        }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 56
     }
 
 }
 
 class UserCell: UITableViewCell{
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style:.subtitle, reuseIdentifier: reuseIdentifier)
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        textLabel?.frame = CGRect(x: 56, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
+        detailTextLabel?.frame = CGRect(x: 56, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
     }
     
+    let profileImageView: UIImageView = {
+        let iv = UIImageView()
+//        iv.image = UIImage(named: "gameofthrones_splash")
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.layer.cornerRadius = 20
+        iv.layer.masksToBounds = true
+        return iv
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style:.subtitle, reuseIdentifier: reuseIdentifier)
+        
+        addSubview(profileImageView)
+        
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
