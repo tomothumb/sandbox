@@ -39,7 +39,7 @@ class NewMessageController: UITableViewController {
 //                user.email = dictionary["email"] as? String
 //                user.profileImageUrl = dictionary["profileImageUrl"] as? String
 
-                print(user.name!, user.email!)
+//                print(user.name!, user.email!)
                 self.users.append(user)
                 
                 DispatchQueue.main.async {
@@ -106,42 +106,4 @@ class NewMessageController: UITableViewController {
             self.messagesController?.showChatControllerForUser(user: user)
         }
     }
-
-}
-
-class UserCell: UITableViewCell{
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        textLabel?.frame = CGRect(x: 64, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
-        detailTextLabel?.frame = CGRect(x: 64, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
-    }
-    
-    let profileImageView: UIImageView = {
-        let iv = UIImageView()
-//        iv.image = UIImage(named: "gameofthrones_splash")
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.layer.cornerRadius = 24
-        iv.layer.masksToBounds = true
-        iv.contentMode = .scaleAspectFill
-        return iv
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style:.subtitle, reuseIdentifier: reuseIdentifier)
-        
-        addSubview(profileImageView)
-        
-        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
-        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }

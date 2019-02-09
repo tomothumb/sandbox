@@ -121,8 +121,9 @@ import FirebaseAuth
 //}
 
 
-class MessagesController: UIViewController {
+class MessagesController: UITableViewController {
 
+    let cellId = "cellId"
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -132,6 +133,55 @@ class MessagesController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "new_message_icon"), style: .plain, target: self, action: #selector(handleNewMessage))
         
         checkIfUserIsLoggedIn()
+        
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+        
+        observeMessage()
+    }
+    
+    var messages = [Message]()
+    var messagesDictionary = [String: Message]()
+    
+    func observeMessage(){
+        let ref = Database.database().reference().child("messages")
+        ref.observe(DataEventType.childAdded, with: { (snapshot) in
+            print(snapshot)
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message(dictionary: dictionary)
+//                self.messages.append(message)
+                
+                // 人別にまとめる
+                if let toId = message.toId {
+                    self.messagesDictionary[toId] = message
+                    self.messages = Array(self.messagesDictionary.values)
+                    
+                    self.messages.sort(by: { (message1, message2) -> Bool in
+                        return message1.timestamp!.intValue > message2.timestamp!.intValue
+                    })
+
+                    
+                }
+                // this will crash because of background thread, so lets call this on dispatch main async thread
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }, withCancel: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "cellId")
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
+        
+        let message = messages[indexPath.row]
+        cell.message = message
+        
+        return cell
     }
     
     func checkIfUserIsLoggedIn(){
@@ -159,6 +209,7 @@ class MessagesController: UIViewController {
             }
         }, withCancel: nil)
     }
+    
     
     func setupNavBarWithUser(user: User) {
         self.navigationItem.title = user.name
@@ -238,5 +289,10 @@ class MessagesController: UIViewController {
         let navController = UINavigationController(rootViewController: newMessageController)
         present(navController, animated: true, completion: nil)
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
+    }
+    
     
 }

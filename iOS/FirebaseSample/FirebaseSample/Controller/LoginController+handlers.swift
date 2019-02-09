@@ -130,8 +130,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
     private func registerUserIntoDatabaseWithID(uid: String, values: [String: AnyObject]){
         // success
         var ref: DatabaseReference!
-//        ref = Database.database().reference()
-        ref = Database.database().reference(fromURL: "https://sampleproj-5274f.firebaseio.com/")
+        ref = Database.database().reference()
         let userReference = ref.child("users").child(uid)
 //        ref.updateChildValues(values)
         userReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
