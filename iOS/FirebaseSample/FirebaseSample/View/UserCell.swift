@@ -8,27 +8,14 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class UserCell: UITableViewCell {
 
     var message: Message? {
         didSet {
             // 読み込む
-            if let toId = message?.toId {
-                let ref = Database.database().reference().child("users").child(toId)
-                ref.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-                    
-                    if let dictionary = snapshot.value as? [String: AnyObject] {
-                        // 名前
-                        self.textLabel?.text = dictionary["name"] as? String
-                        // サムネイル
-                        if let profileImageUrl = dictionary["profileImageUrl"] as? String {
-                            self.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
-                        }
-                    }
-                }, withCancel: nil)
-            }
-            //        cell.textLabel?.text = message.toId
+            setupNameAndProfileImage()
             detailTextLabel?.text = message?.text
             
             // 時刻
@@ -40,6 +27,33 @@ class UserCell: UITableViewCell {
             }
         }
     }
+    
+    // プロフィールのロード
+    private func setupNameAndProfileImage() {
+        let chatPartnerId: String?
+        
+        if message?.fromId == Auth.auth().currentUser?.uid {
+            chatPartnerId = message?.toId
+        }else{
+            chatPartnerId = message?.fromId
+        }
+        
+        if let id = chatPartnerId {
+            let ref = Database.database().reference().child("users").child(id)
+            ref.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    // 名前
+                    self.textLabel?.text = dictionary["name"] as? String
+                    // サムネイル
+                    if let profileImageUrl = dictionary["profileImageUrl"] as? String {
+                        self.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
+                    }
+                }
+            }, withCancel: nil)
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
