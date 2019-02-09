@@ -62,7 +62,7 @@ class UserCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.darkGray
-        label.text = "his"
+//        label.text = "his"
         return label
     }()
     

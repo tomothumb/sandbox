@@ -136,11 +136,46 @@ class MessagesController: UITableViewController {
         
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         
-        observeMessage()
+//        observeMessage()
     }
     
     var messages = [Message]()
     var messagesDictionary = [String: Message]()
+    
+    func observeUserMessages(){
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        // 送信主別
+        let ref = Database.database().reference().child("user-messages").child(uid)
+        ref.observe(DataEventType.childAdded, with: { (snapshot) in
+            print(snapshot)
+            // 送信主別のメッセージID
+            let messageId = snapshot.key
+            // 送信主別のメッセージの内容
+            let messageReference = Database.database().reference().child("messages").child(messageId)
+            
+            messageReference.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    let message = Message(dictionary: dictionary)
+                    // 人別にまとめる
+                    if let toId = message.toId {
+                        self.messagesDictionary[toId] = message
+                        self.messages = Array(self.messagesDictionary.values)
+                        self.messages.sort(by: { (message1, message2) -> Bool in
+                            return message1.timestamp!.intValue > message2.timestamp!.intValue
+                        })
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }, withCancel: nil)
+            
+        }, withCancel: nil)
+        
+    }
     
     func observeMessage(){
         let ref = Database.database().reference().child("messages")
@@ -212,6 +247,13 @@ class MessagesController: UITableViewController {
     
     
     func setupNavBarWithUser(user: User) {
+        
+        messages.removeAll()
+        messagesDictionary.removeAll()
+        tableView.reloadData()
+        
+        observeUserMessages()
+        
         self.navigationItem.title = user.name
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
