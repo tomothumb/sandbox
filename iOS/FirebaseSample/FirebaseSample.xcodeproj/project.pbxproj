@@ -18,6 +18,7 @@
 		E5747A42220DCCCC007C099E /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5747A41220DCCCC007C099E /* ChatLogController.swift */; };
 		E5747A44220F24AD007C099E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5747A43220F24AD007C099E /* Message.swift */; };
 		E5747A47220F2A8E007C099E /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5747A46220F2A8E007C099E /* UserCell.swift */; };
+		E5747A49220FFF66007C099E /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5747A48220FFF66007C099E /* ChatMessageCell.swift */; };
 		E5BD0E502209D9DC00ABFAE9 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BD0E4F2209D9DC00ABFAE9 /* LoginController+handlers.swift */; };
 		E5F4178321FD6B2600614887 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4178221FD6B2600614887 /* AppDelegate.swift */; };
 		E5F4178521FD6B2600614887 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F4178421FD6B2600614887 /* MessagesController.swift */; };
@@ -62,6 +63,7 @@
 		E5747A41220DCCCC007C099E /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		E5747A43220F24AD007C099E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		E5747A46220F2A8E007C099E /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		E5747A48220FFF66007C099E /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		E5BD0E4F2209D9DC00ABFAE9 /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		E5F4177F21FD6B2600614887 /* FirebaseSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5F4178221FD6B2600614887 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				E5747A46220F2A8E007C099E /* UserCell.swift */,
+				E5747A48220FFF66007C099E /* ChatMessageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				E5BD0E502209D9DC00ABFAE9 /* LoginController+handlers.swift in Sources */,
 				E5747A44220F24AD007C099E /* Message.swift in Sources */,
 				E5F4178B21FD6B2600614887 /* FirebaseSample.xcdatamodeld in Sources */,
+				E5747A49220FFF66007C099E /* ChatMessageCell.swift in Sources */,
 				E5747A47220F2A8E007C099E /* UserCell.swift in Sources */,
 				E5F4178321FD6B2600614887 /* AppDelegate.swift in Sources */,
 			);

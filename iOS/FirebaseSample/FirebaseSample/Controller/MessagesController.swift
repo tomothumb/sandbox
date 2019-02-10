@@ -160,8 +160,8 @@ class MessagesController: UITableViewController {
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     let message = Message(dictionary: dictionary)
                     // 人別にまとめる
-                    if let toId = message.toId {
-                        self.messagesDictionary[toId] = message
+                    if let chatPartnerId = message.chatPartnerId() {
+                        self.messagesDictionary[chatPartnerId] = message
                         self.messages = Array(self.messagesDictionary.values)
                         self.messages.sort(by: { (message1, message2) -> Bool in
                             return message1.timestamp!.intValue > message2.timestamp!.intValue
@@ -334,6 +334,32 @@ class MessagesController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 72
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+//        message.toId
+//        message.fromId
+        
+        guard let chatPartnerId = message.chatPartnerId() else {
+            return
+        }
+
+        let ref = Database.database().reference().child("users").child(chatPartnerId)
+        ref.observe(DataEventType.value, with: { (snapshot) in
+            print(snapshot)
+            guard let dictionary = snapshot.value as? [String: AnyObject] else {
+                return
+            }
+
+            let user = User(dictionary: dictionary)
+            user.id = chatPartnerId
+            self.showChatControllerForUser(user: user)
+
+            
+        }, withCancel: nil)
+        
+        
     }
     
     

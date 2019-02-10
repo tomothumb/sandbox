@@ -10,12 +10,51 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class ChatLogController: UICollectionViewController, UITextFieldDelegate {
+class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
 
     var user: User? {
         didSet {
             navigationItem.title = user?.name
+            
+            observeMessage()
         }
+    }
+
+    var messages = [Message]()
+
+    // チャットを開いた時のメッセージの読み込み
+    func observeMessage(){
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let userMessageRef = Database.database().reference().child("user-messages").child(uid)
+        
+        userMessageRef.observe(DataEventType.childAdded, with: { (snapshot) in
+            
+            let messageId = snapshot.key
+            let messagesRef = Database.database().reference().child("messages").child(messageId)
+            messagesRef.observe(DataEventType.value, with: { (snapshot) in
+                
+                guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+                
+                
+                let message = Message(dictionary: dictionary)
+                
+                // 自分の投稿
+                if message.chatPartnerId() == self.user?.id {
+                    self.messages.append(message)
+                    DispatchQueue.main.async {
+                        self.collectionView?.reloadData()
+                    }
+
+                } else {
+                    
+                }
+                
+                
+                
+            }, withCancel: nil)
+            
+        }, withCancel: nil)
+        
     }
     
     lazy var inputTextField: UITextField = {
@@ -28,7 +67,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 58, right: 0)
+        collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = .white
+        collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         
         setupInputComponents()
     }
@@ -37,6 +81,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     func setupInputComponents(){
         let containerView = UIView()
         
+        containerView.backgroundColor = .white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(containerView)
         
@@ -93,6 +138,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
                 print(error!)
                 return
             }
+            
+            self.inputTextField.text = nil
             // メッセージ自身のID
             guard let messageId = childRef.key else { return }
 
@@ -110,5 +157,65 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         handleSend()
         return true
     }
+    
+    
+    let cellId = "cellId"
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
+
+        let message = messages[indexPath.item]
+        cell.textView.text = message.text
+        
+        setupCell(cell: cell, message: message)
+        
+        // Bubbleの幅の変更
+        let width = estimateFrameForText(text: message.text!).width
+        cell.bubbleWidthAnchor?.constant = width
+        
+        return cell
+    }
+    
+    private func setupCell(cell: ChatMessageCell, message: Message){
+        
+        if let profileImageUrl = self.user?.profileImageUrl {
+            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
+        }
+        
+        if message.fromId == Auth.auth().currentUser?.uid {
+            cell.bubbleView.backgroundColor = ChatMessageCell.blueColor
+            cell.textView.textColor = .white
+            cell.profileImageView.isHidden = true
+            cell.bubbleRightAnchor?.isActive = true
+            cell.bubbleLeftAnchor?.isActive = false
+        }else{
+            cell.bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+            cell.textView.textColor = .black
+            cell.profileImageView.isHidden = false
+            cell.bubbleRightAnchor?.isActive = false
+            cell.bubbleLeftAnchor?.isActive = true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var height: CGFloat = 80
+        if let text = messages[indexPath.item].text {
+            height = estimateFrameForText(text: text).height
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
+    }
+    
+    private func estimateFrameForText(text: String) -> CGRect {
+        
+        let size = CGSize(width: 250, height: 10000)
+        let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
+        
+    }
+    
 
 }

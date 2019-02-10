@@ -30,15 +30,9 @@ class UserCell: UITableViewCell {
     
     // プロフィールのロード
     private func setupNameAndProfileImage() {
-        let chatPartnerId: String?
         
-        if message?.fromId == Auth.auth().currentUser?.uid {
-            chatPartnerId = message?.toId
-        }else{
-            chatPartnerId = message?.fromId
-        }
         
-        if let id = chatPartnerId {
+        if let id = message?.chatPartnerId() {
             let ref = Database.database().reference().child("users").child(id)
             ref.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 
