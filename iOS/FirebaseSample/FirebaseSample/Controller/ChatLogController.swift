@@ -173,7 +173,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         setupCell(cell: cell, message: message)
         
         // Bubbleの幅の変更
-        let width = estimateFrameForText(text: message.text!).width
+        let width = estimateFrameForText(text: message.text!).width + 32
         cell.bubbleWidthAnchor?.constant = width
         
         return cell
@@ -203,15 +203,15 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var height: CGFloat = 80
         if let text = messages[indexPath.item].text {
-            height = estimateFrameForText(text: text).height
+            height = estimateFrameForText(text: text).height + 20
         }
-        
-        return CGSize(width: view.frame.width, height: height)
+        let width = UIScreen.main.bounds.width
+        return CGSize(width: width, height: height)
     }
     
     private func estimateFrameForText(text: String) -> CGRect {
         
-        let size = CGSize(width: 250, height: 10000)
+        let size = CGSize(width: 200, height: 10000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
         
