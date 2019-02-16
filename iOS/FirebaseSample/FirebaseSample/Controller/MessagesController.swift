@@ -137,6 +137,41 @@ class MessagesController: UITableViewController {
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         
 //        observeMessage()
+        
+        tableView.allowsMultipleSelectionDuringEditing = true
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        let message = self.messages[indexPath.row]
+        
+        if let chatPartnerId = message.chatPartnerId(){
+            Database.database().reference().child("user-messages").child(uid).child(chatPartnerId).removeValue { (error, ref) in
+                
+                if error != nil {
+                    print("Failed to delete message: ", error!)
+                    return
+                }
+                
+                self.messagesDictionary.removeValue(forKey: chatPartnerId)
+                self.attemptReloadOfTable()
+                
+//                self.messages.remove(at: indexPath.row)
+//                self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            }
+            
+        }
+
     }
     
     var messages = [Message]()
@@ -148,18 +183,27 @@ class MessagesController: UITableViewController {
         }
         // 送信主別
         let ref = Database.database().reference().child("user-messages").child(uid)
+        // 追加
         ref.observe(DataEventType.childAdded, with: { (snapshot) in
 //            print(snapshot)
             // チャット相手のID
             let userId = snapshot.key
-            
             Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
                 let messageId = snapshot.key
-        
                 self.fetchMessageWithMessageId( messageId: messageId)
                 
             }, withCancel: nil)
+            
+        }, withCancel: nil)
+        
+        // 削除
+        ref.observe(DataEventType.childRemoved, with: { (snapshot) in
+            
+//            print(snapshot.key)
+//            print(self.messagesDictionary)
+            self.messagesDictionary.removeValue(forKey: snapshot.key)
+            self.attemptReloadOfTable()
             
         }, withCancel: nil)
     }
