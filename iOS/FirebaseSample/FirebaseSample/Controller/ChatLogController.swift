@@ -12,6 +12,7 @@ import FirebaseDatabase
 
 class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
 
+    // チャット相手
     var user: User? {
         didSet {
             navigationItem.title = user?.name
@@ -24,8 +25,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
 
     // チャットを開いた時のメッセージの読み込み
     func observeMessage(){
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let userMessageRef = Database.database().reference().child("user-messages").child(uid)
+        
+        guard let uid = Auth.auth().currentUser?.uid, let toId = user?.id else { return }
+        
+        // チャット相手とのメッセージ
+        let userMessageRef = Database.database().reference().child("user-messages").child(uid).child(toId)
         
         userMessageRef.observe(DataEventType.childAdded, with: { (snapshot) in
             
@@ -35,18 +39,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 
                 guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
                 
-                
                 let message = Message(dictionary: dictionary)
                 
-                // 自分の投稿
-                if message.chatPartnerId() == self.user?.id {
-                    self.messages.append(message)
-                    DispatchQueue.main.async {
-                        self.collectionView?.reloadData()
-                    }
-
-                } else {
-                    
+                self.messages.append(message)
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
                 }
                 
             }, withCancel: nil)
@@ -183,6 +180,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
     }
     
+    // 送信処理(Firebaseに保存)
     @objc func handleSend(){
         
         let ref = Database.database().reference().child("messages")
@@ -205,11 +203,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             guard let messageId = childRef.key else { return }
 
             // 送信者のメッセージのリレーションを保存
-            let userMessagesRef = Database.database().reference().child("user-messages").child(fromId).child(messageId)
+            let userMessagesRef = Database.database().reference().child("user-messages").child(fromId).child(toId).child(messageId)
             userMessagesRef.setValue(1)
             
             // 受信者のメッセージのリレーションを保存
-            let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(messageId)
+            let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(fromId).child(messageId)
             recipientUserMessagesRef.setValue(1)
         }
     }

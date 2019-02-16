@@ -150,35 +150,55 @@ class MessagesController: UITableViewController {
         let ref = Database.database().reference().child("user-messages").child(uid)
         ref.observe(DataEventType.childAdded, with: { (snapshot) in
 //            print(snapshot)
-            // 送信主別のメッセージID
-            let messageId = snapshot.key
-            // 送信主別のメッセージの内容
-            let messageReference = Database.database().reference().child("messages").child(messageId)
+            // チャット相手のID
+            let userId = snapshot.key
             
-            messageReference.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    let message = Message(dictionary: dictionary)
-                    // 人別にまとめる
-                    if let chatPartnerId = message.chatPartnerId() {
-                        self.messagesDictionary[chatPartnerId] = message
-                        self.messages = Array(self.messagesDictionary.values)
-                        self.messages.sort(by: { (message1, message2) -> Bool in
-                            return message1.timestamp!.intValue > message2.timestamp!.intValue
-                        })
-                    }
-                    
-                    self.timer?.invalidate()
-                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
-                }
+                let messageId = snapshot.key
+        
+                self.fetchMessageWithMessageId( messageId: messageId)
+                
             }, withCancel: nil)
             
         }, withCancel: nil)
     }
     
+    // メッセージを読み込む
+    private func fetchMessageWithMessageId(messageId: String){
+        // 送信主別のメッセージの内容
+        let messageReference = Database.database().reference().child("messages").child(messageId)
+        
+        messageReference.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message(dictionary: dictionary)
+                // 人別にまとめる
+                if let chatPartnerId = message.chatPartnerId() {
+                    self.messagesDictionary[chatPartnerId] = message
+                }
+                // リロードタイマー
+                self.attemptReloadOfTable()
+            }
+        }, withCancel: nil)
+        
+    }
+    
+    private func attemptReloadOfTable(){
+        // リロードタイマー
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+    }
+    
+    
     var timer: Timer?
     
     @objc func handleReloadTable() {
+        self.messages = Array(self.messagesDictionary.values)
+        self.messages.sort(by: { (message1, message2) -> Bool in
+            return message1.timestamp!.intValue > message2.timestamp!.intValue
+        })
+
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
