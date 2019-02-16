@@ -52,13 +52,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
     }
     
-    lazy var inputTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter message..."
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.delegate = self
-        return textField
-    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,47 +71,16 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     // 入力欄
-    lazy var inputContainerView: UIView? = {
-        let containerView = UIView()
-        containerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
-        containerView.backgroundColor = .white
+    lazy var inputContainerView: ChatInputContainerView = {
         
+        let chatInputContainerView = ChatInputContainerView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+        chatInputContainerView.chatLogController = self
+        return chatInputContainerView
         
-        let sendButton = UIButton()
-        sendButton.setTitle("Send", for: .normal)
-        sendButton.setTitleColor(.blue, for: .normal)
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(sendButton)
-        
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
-        
-        containerView.addSubview(self.inputTextField)
-        
-        self.inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10).isActive = true
-        self.inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        self.inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        
-        let separatorLineView = UIView()
-        separatorLineView.backgroundColor = UIColor(r: 220, g: 220, b: 220)
-        separatorLineView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(separatorLineView)
-        
-        separatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-        separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        
-        return containerView
     }()
     
     override var inputAccessoryView: UIView? {
         get {
-            
             return inputContainerView
         }
     }
@@ -182,6 +145,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     // 送信処理(Firebaseに保存)
     @objc func handleSend(){
+        let properties = ["text": inputContainerView.inputTextField.text!]
+        sendMessageWithProperties(properties: properties as [String : AnyObject])
+    }
+    
+    private func sendMessageWithProperties(properties: [String: AnyObject]){
         
         let ref = Database.database().reference().child("messages")
         let childRef = ref.childByAutoId()
@@ -189,19 +157,19 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         let toId = user!.id!
         let fromId = Auth.auth().currentUser!.uid
         let timestamp: NSNumber = NSNumber(value: Int( NSDate().timeIntervalSince1970 ) )
-        let values = ["text": inputTextField.text!, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
-
-//        childRef.updateChildValues(values)
+        let values = ["text": inputContainerView.inputTextField.text!, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
+        
+        //        childRef.updateChildValues(values)
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil {
                 print(error!)
                 return
             }
             
-            self.inputTextField.text = nil
+            self.inputContainerView.inputTextField.text = nil
             // メッセージ自身のID
             guard let messageId = childRef.key else { return }
-
+            
             // 送信者のメッセージのリレーションを保存
             let userMessagesRef = Database.database().reference().child("user-messages").child(fromId).child(toId).child(messageId)
             userMessagesRef.setValue(1)
@@ -210,12 +178,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(fromId).child(messageId)
             recipientUserMessagesRef.setValue(1)
         }
+        
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        handleSend()
-        return true
-    }
+
     
     
     let cellId = "cellId"
