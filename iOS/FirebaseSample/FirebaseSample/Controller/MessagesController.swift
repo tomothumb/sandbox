@@ -149,7 +149,7 @@ class MessagesController: UITableViewController {
         // 送信主別
         let ref = Database.database().reference().child("user-messages").child(uid)
         ref.observe(DataEventType.childAdded, with: { (snapshot) in
-            print(snapshot)
+//            print(snapshot)
             // 送信主別のメッセージID
             let messageId = snapshot.key
             // 送信主別のメッセージの内容
@@ -285,7 +285,6 @@ class MessagesController: UITableViewController {
     }
     
     @objc func showChatControllerForUser(user: User){
-        print(123)
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogController.user = user
         navigationController?.pushViewController(chatLogController, animated: true)
@@ -326,7 +325,7 @@ class MessagesController: UITableViewController {
 
         let ref = Database.database().reference().child("users").child(chatPartnerId)
         ref.observe(DataEventType.value, with: { (snapshot) in
-            print(snapshot)
+//            print(snapshot)
             guard let dictionary = snapshot.value as? [String: AnyObject] else {
                 return
             }
