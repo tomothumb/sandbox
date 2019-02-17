@@ -11,6 +11,7 @@ import Vision
 
 class ViewController: UIViewController {
 
+    let offset:CGFloat = 70
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +26,7 @@ class ViewController: UIViewController {
         
         let scaledHeight = view.frame.width / image.size.width * image.size.height
         
-        imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: scaledHeight)
+        imageView.frame = CGRect(x: 0, y: offset, width: view.frame.width, height: scaledHeight)
         imageView.backgroundColor = .black
         
         view.addSubview(imageView)
@@ -49,12 +50,12 @@ class ViewController: UIViewController {
                     let h:CGFloat = scaledHeight * faceObservation.boundingBox.height
                     
                     let x:CGFloat = self.view.frame.width * faceObservation.boundingBox.origin.x
-                    let y:CGFloat = scaledHeight * ( 1 - faceObservation.boundingBox.origin.y) - h
+                    let y:CGFloat = scaledHeight * ( 1 - faceObservation.boundingBox.origin.y) - h + self.offset
                     
                     
                     let redView = UIView()
                     redView.backgroundColor = .red
-                    redView.alpha = 0.3
+                    redView.alpha = 0.5
                     redView.frame = CGRect(x: x, y: y, width: w, height: h)
                     self.view.addSubview(redView)
                 }

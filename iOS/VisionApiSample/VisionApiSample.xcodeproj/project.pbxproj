@@ -15,6 +15,11 @@
 		E524BF99221964C500D21A5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E524BF97221964C500D21A5A /* LaunchScreen.storyboard */; };
 		E524BFA4221964C500D21A5A /* VisionApiSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524BFA3221964C500D21A5A /* VisionApiSampleTests.swift */; };
 		E524BFAF221964C500D21A5A /* VisionApiSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524BFAE221964C500D21A5A /* VisionApiSampleUITests.swift */; };
+		E524BFBD2219781400D21A5A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524BFBC2219781400D21A5A /* TabBarController.swift */; };
+		E524BFBF221978AC00D21A5A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524BFBE221978AC00D21A5A /* CameraViewController.swift */; };
+		E524BFC1221985C700D21A5A /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E524BFC0221985C700D21A5A /* SqueezeNet.mlmodel */; };
+		E524BFC32219882200D21A5A /* Resnet50.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E524BFC22219882200D21A5A /* Resnet50.mlmodel */; };
+		E524BFC52219B73C00D21A5A /* CameraMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524BFC42219B73C00D21A5A /* CameraMLViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		E524BFAA221964C500D21A5A /* VisionApiSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisionApiSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E524BFAE221964C500D21A5A /* VisionApiSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionApiSampleUITests.swift; sourceTree = "<group>"; };
 		E524BFB0221964C500D21A5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E524BFBC2219781400D21A5A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E524BFBE221978AC00D21A5A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		E524BFC0221985C700D21A5A /* SqueezeNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SqueezeNet.mlmodel; sourceTree = "<group>"; };
+		E524BFC22219882200D21A5A /* Resnet50.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Resnet50.mlmodel; sourceTree = "<group>"; };
+		E524BFC42219B73C00D21A5A /* CameraMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMLViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +109,18 @@
 		E524BF8A221964C300D21A5A /* VisionApiSample */ = {
 			isa = PBXGroup;
 			children = (
+				E524BFC0221985C700D21A5A /* SqueezeNet.mlmodel */,
+				E524BFC22219882200D21A5A /* Resnet50.mlmodel */,
 				E524BF8B221964C300D21A5A /* AppDelegate.swift */,
 				E524BF8D221964C300D21A5A /* ViewController.swift */,
+				E524BFBE221978AC00D21A5A /* CameraViewController.swift */,
+				E524BFC42219B73C00D21A5A /* CameraMLViewController.swift */,
 				E524BF8F221964C300D21A5A /* Main.storyboard */,
 				E524BF95221964C500D21A5A /* Assets.xcassets */,
 				E524BF97221964C500D21A5A /* LaunchScreen.storyboard */,
 				E524BF9A221964C500D21A5A /* Info.plist */,
 				E524BF92221964C300D21A5A /* VisionApiSample.xcdatamodeld */,
+				E524BFBC2219781400D21A5A /* TabBarController.swift */,
 			);
 			path = VisionApiSample;
 			sourceTree = "<group>";
@@ -259,7 +274,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E524BFC52219B73C00D21A5A /* CameraMLViewController.swift in Sources */,
+				E524BFC32219882200D21A5A /* Resnet50.mlmodel in Sources */,
 				E524BF8E221964C300D21A5A /* ViewController.swift in Sources */,
+				E524BFC1221985C700D21A5A /* SqueezeNet.mlmodel in Sources */,
+				E524BFBF221978AC00D21A5A /* CameraViewController.swift in Sources */,
+				E524BFBD2219781400D21A5A /* TabBarController.swift in Sources */,
 				E524BF8C221964C300D21A5A /* AppDelegate.swift in Sources */,
 				E524BF94221964C300D21A5A /* VisionApiSample.xcdatamodeld in Sources */,
 			);
