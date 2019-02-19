@@ -34,6 +34,8 @@ class ViewController: UIViewController {
         }
         
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+        
+//        print(2.square())
     }
     
     var selectedCell: UIView?
@@ -102,3 +104,10 @@ class ViewController: UIViewController {
 
 }
 
+
+
+extension Int {
+    func square() -> Int {
+        return self * self
+    }
+}
