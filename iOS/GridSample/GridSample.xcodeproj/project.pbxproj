@@ -15,6 +15,8 @@
 		E524BF5C22194FA400D21A5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E524BF5A22194FA400D21A5A /* LaunchScreen.storyboard */; };
 		E524BF6722194FA500D21A5A /* GridSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524BF6622194FA500D21A5A /* GridSampleTests.swift */; };
 		E524BF7222194FA500D21A5A /* GridSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524BF7122194FA500D21A5A /* GridSampleUITests.swift */; };
+		E588C4F7221C5C40007DCD6B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588C4F6221C5C40007DCD6B /* TabBarController.swift */; };
+		E588C4F9221C5CB9007DCD6B /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588C4F8221C5CB9007DCD6B /* DrawViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		E524BF6D22194FA500D21A5A /* GridSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GridSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E524BF7122194FA500D21A5A /* GridSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSampleUITests.swift; sourceTree = "<group>"; };
 		E524BF7322194FA500D21A5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E588C4F6221C5C40007DCD6B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E588C4F8221C5CB9007DCD6B /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +104,14 @@
 			isa = PBXGroup;
 			children = (
 				E524BF4E22194FA100D21A5A /* AppDelegate.swift */,
+				E588C4F6221C5C40007DCD6B /* TabBarController.swift */,
 				E524BF5022194FA100D21A5A /* ViewController.swift */,
 				E524BF5222194FA100D21A5A /* Main.storyboard */,
 				E524BF5822194FA400D21A5A /* Assets.xcassets */,
 				E524BF5A22194FA400D21A5A /* LaunchScreen.storyboard */,
 				E524BF5D22194FA400D21A5A /* Info.plist */,
 				E524BF5522194FA100D21A5A /* GridSample.xcdatamodeld */,
+				E588C4F8221C5CB9007DCD6B /* DrawViewController.swift */,
 			);
 			path = GridSample;
 			sourceTree = "<group>";
@@ -259,7 +265,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E588C4F7221C5C40007DCD6B /* TabBarController.swift in Sources */,
 				E524BF5722194FA100D21A5A /* GridSample.xcdatamodeld in Sources */,
+				E588C4F9221C5CB9007DCD6B /* DrawViewController.swift in Sources */,
 				E524BF5122194FA100D21A5A /* ViewController.swift in Sources */,
 				E524BF4F22194FA100D21A5A /* AppDelegate.swift in Sources */,
 			);
