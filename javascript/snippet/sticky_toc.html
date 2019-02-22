@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample</title>
+    <style>
+        .scene{
+            height: 150vw;
+        }
+        p{
+            margin-bottom: 50px;
+        }
+    </style>
+    <link rel="stylesheet" href="js/vendor/sticky_toc/sticky_toc.css">
+</head>
+<body>
+<div id="scene1" class="scene"><p>scene1</p></div>
+<div id="scene2" class="scene"><p>scene2</p></div>
+<div id="scene3" class="scene"><p>scene3</p></div>
+<div id="scene4" class="scene"><p>scene4</p></div>
+<div id="scene5" class="scene"><p>scene5</p></div>
+<div id="scene6" class="scene"><p>scene6</p></div>
+<div id="scene7" class="scene"><p>scene7</p></div>
+
+<nav class="sticky_toc">
+    <p>Table Of Content</p>
+    <ul>
+        <li data-side_nav_target="scene1">Scene1</li>
+        <li data-side_nav_target="scene2">Scene2</li>
+        <li data-side_nav_target="scene3">Scene3</li>
+        <li data-side_nav_target="scene4">Scene4</li>
+        <li data-side_nav_target="scene5">Scene5</li>
+        <li data-side_nav_target="scene6">Scene6</li>
+        <li data-side_nav_target="scene7">Scene7</li>
+    </ul>
+</nav>
+
+<script src="js/vendor/sticky_toc/jquery.sticky_toc.js"></script>
+<script>
+    // インスタンス
+    var sticky_toc = new StickyTOC({
+        'selector' : '.sticky_toc',
+        'selector_child' : 'li',
+        'active_class': 'js-active'
+    });
+    // 実行
+    sticky_toc.run();
+</script>
+</body>
+</html>

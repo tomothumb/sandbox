@@ -6,12 +6,16 @@ var StickyTOC = function(setting){
 StickyTOC.prototype.init = function(setting){
 
     this.setting = {
-        'selector': setting.selector,
+        'selector': setting.selector ? setting.selector : '.sticky_toc',
+        'selector_child': setting.selector_child ? setting.selector_child : 'li',
+        'active_class': setting.active_class ? setting.selector : 'js-active',
         'navs': []
     };
 
+    var target_selector_str = this.setting.selector + ' ' + this.setting.selector_child;
+
     var self = this;
-    $(this.setting.selector).each(function(){
+    $(target_selector_str).each(function(){
         var data = $(this).data('side_nav_target');
         var $target = $('#' + data);
 
@@ -34,14 +38,15 @@ StickyTOC.prototype.init = function(setting){
 
 // 監視
 StickyTOC.prototype.watch = function(){
+    var self = this;
     this.setting.navs.forEach(function (value, index, array) {
         if($(document).scrollTop() >= value.offset){
             value.$nav
-                .addClass('active')
-                .siblings().removeClass('active');
+                .addClass(self.setting.active_class)
+                .siblings().removeClass(self.setting.active_class);
         }else{
             value.$nav
-                .removeClass('active');
+                .removeClass(self.setting.active_class);
         }
     });
 };
