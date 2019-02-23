@@ -15,5 +15,20 @@ export const state = () => ({
       label: 'Sticky TOC',
       url: 'https://example.com/sticky_toc'
     }
-  ]
+  ],
+  products: []
 })
+
+export const getters = () => ({
+  productsCount() {}
+})
+
+export const actions = () => ({
+  fetchProducts() {}
+})
+
+export const mutations = {
+  setProducts(state, payload) {
+    state.products = payload
+  }
+}

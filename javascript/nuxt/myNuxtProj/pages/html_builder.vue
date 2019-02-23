@@ -32,6 +32,7 @@
 
 <script>
 // import Logo from '~/components/Logo.vue'
+import sampleapi from '@/src/sampleapi'
 export default {
   components: {
     // Logo
@@ -44,7 +45,15 @@ export default {
   computed: {
     js_libs() {
       return this.$store.state.builders.js
+    },
+    products() {
+      return this.$store.state.builders.products
     }
+  },
+  created() {
+    sampleapi.getProducts(products => {
+      this.$store.commit('builders/setProducts', products)
+    })
   }
 }
 </script>
