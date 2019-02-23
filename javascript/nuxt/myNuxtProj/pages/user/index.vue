@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        myNuxtProj aaaa
+        user/index
       </h1>
       <h2 class="subtitle">
         My glorious Nuxt.js project

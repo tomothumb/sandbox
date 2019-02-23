@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        myNuxtProj aaaa
+        _slug/comments
       </h1>
       <h2 class="subtitle">
         My glorious Nuxt.js project
@@ -28,6 +28,7 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
+  transition: 'slug',
   components: {
     Logo
   }

@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        myNuxtProj aaaa
+        user/id
       </h1>
       <h2 class="subtitle">
         My glorious Nuxt.js project
@@ -30,6 +30,10 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+  validate({ params }) {
+    // 数値でなければならない
+    return /^\d+$/.test(params.id)
   }
 }
 </script>
