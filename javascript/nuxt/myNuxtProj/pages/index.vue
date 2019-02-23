@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <div>
+      <NavBar />
       <logo />
       <h1 class="title">
         myNuxtProj aaaa
@@ -8,28 +9,31 @@
       <h2 class="subtitle">
         My glorious Nuxt.js project
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
-      </div>
+      <h3>POSTS</h3>
+      <ul>
+        <li v-for="post in posts" :key="post.id">
+          <nuxt-link :to="`/user/${post.id}`">
+            {{post.title}}
+          </nuxt-link>
+        </li>
+
+      </ul>
     </div>
   </section>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
-
+import NavBar from '~/components/NavBar.vue'
 export default {
   components: {
+    NavBar,
     Logo
+  },
+  computed: {
+    posts() {
+      return this.$store.state.posts.all
+    }
   }
 }
 </script>
