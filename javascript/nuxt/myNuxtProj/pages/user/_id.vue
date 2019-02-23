@@ -2,15 +2,17 @@
   <section class="container">
     <NavBar />
     <div>
-      <h1 class="title">{{post.title}}</h1>
-      <p>{{post.content}}</p>
+      <h1 class="title">
+        {{ post.title }}
+      </h1>
+      <p>{{ post.content }}</p>
       <nav>
         <h3>posts you might need</h3>
         <ul>
           <li v-for="(related, key, index) in relatedPosts" :key="index">
-            <a :href="`/user/${related.id}`">{{related.title}}</a>
+            <a :href="`/user/${related.id}`">{{ related.title }}</a>
             <nuxt-link :to="`/user/${related.id}`">
-              {{related.title}}
+              {{ related.title }}
             </nuxt-link>
           </li>
         </ul>
