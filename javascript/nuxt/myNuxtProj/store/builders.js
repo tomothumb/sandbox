@@ -1,3 +1,5 @@
+import sampleapi from '@/src/sampleapi'
+
 export const state = () => ({
   js: [
     {
@@ -25,9 +27,16 @@ export const getters = {
   }
 }
 
-export const actions = () => ({
-  fetchProducts() {}
-})
+export const actions = {
+  fetchProducts(context) {
+    return new Promise((resolve, reject) => {
+      sampleapi.getProducts(products => {
+        context.commit('setProducts', products)
+        resolve()
+      })
+    })
+  }
+}
 
 export const mutations = {
   setProducts(state, payload) {

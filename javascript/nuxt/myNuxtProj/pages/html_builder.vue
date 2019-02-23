@@ -5,6 +5,8 @@
         HTML Builder
       </h1>
 
+
+
       <form action="#">
         <fieldset>
           <legend>BUILDER</legend>
@@ -21,14 +23,17 @@
             </li>
           </ul>
 
-          <p>Products</p>
-          <ul>
-            <li v-for="product in products" :key="product.id">
-              <span>
-                {{ product.title }}
-              </span>
-            </li>
-          </ul>
+          <img src="https://i.imgur.com/JfPpwOA.gif" alt="" v-if="loading">
+          <div v-else>
+            <p>Products</p>
+            <ul>
+              <li v-for="product in products" :key="product.id">
+                <span>
+                  {{ product.title }}
+                </span>
+              </li>
+            </ul>
+          </div>
         </fieldset>
       </form>
 
@@ -41,7 +46,6 @@
 
 <script>
 // import Logo from '~/components/Logo.vue'
-import sampleapi from '@/src/sampleapi'
 export default {
   components: {
     // Logo
@@ -49,6 +53,11 @@ export default {
   head() {
     return {
       title: 'HTML BUILDER'
+    }
+  },
+  data() {
+    return {
+      loading: false
     }
   },
   computed: {
@@ -61,8 +70,9 @@ export default {
     }
   },
   created() {
-    sampleapi.getProducts(products => {
-      this.$store.commit('builders/setProducts', products)
+    this.loading = true
+    this.$store.dispatch('builders/fetchProducts').then(() => {
+      this.loading = false
     })
   }
 }
