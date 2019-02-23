@@ -13,11 +13,15 @@
       <ul>
         <li v-for="post in posts" :key="post.id">
           <nuxt-link :to="`/user/${post.id}`">
-            {{post.title}}
+            {{ post.title }}
           </nuxt-link>
         </li>
-
       </ul>
+      <p>
+        <a href="/html_builder">
+          html_builder
+        </a>
+      </p>
     </div>
   </section>
 </template>
