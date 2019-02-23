@@ -2,7 +2,9 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
-
+  generate: {
+    routes: ['/users/1', '/users/2', '/users/3']
+  },
   /*
   ** Headers of the page
   */
@@ -24,9 +26,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    '@/assets/main.css'
-  ],
+  css: ['@/assets/main.css'],
 
   /*
   ** Plugins to load before mounting the App
