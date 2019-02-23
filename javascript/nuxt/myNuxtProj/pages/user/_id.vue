@@ -25,6 +25,17 @@ export default {
   components: {
     NavBar
   },
+  head() {
+    return {
+      title: this.post.title,
+      meta: [
+        { name: 'twitter:title', content: this.post.title },
+        { name: 'twitter:description', content: this.post.content },
+        { name: 'twitter:image', content: 'https://i.imgur.com/UYP2umJ.png' },
+        { name: 'twitter:card', content: 'summary_large_image' }
+      ]
+    }
+  },
 
   validate({ params }) {
     // 数値でなければならない
