@@ -20,6 +20,15 @@
               </label>
             </li>
           </ul>
+
+          <p>Products</p>
+          <ul>
+            <li v-for="product in products" :key="product.id">
+              <span>
+                {{ product.title }}
+              </span>
+            </li>
+          </ul>
         </fieldset>
       </form>
 
@@ -47,7 +56,8 @@ export default {
       return this.$store.state.builders.js
     },
     products() {
-      return this.$store.state.builders.products
+      // return this.$store.state.builders.products
+      return this.$store.getters['builders/availableProducts']
     }
   },
   created() {

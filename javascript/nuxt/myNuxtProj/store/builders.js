@@ -19,9 +19,11 @@ export const state = () => ({
   products: []
 })
 
-export const getters = () => ({
-  productsCount() {}
-})
+export const getters = {
+  availableProducts(state, getters) {
+    return state.products.filter(product => product.inventory > 0)
+  }
+}
 
 export const actions = () => ({
   fetchProducts() {}
