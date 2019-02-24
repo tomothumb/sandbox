@@ -18,6 +18,7 @@
 		E588C4F7221C5C40007DCD6B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588C4F6221C5C40007DCD6B /* TabBarController.swift */; };
 		E588C4F9221C5CB9007DCD6B /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588C4F8221C5CB9007DCD6B /* DrawViewController.swift */; };
 		E58E75BD222254CE00771407 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58E75BC222254CE00771407 /* Canvas.swift */; };
+		E58E75C022225ED500771407 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58E75BF22225ED500771407 /* Line.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		E588C4F6221C5C40007DCD6B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E588C4F8221C5CB9007DCD6B /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
 		E58E75BC222254CE00771407 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		E58E75BF22225ED500771407 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		E524BF4D22194FA100D21A5A /* GridSample */ = {
 			isa = PBXGroup;
 			children = (
+				E58E75BE22225EAF00771407 /* Models */,
 				E58E75BB222254A900771407 /* View */,
 				E524BF4E22194FA100D21A5A /* AppDelegate.swift */,
 				E588C4F6221C5C40007DCD6B /* TabBarController.swift */,
@@ -143,6 +146,14 @@
 				E58E75BC222254CE00771407 /* Canvas.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E58E75BE22225EAF00771407 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E58E75BF22225ED500771407 /* Line.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +292,7 @@
 				E588C4F9221C5CB9007DCD6B /* DrawViewController.swift in Sources */,
 				E524BF5122194FA100D21A5A /* ViewController.swift in Sources */,
 				E524BF4F22194FA100D21A5A /* AppDelegate.swift in Sources */,
+				E58E75C022225ED500771407 /* Line.swift in Sources */,
 				E58E75BD222254CE00771407 /* Canvas.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

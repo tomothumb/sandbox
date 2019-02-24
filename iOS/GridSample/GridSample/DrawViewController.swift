@@ -39,6 +39,47 @@ class DrawViewController: UIViewController {
         print("Clear Lines Drawn")
         canvas.clear()
     }
+    
+    let yellowButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.addTarget(self, action: #selector(handleColorChange), for: .touchUpInside)
+        button.layer.borderWidth = 1
+        button.backgroundColor = .yellow
+        return button
+    }()
+
+    let redButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.addTarget(self, action: #selector(handleColorChange), for: .touchUpInside)
+        button.layer.borderWidth = 1
+        button.backgroundColor = .red
+        return button
+    }()
+
+    let blueButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.addTarget(self, action: #selector(handleColorChange), for: .touchUpInside)
+        button.layer.borderWidth = 1
+        button.backgroundColor = .blue
+        return button
+    }()
+    
+    @objc fileprivate func handleColorChange(button: UIButton){
+        canvas.setStrokeColor(color: button.backgroundColor ?? .black)
+    }
+
+    
+    let slider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = 1
+        slider.maximumValue = 10
+        slider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
+        return slider
+    }()
+    @objc fileprivate func handleSliderChange(){
+        canvas.setStrokeWidth(width: slider.value)
+    }
+
 
     override func loadView() {
         self.view = canvas
@@ -53,18 +94,28 @@ class DrawViewController: UIViewController {
     }
     
     fileprivate func setupLayout(){
+        let colorsStackView = UIStackView(arrangedSubviews: [
+            redButton,
+            yellowButton,
+            blueButton
+            ])
+        colorsStackView.distribution = .fillEqually
+        
         let stackView = UIStackView(arrangedSubviews: [
             undoButton,
-            clearButton
+            clearButton,
+            colorsStackView,
+            slider
             ])
+        stackView.spacing = 12
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(stackView)
         //        stackView.frame = CGRect(x: 50, y: 100, width: 200, height: 100)
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
 
     }
     

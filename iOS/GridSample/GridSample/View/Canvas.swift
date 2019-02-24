@@ -22,47 +22,42 @@ class Canvas: UIView {
         setNeedsDisplay()
     }
     
+    fileprivate var strokeColor = UIColor.black
+    fileprivate var strokeWidth: Float = 5
+
+    func setStrokeColor(color: UIColor){
+        self.strokeColor = color
+    }
+    
+    func setStrokeWidth(width: Float){
+        self.strokeWidth = width
+    }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
-        // here are my lines
-        // dummy data
-        //        let startPoint = CGPoint(x: 100, y: 100)
-        //        let endPoint = CGPoint(x: 200, y: 200)
-        //        context.move(to: startPoint)
-        //        context.addLine(to: endPoint)
-        
-        //        line.forEach { (p) in
-        //            //
-        //        }
-        
-        context.setStrokeColor(UIColor.red.cgColor)
-        context.setLineWidth(10)
-        context.setLineCap(CGLineCap.round)
-        
+
         lines.forEach { (line) in
-            for(i, p) in line.enumerated() {
+            context.setStrokeColor(line.color.cgColor)
+            context.setLineWidth(CGFloat(line.strokeWidth))
+            context.setLineCap(CGLineCap.round)
+            for(i, p) in line.points.enumerated() {
                 if i == 0 {
                     context.move(to: p)
                 } else {
                     context.addLine(to: p)
                 }
             }
+            context.strokePath()
         }
-        
-        context.strokePath()
     }
     
-    //    var line = [CGPoint]()
-    fileprivate var lines = [[CGPoint]]()
+    fileprivate var lines = [Line]()
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //        guard let point = touches.first?.location(in: nil) else {
-        //            return
-        //        }
-        lines.append([CGPoint]())
+        lines.append(Line.init(color: strokeColor, strokeWidth: strokeWidth, points: []))
     }
     
     // track the finger as we move across screen
@@ -71,7 +66,7 @@ class Canvas: UIView {
 //        print(point)
         
         guard var lastLine = lines.popLast() else { return }
-        lastLine.append(point)
+        lastLine.points.append(point)
         lines.append(lastLine)
         
         //        var lastline = lines.last
