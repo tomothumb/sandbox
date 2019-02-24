@@ -21,8 +21,8 @@ class TabBarController: UITabBarController {
         drawNavigationController.title = "Draw"
 
         viewControllers = [
-            gridNavigationController,
-            drawNavigationController
+            drawNavigationController,
+            gridNavigationController
         ]
         
         // Do any additional setup after loading the view.

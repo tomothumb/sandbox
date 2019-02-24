@@ -11,12 +11,6 @@ import XCTest
 
 class GridSampleTests: XCTestCase {
 
-    func testSquareInt(){
-        let value = 3
-        let squaredValue = value.square()
-        XCTAssertEqual(squaredValue, 9)
-    }
-    
     func testHelloWorld(){
         var helloWorld: String?
         XCTAssertNil(helloWorld)
