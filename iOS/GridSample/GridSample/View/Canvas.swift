@@ -10,6 +10,18 @@ import UIKit
 
 
 class Canvas: UIView {
+    
+    // public function
+    func undo(){
+        _ = lines.popLast()
+        setNeedsDisplay()
+    }
+    
+    func clear(){
+        _ = lines.removeAll()
+        setNeedsDisplay()
+    }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -44,7 +56,7 @@ class Canvas: UIView {
     }
     
     //    var line = [CGPoint]()
-    var lines = [[CGPoint]]()
+    fileprivate var lines = [[CGPoint]]()
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         //        guard let point = touches.first?.location(in: nil) else {
@@ -56,7 +68,7 @@ class Canvas: UIView {
     // track the finger as we move across screen
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: nil) else { return }
-        print(point)
+//        print(point)
         
         guard var lastLine = lines.popLast() else { return }
         lastLine.append(point)
