@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Count Down Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <style>
+        p#countdown{
+            font-size: 12vw;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Display the countdown timer in an element -->
+<p id="countdown">
+    <span class="countdown_number countdown_day">00</span>
+    <span class="countdown_separator countdown_separator_day">:</span>
+    <span class="countdown_number countdown_hour">00</span>
+    <span class="countdown_separator">:</span>
+    <span class="countdown_number countdown_minute">00</span>
+    <span class="countdown_separator">:</span>
+    <span class="countdown_number countdown_second">00</span>
+</p>
+
+<!--
+<span class="demo">
+    <span class="countdown_number countdown_day">00</span>
+    <span class="countdown_separator countdown_separator_day">:</span>
+    <span class="countdown_number countdown_hour">00</span>
+    <span class="countdown_separator">:</span>
+    <span class="countdown_number countdown_minute">00</span>
+    <span class="countdown_separator">:</span>
+    <span class="countdown_number countdown_second">00</span>
+</span>
+-->
+
+<script src="js/vendor/countdown_timer/countdown_timer.js"></script>
+<script>
+    // インスタンス
+    var cowntdown = new CountDownTimer({
+        'goal_time': 'Apr 25, 2019 10:00:00',
+        'selector_outer': '#countdown'
+    });
+    // 開始
+    cowntdown.run();
+
+
+    // var str = "00112233";
+    // str.split("").forEach(function(val,idx){
+    //     console.log(val,idx+1);
+    //     var tag = document.createElement('span');
+    //     tag.setAttribute('data-num', idx+1);
+    //     tag.textContent = 0;
+    //     document.querySelector('.demo').appendChild(tag);
+    // });
+
+
+
+</script>
+
+
+</body>
+</html>
