@@ -19,7 +19,7 @@ var AHA_Fader = function (setting) {
     this.setting = {
         target_selector: setting.target_selector ? setting.target_selector : "#target",
         offset: setting.offset ? setting.offset : 100,
-        waitTime: setting.waitTime ? setting.waitTime : 100,
+        waitTime: setting.waitTime ? setting.waitTime : 100
     };
     // ステート
     this.state = {
@@ -27,8 +27,38 @@ var AHA_Fader = function (setting) {
         scrollY: 0,
         visible: false,
         waitingSec: 0,
+        hideable: true,
+        keephide: false,
     };
 };
+
+// 隠した状態を維持するかどうか
+AHA_Fader.prototype.keepHide = function () {
+    return this.state.keephide;
+};
+// 隠しても良いかどうか
+AHA_Fader.prototype.isHideable = function () {
+    return this.state.hideable;
+};
+// 常に表示する
+AHA_Fader.prototype.show = function () {
+    this.state.hideable = false;
+    this.state.keephide = false;
+    this.execShow();
+};
+// 常に隠す
+AHA_Fader.prototype.hide = function () {
+    this.state.hideable = true;
+    this.state.keephide = true;
+    this.execHide();
+};
+// 状態をリセットする
+AHA_Fader.prototype.restart = function () {
+    this.state.hideable = true;
+    this.state.keephide = false;
+
+};
+
 
 // 待機状態であるか
 AHA_Fader.prototype.isWating = function () {
@@ -50,9 +80,11 @@ AHA_Fader.prototype.overScrolled = function () {
 
 // 表示しても良い状態か
 AHA_Fader.prototype.canVisible = function () {
-    if (this.isWating()
+    if (!this.keepHide()
+        && this.isWating()
         && !this.isVisible()
         && this.overScrolled()
+
     ) {
         return true;
     }
@@ -63,6 +95,7 @@ AHA_Fader.prototype.canVisible = function () {
 AHA_Fader.prototype.shouldHide = function () {
     if (this.isVisible()
         && (!this.isWating() || !this.overScrolled())
+        && this.isHideable()
     ) {
         return true;
     }
@@ -70,7 +103,7 @@ AHA_Fader.prototype.shouldHide = function () {
 };
 
 // 表示
-AHA_Fader.prototype.show = function () {
+AHA_Fader.prototype.execShow = function () {
     if (this.canVisible()) {
         this.target_element.classList.add("js-visible");
         this.state.visible = true;
@@ -79,7 +112,7 @@ AHA_Fader.prototype.show = function () {
 };
 
 // 隠す
-AHA_Fader.prototype.hide = function () {
+AHA_Fader.prototype.execHide = function () {
     if (this.shouldHide()) {
         this.target_element.classList.remove("js-visible");
         this.state.visible = false;
@@ -92,11 +125,11 @@ AHA_Fader.prototype.watch = function () {
     if (this.state.scrollY === window.scrollY) {
         this.state.waitingSec += 1;
         // console.log(this.state.waitingSec);
-        this.show()
+        this.execShow()
     } else {
         this.state.scrollY = window.scrollY;
         this.state.waitingSec = 0;
-        this.hide()
+        this.execHide()
     }
     //実行
     window.requestAnimationFrame(this.watch.bind(this));

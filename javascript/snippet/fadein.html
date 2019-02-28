@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sample</title>
+    <title>AHA FADER SAMPLE</title>
     <style>
         p{
             margin-bottom: 50px;
@@ -37,16 +37,29 @@
 <p>a</p>
 <p>a</p>
 
+<button onclick="hide()">Always Hide</button>
+<button onclick="show()">Always Show</button>
+<button onclick="restart()">Restart</button>
 <script src="js/vendor/aha_fader/aha_fader.js"></script>
 <script>
     // インスタンス
     var aha_fader = new AHA_Fader({
         target_selector : "#target",
         offset : 0,
-        waitTime : 100,
+        waitTime : 100
     });
     // 実行
     aha_fader.run();
+
+    function show(){
+        aha_fader.show();
+    }
+    function hide(){
+        aha_fader.hide();
+    }
+    function restart(){
+        aha_fader.restart();
+    }
 </script>
 </body>
 </html>
