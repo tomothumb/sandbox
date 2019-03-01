@@ -12,14 +12,17 @@
           <legend>BUILDER</legend>
           <ul>
             <li v-for="js_lib in js_libs" :key="js_lib.id">
-              <label><input type="checkbox" name="js" :value="js_lib.id">
-                <span>
+              <button
+                v-on:click="$store.dispatch('builders/addTodo', js_lib.id)"
+              >追加</button>
+              <span>
                   {{ js_lib.label }} -
                 </span>
-                <a :href="js_lib.url">
-                  {{ js_lib.url }}
-                </a>
-              </label>
+
+              <a :href="js_lib.url">
+                {{ js_lib.url }}
+              </a>
+              <input type="checkbox" name="js" :value="js_lib.id">
             </li>
           </ul>
 
@@ -30,6 +33,16 @@
               <li v-for="product in products" :key="product.id">
                 <span>
                   {{ product.title }}
+                </span>
+              </li>
+            </ul>
+
+            <h3>List</h3>
+            <ul>
+              <li v-for="todo in todolists" :key="todo.id">
+
+                <span>
+                  {{ todo.text }}
                 </span>
               </li>
             </ul>
@@ -67,6 +80,10 @@ export default {
     products() {
       // return this.$store.state.builders.products
       return this.$store.getters['builders/availableProducts']
+    },
+    todolists() {
+      // return this.$store.state.builders.products
+      return this.$store.getters['builders/todoList']
     }
   },
   created() {
