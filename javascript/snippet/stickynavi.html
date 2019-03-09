@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sticky Navigation</title>
+    <style>
+        body{
+            padding-top: 100px;
+        }
+        #header{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: #EFEFEF;
+            z-index: 100;
+        }
+
+        /* Sticky Header */
+        body,
+        #header,
+        #header * {
+            transition: all 0.5s;
+        }
+        body.sticky_pc{
+            padding-top: 55px;
+        }
+        .sticky_pc #header{
+            height: 50px;
+            border-bottom: 1px solid #CCCCCC;
+        }
+    </style>
+</head>
+<body>
+<header id="header">
+    <p>aaaaa</p>
+    <p>aaaaa</p>
+</header>
+<main>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+    <p>bbbbbb</p>
+</main>
+
+<script src="js/vendor/stickynavi/stickynavi.js"></script>
+<script>
+    // インスタンス
+    var fn_stickynavi = new Stickynavi({
+        'sticky_body_class': "sticky_pc",
+        'target': "#header"
+    });
+    fn_stickynavi.run();
+</script>
+</body>
+</html>
