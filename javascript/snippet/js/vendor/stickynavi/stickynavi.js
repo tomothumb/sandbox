@@ -2,6 +2,10 @@
  * 追従ナビ
  */
 var Stickynavi = function(setting){
+    this.init(setting);
+};
+
+Stickynavi.prototype.init = function(setting){
     this.setting = {
         'sticky_body_class': setting.sticky_body_class ? setting.sticky_body_class : "sticky_pc",
         'target': setting.target ? setting.target : "#header",
