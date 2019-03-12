@@ -5,13 +5,18 @@
     <title>Responsive Image</title>
     <style>
 
+        #bg{
+            width:300px;
+            height:200px;
+            background-size: cover;
+        }
     </style>
 </head>
 <body>
 <main>
 
 
-    <div id="bg" data-image-pc="" data-image-sp="">&nbsp;</div>
+    <div id="bg" data-image_pc="http://placehold.jp/250x150.png" data-image_sp="http://placehold.jp/150x150.png">&nbsp;</div>
     <p>bbbbbb</p>
     <p>bbbbbb</p>
     <p>bbbbbb</p>
@@ -41,7 +46,13 @@
     <p>bbbbbb</p>
 </main>
 
+<script src="js/vendor/responsiveimage/responsiveimage.js"></script>
 <script>
+    var responsiveImage = new ResponsiveImage({
+        'target': '#bg'
+    });
+    responsiveImage.watch();
 </script>
+
 </body>
 </html>
