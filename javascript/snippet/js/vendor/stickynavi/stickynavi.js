@@ -2,22 +2,31 @@
  * 追従ナビ
  */
 var Stickynavi = function(setting){
-    this.init(setting);
-};
-
-Stickynavi.prototype.init = function(setting){
     this.setting = {
         'sticky_body_class': setting.sticky_body_class ? setting.sticky_body_class : "sticky_pc",
         'target': setting.target ? setting.target : "#header",
+        'start_position': (undefined != setting.start_position) ? setting.start_position : "",
     };
     this.state = {};
-    this.state.offsetTop = document.querySelector(this.setting.target).offsetTop; // 追従させる開始位置Y
-    // this.state.$targetparent = $("#stage>.headernav"); // 追従対象の親エレメント //CSSにて指定
+
+    var y;
+    if(this.setting.start_position === ""){
+        y = document.querySelector(this.setting.target).offsetTop;
+    } else {
+        y = this.setting.start_position;
+    }
+    Stickynavi.prototype.setStateStartPosition(y);
+};
+
+// 追従させる開始位置Y
+Stickynavi.prototype.setStateStartPosition = function(y) {
+    this.state.start_position = y;
 };
 
 Stickynavi.prototype.sticky = function(){
+
     // 指定位置から追従
-    if( this.state.offsetTop < this.getScrollTop() ){
+    if( this.state.start_position < this.getScrollTop() ){
         document.getElementsByTagName("body")[0].classList.add(this.setting.sticky_body_class);
     }else{
         document.getElementsByTagName("body")[0].classList.remove(this.setting.sticky_body_class);
