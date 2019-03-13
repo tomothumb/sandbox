@@ -56,6 +56,7 @@
     <p>bbbbbb</p>
     <p>bbbbbb</p>
     <p>bbbbbb</p>
+    <div id="stop"></div>
     <p>bbbbbb</p>
     <p>bbbbbb</p>
     <p>bbbbbb</p>
@@ -71,9 +72,10 @@
 <script>
     // インスタンス
     var fn_stickynavi = new Stickynavi({
-        'start_position': 30,
         'sticky_body_class': "sticky_pc",
-        'target': "#header"
+        'target': "#header",
+        'start_position': 0,
+        'finish_position': document.getElementById('#stop').offsetTop
     });
     fn_stickynavi.run();
 </script>
