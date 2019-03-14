@@ -45,8 +45,10 @@ SmoothScroll.prototype.watch = function() {
     $(this.setting.target).on({
         click: function(){
             var $target = $(this);
-            self._move($target);
-            return false;
+            if($target.attr('href').match(/\#/)){
+                self._move($target);
+            }
+            // return false;
         }
     });
 };
