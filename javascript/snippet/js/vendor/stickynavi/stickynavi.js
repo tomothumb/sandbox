@@ -44,6 +44,8 @@ Stickynavi.prototype.sticky = function(){
     // 指定位置から追従
     if( this.state.start_position >= this.getScrollTop() ){
         document.getElementsByTagName("body")[0].classList.remove(this.setting.sticky_body_class);
+    }else if( this.state.finish_position === false){
+        document.getElementsByTagName("body")[0].classList.add(this.setting.sticky_body_class);
     }else if( this.state.finish_position <= this.getScrollTop() + window.innerHeight ){
         document.getElementsByTagName("body")[0].classList.remove(this.setting.sticky_body_class);
     }else{
