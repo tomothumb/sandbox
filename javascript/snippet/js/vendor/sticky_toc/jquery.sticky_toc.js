@@ -39,7 +39,14 @@ StickyTOC.prototype.init = function(setting){
 // 監視
 StickyTOC.prototype.watch = function(){
     var self = this;
-    this.setting.navs.forEach(function (value, index, array) {
+
+    var tmp_nodelist;
+    var tmp_node;
+    tmp_nodelist = this.setting.navs;
+    tmp_node = Array.prototype.slice.call(tmp_nodelist,0);
+
+    // this.setting.navs.forEach(function (value, index, array) {
+    tmp_node.forEach(function (value, index, array) {
         if($(document).scrollTop() >= value.offset){
             value.$nav
                 .addClass(self.setting.active_class)
