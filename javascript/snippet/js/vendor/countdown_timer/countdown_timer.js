@@ -51,9 +51,11 @@ CountDownTimer.prototype.init = function(setting) {
 CountDownTimer.prototype.initAnimate = function() {
   var self = this;
 
-  document
-    .querySelectorAll(self.setting.selector_number)
-    .forEach(function(element, idx) {
+  var tmp_nodelist;
+  var tmp_node;
+  tmp_nodelist = document.querySelectorAll(self.setting.selector_number);
+  tmp_node = Array.prototype.slice.call(tmp_nodelist,0);
+  tmp_node.forEach(function(element, idx) {
       var cnt = 0;
       var t = setInterval(function() {
         cnt++;
