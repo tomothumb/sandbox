@@ -37,15 +37,26 @@ AHA_CrossFade.prototype.run = function () {
   if (this.state.counter % this.setting.fade_sec === 0) {
     next_item = Math.floor(this.state.counter / this.setting.fade_sec) + 1;
 
-    document.querySelectorAll(this.setting.selector + ".active.finish").forEach(function (ele) {
+    var tmp_nodelist;
+    var tmp_node;
+    tmp_nodelist = document.querySelectorAll(this.setting.selector + ".active.finish");
+    tmp_node = Array.prototype.slice.call(tmp_nodelist,0);
+    tmp_node.forEach(function (ele) {
       ele.classList.remove("active", "finish");
     });
-    document.querySelectorAll(this.setting.selector + ".active").forEach(function (ele) {
+
+    tmp_nodelist = document.querySelectorAll(this.setting.selector + ".active");
+    tmp_node = Array.prototype.slice.call(tmp_nodelist,0);
+    tmp_node.forEach(function (ele) {
       ele.classList.add("finish");
     });
-    document.querySelectorAll(this.setting.selector + ":nth-of-type(" + next_item + ")").forEach(function (ele) {
+
+    tmp_nodelist = document.querySelectorAll(this.setting.selector + ":nth-of-type(" + next_item + ")");
+    tmp_node = Array.prototype.slice.call(tmp_nodelist,0);
+    tmp_node.forEach(function (ele) {
       ele.classList.add("active");
     });
+
   }
   //カウンター
   this.state.counter++;
