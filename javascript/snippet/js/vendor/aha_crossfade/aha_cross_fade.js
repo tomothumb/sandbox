@@ -42,7 +42,8 @@ AHA_CrossFade.prototype.run = function () {
     tmp_nodelist = document.querySelectorAll(this.setting.selector + ".active.finish");
     tmp_node = Array.prototype.slice.call(tmp_nodelist,0);
     tmp_node.forEach(function (ele) {
-      ele.classList.remove("active", "finish");
+      ele.classList.remove("active");
+      ele.classList.remove("finish");
     });
 
     tmp_nodelist = document.querySelectorAll(this.setting.selector + ".active");
