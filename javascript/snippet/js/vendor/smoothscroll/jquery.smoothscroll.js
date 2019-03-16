@@ -6,7 +6,7 @@ var SmoothScroll = function(setting){
 SmoothScroll.prototype.init = function(setting) {
     this.setting = {
         'breakpoint': setting.breakpoint ? setting.breakpoint : 767,
-        'target': setting.target ? setting.target : 'a[rel=scroll]',
+        'target': setting.target ? setting.target : 'a[href^="#"]',
         'pc_offset': setting.pc_offset ? setting.pc_offset : 0,
         'sp_offset': setting.sp_offset ? setting.sp_offset : 0,
     };
@@ -45,6 +45,7 @@ SmoothScroll.prototype.watch = function() {
     $(this.setting.target).on({
         click: function(){
             var $target = $(this);
+            // Todo: set anchor 'a[href^="#"]'
             if($target.attr('href').match(/\#/)){
                 self._move($target);
             }
