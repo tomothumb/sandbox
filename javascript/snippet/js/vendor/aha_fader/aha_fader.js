@@ -18,7 +18,8 @@ var AHA_Fader = function (setting) {
     //設定
     this.setting = {
         target_selector: setting.target_selector ? setting.target_selector : "#target",
-        offset: setting.offset ? setting.offset : 100,
+        offset: (undefined != setting.offset) ? setting.offset : 100,
+        default_class: setting.default_class ? setting.default_class : "",
         waitTime: setting.waitTime ? setting.waitTime : 100
     };
     // ステート
@@ -122,14 +123,21 @@ AHA_Fader.prototype.execHide = function () {
 
 // 監視
 AHA_Fader.prototype.watch = function () {
-    if (this.state.scrollY === window.scrollY) {
-        this.state.waitingSec += 1;
-        // console.log(this.state.waitingSec);
-        this.execShow()
-    } else {
-        this.state.scrollY = window.scrollY;
-        this.state.waitingSec = 0;
-        this.execHide()
+    if(!this.overScrolled()){
+        this.target_element.classList.add(this.setting.default_class);
+
+    }else{
+        this.target_element.classList.remove(this.setting.default_class);
+
+        if (this.state.scrollY === window.scrollY) {
+            this.state.waitingSec += 1;
+            // console.log(this.state.waitingSec);
+            this.execShow()
+        } else {
+            this.state.scrollY = window.scrollY;
+            this.state.waitingSec = 0;
+            this.execHide()
+        }
     }
     //実行
     window.requestAnimationFrame(this.watch.bind(this));
