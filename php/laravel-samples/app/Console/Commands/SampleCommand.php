@@ -3,9 +3,26 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 class SampleCommand extends Command
 {
+
+    /**
+     * The filesystem instance.
+     *
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+    /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type;
+
+
     /**
      * The name and signature of the console command.
      *
@@ -21,13 +38,16 @@ class SampleCommand extends Command
     protected $description = 'Command description';
 
     /**
-     * Create a new command instance.
+     * Create a new controller creator command instance.
      *
+     * @param  \Illuminate\Filesystem\Filesystem  $files
      * @return void
      */
-    public function __construct()
+    public function __construct(Filesystem $files)
     {
         parent::__construct();
+
+        $this->files = $files;
     }
 
     /**
@@ -144,7 +164,22 @@ class SampleCommand extends Command
 
     protected function makeModel($model, $column){
         $this->call('command:called', ['--path' => 'call']);
+
+        $path = '';
+        $name = 'dummy';
+
+        $this->files->put($path, $this->buildClass($name));
+//        $this->info($this->type.' created successfully.');
+
     }
+
+    protected function buildClass($name)
+    {
+        $stub = $this->files->get($this->getStub());
+
+        return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
+    }
+
 
     protected function makeMigration($model, $column){
 
