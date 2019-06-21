@@ -1,0 +1,9 @@
+version: '2'
+options:
+    compose-file-path: 'docker-compose.yml'
+    verbose: true
+
+syncs:
+  MY_VOLUME:
+    src: './code'
+    dest: '/code'
