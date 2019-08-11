@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
+	"math"
 )
 
 
@@ -27,10 +28,22 @@ func (c Cat) Say(){
 	fmt.Println("Nyao")
 }
 
+const weight = 63
+const height = 173
+
 // @link: https://qiita.com/gcfuji/items/e2a3d7ce7ab8868e37f7
 func main()  {
 	fmt.Println(1)
 	fmt.Println(2)
+
+	//https://news.mynavi.jp/article/gogogo-1/
+	var hm = height / 100.0
+	var bmi = weight / math.Pow(hm, 2)
+	var bestW = math.Pow(hm, 2) * 22.0
+	var per = weight / bestW * 100
+	// 結果を表示 --- (*4)
+	fmt.Printf("BMI=%f, 肥満度=%.0f\n", bmi, per)
+
 
 	var a int
 	var b float64
