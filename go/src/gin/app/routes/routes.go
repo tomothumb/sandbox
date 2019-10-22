@@ -36,6 +36,11 @@ func InitRouter() *gin.Engine {
 		formRoute.GET("", controllers.GetForm)
 		formRoute.GET("new", controllers.GetFormNew)
 	}
+	// User
+	userRoute := router.Group("/user")
+	{
+		userRoute.GET("/:name/:id", controllers.GetUser)
+	}
 
 	return router
 }
