@@ -1,0 +1,41 @@
+{{ define "form/new.html" }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Sample</title>
+</head>
+<body>
+<h1>Form Sample</h1>
+<ul>
+    <li>Name: {{ .name }}</li>
+    <li>Upper Name: {{ .name | StrToUpper }}</li>
+    <li>Lower Name: {{ .name | StrToLower }}</li>
+</ul>
+<p>Now: {{.now | FormatAsDate}}</p>
+<form action="#">
+    <div>
+    <input type="text" name="foo">
+    </div>
+    <div>
+    <select name="my_select" id="">
+        <option value="111">111</option>
+        <option value="222">222</option>
+    </select>
+    </div>
+    <div>
+        <label ><input type="checkbox" name="my_checkbox" value="1">1</label>
+        <label ><input type="checkbox" name="my_checkbox" value="2">2</label>
+        <label ><input type="checkbox" name="my_checkbox" value="3">3</label>
+    </div>
+    <div>
+        <label ><input type="radio" name="my_radio" value="1">1</label>
+        <label ><input type="radio" name="my_radio" value="2">2</label>
+        <label ><input type="radio" name="my_radio" value="3">3</label>
+    </div>
+    <textarea name="message" id="" cols="30" rows="10"></textarea>
+</form>
+</body>
+</html>
+{{ end }}
