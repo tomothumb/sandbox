@@ -10,6 +10,7 @@ func InitRouter() *gin.Engine {
 	router := gin.New()
 	middleware.InitMiddleware(router)
 
+
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "route",
@@ -30,6 +31,9 @@ func InitRouter() *gin.Engine {
 		postRoute.POST("/sample", controllers.PostSample)
 		postRoute.POST("/sample_complex", controllers.PostComplexSample)
 	}
-
+	formRoute := router.Group("/form")
+	{
+		formRoute.GET("", controllers.GetForm)
+	}
 	return router
 }
