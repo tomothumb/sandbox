@@ -3,28 +3,33 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"app/controllers"
+	"app/routes/middleware"
 )
 
 func InitRouter() *gin.Engine {
-	route := gin.Default()
+	router := gin.New()
+	middleware.InitMiddleware(router)
 
-	route.Use(gin.Logger())
-	route.Use(gin.Recovery())
-
-	route.GET("/", func(c *gin.Context) {
+	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "route",
 			"body": "root222",
 		})
 	})
 
-	route.GET("/demo", controllers.GetDemo)
-	route.GET("/demo/:name", controllers.GetDemoName)
-	route.GET("/demo/:name/*action", controllers.GetDemoNameAction)
-	route.GET("/query", controllers.GetQuery)
-	route.POST("/post/sample", controllers.PostSample)
-	route.POST("/post/sample_complex", controllers.PostComplexSample)
+	demoRoute := router.Group("/demo")
+	{
+		demoRoute.GET("", controllers.GetDemo)
+		demoRoute.GET("/:name", controllers.GetDemoName)
+		demoRoute.GET("/:name/*action", controllers.GetDemoNameAction)
+	}
+	router.GET("/query", controllers.GetQuery)
 
+	postRoute := router.Group("/post")
+	{
+		postRoute.POST("/sample", controllers.PostSample)
+		postRoute.POST("/sample_complex", controllers.PostComplexSample)
+	}
 
-	return route
+	return router
 }
