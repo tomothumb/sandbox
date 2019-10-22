@@ -4,10 +4,10 @@ services:
     build:
       context: .
       dockerfile: Docker/Go/Dockerfile
-    container_name: go-gin-app
     volumes:
       - ./:/go/src/app
     working_dir: /go/src/app
     tty: true
     ports:
       - "8080:8080"
+#    command: fresh

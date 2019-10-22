@@ -9,13 +9,13 @@ ENV GO111MODULE=on
 #COPY . .
 
 RUN apk update \
-  && apk add --no-cache git
+  && apk add --no-cache git \
+  && go get github.com/pilu/fresh
 #   \
 #  && go get -u github.com/codegangsta/gin
 
 
 #RUN go mod init
 #RUN go mod download
-
 
 
