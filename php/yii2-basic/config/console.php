@@ -28,6 +28,11 @@ $config = [
         'db' => $db,
     ],
     'params' => $params,
+    'modules' => [
+        'sample' => [
+            'class' => 'app\modules\sample\Module',
+        ]
+    ],
     /*
     'controllerMap' => [
         'fixture' => [ // Fixture generation command line.
