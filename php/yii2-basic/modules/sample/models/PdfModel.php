@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\batchpdf\models;
+namespace app\modules\sample\models;
 
 use yii\base\Model;
 

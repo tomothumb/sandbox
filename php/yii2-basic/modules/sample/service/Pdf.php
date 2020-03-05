@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\batchpdf\service;
+namespace app\modules\sample\service;
 
 use mPDF;
 

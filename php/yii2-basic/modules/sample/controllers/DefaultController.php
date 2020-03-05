@@ -6,6 +6,9 @@ use app\modules\sample\models\Dummy;
 use yii\web\Controller;
 
 /**
+ * URL
+ * http://localhost/sample/default/index
+ * http://localhost/<module>/<controller>/<method>
  * Default controller for the `sample` module
  */
 class DefaultController extends Controller

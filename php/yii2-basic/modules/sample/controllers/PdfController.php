@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\batchpdf\controllers;
+namespace app\modules\sample\controllers;
 
-use app\modules\batchpdf\models\PdfModel;
-use app\modules\batchpdf\service\Pdf;
+use app\modules\sample\models\PdfModel;
+use app\modules\sample\service\Pdf;
 use yii\web\Controller;
 
 
