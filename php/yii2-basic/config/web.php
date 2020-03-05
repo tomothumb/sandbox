@@ -51,6 +51,11 @@ $config = [
         ],
     ],
     'params' => $params,
+    'modules' => [
+        'sample' => [
+            'class' => 'app\modules\sample\Module',
+        ]
+    ],
 ];
 
 if (YII_ENV_DEV) {
