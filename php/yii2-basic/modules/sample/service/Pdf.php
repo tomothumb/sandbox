@@ -24,7 +24,6 @@ class Pdf extends \kartik\mpdf\Pdf
      */
     public function setApi()
     {
-
         $this->_mpdf = new mPDF(
             $this->mode,
             $this->format,
@@ -40,7 +39,6 @@ class Pdf extends \kartik\mpdf\Pdf
         );
         $this->addCustomFontsToMpdf();
         $this->_mpdf->SetDefaultFont('ipagp');
-
     }
 
     /**

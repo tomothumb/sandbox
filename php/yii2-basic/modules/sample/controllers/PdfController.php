@@ -36,6 +36,12 @@ class PdfController extends Controller
 //                'SetFooter'=>['{PAGENO}'],
             ]
         ]);
+        $pdf->destination = Pdf::DEST_BROWSER;
+        //ファイルに保存
+//        $pdf->destination = Pdf::DEST_FILE;
+        $filename = realpath(__DIR__."/../storage/" ). '/sample.pdf';
+        $pdf->filename = $filename;
+
         return $pdf->render();
     }
 
