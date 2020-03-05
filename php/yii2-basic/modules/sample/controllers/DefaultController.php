@@ -2,6 +2,7 @@
 
 namespace app\modules\sample\controllers;
 
+use app\modules\sample\models\Dummy;
 use yii\web\Controller;
 
 /**
@@ -16,5 +17,13 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+    public function actionModeldemo(){
+        $d = new Dummy();
+        $d->prop1 = 'p99';
+        $d->prop2 = 'p100';
+        return $this->render('dummy',[
+            'd' => $d,
+        ]);
     }
 }
