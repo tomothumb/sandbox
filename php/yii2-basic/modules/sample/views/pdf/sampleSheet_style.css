@@ -1,0 +1,33 @@
+*,h1,h3,p,span,li,td,th{
+    font-family: ipagp;
+}
+body{
+    /*background: red;*/
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    font-size: 14pt;
+    color: #1F497D;
+    margin-bottom: 3mm;
+}
+
+table{
+    border-collapse: collapse;
+    width: 200mm;
+    border: 1mm solid #000000;
+}
+th,td{
+    padding:2mm;
+}
+th{
+    background: #EFEFEF;
+}
+
+table th,
+table td{
+    padding:1mm 2mm;
+    border: 0.5mm solid #000000;
+    font-size: 8pt;
+}
