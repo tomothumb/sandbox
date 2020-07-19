@@ -1,15 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Board from "./Conmponents/Board";
+import {observe} from "./State/Game";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+observe((knightPosition:any) => {
+  // <React.StrictMode>
+  //   <Board knightPosition={knightPosition}/>
+  // </React.StrictMode>
+
+  return ReactDOM.render(
+      <Board knightPosition={knightPosition}/>,
+      document.getElementById('root')
+    );
+
+  }
+)
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <Board knightPosition={[0,0]}/>
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
