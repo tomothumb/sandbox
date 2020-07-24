@@ -1,12 +1,12 @@
 import * as React from 'react';
 // import logo from './logo.svg';
-import {Spring} from './Components/Spring';
+import {Boxes} from './Components/Boxes';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Spring />
+      <Boxes />
     </div>
   );
 }
