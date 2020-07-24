@@ -15,16 +15,26 @@ code {
 
 
 .boxes{
-  background: #000;
-  max-width: 800px;
+  position:relative;
+  /*background: #CCCCCC;*/
+  max-width: 600px;
   width: auto;
   margin:0 auto;
   display: flex;
   justify-content:flex-start;
 }
-.box{
-  background: #EFEFEF;
+.boxes>div{
+  position:relative;
+  background: #333333;
+  color: #FFFFFF;
+  border-radius: 7px;
   flex:1;
-  padding:20px;
-  border:1px solid red;
+  padding:17px;
+  border:2px solid #FFFFFF;
+  left:0;
+  position:relative;
+}
+button{
+  margin: 20px 10px;
+  padding: 5px 10px;
 }
