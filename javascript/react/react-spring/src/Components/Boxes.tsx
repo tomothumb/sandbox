@@ -1,9 +1,8 @@
 import React, {useCallback, useState} from "react";
 import {useSpring, animated, interpolate, useTransition} from 'react-spring'
 
-export function Boxes() {
 
-
+function useCarousel(){
   const length = 10
   const [index, setIndex] = useState(1)
   const [direct, setDirect] = useState('prev')
@@ -40,30 +39,21 @@ export function Boxes() {
     }
     setDatas(new_datas);
   }
+
   const handleClick = useCallback(
-    function(){
+    function(next_direct){
       setDirect((prevstate)=> {
-        return 'next'
-      })
-      setIndex((previndex)=> {
-        setBoxData(previndex + 1)
-        return previndex + 1
+        return next_direct
       })
 
-    },[index,direct]
-  )
-  const handlePrev = useCallback(
-    function(){
-      setDirect((prevstate)=> {
-        return 'prev'
-      })
+      const diff_index = (next_direct === 'next')? 2 : -2;
+
       setIndex((previndex)=> {
-        setBoxData(previndex - 1)
-        return previndex - 1
+        setBoxData(previndex + diff_index)
+        return previndex + diff_index
       })
     },[index,direct]
   )
-
 
   let boxes = transitions.map(({item,props,key})=> {
       // console.log(item,props,key)
@@ -74,6 +64,14 @@ export function Boxes() {
       )
     }
   )
+
+  return {boxes, handleClick}
+}
+
+export function Boxes() {
+
+
+  const {boxes, handleClick} = useCarousel()
 
   // let boxes = datas.map((item,box_idx)=> {
   //   console.log(item,box_idx)
@@ -99,10 +97,10 @@ export function Boxes() {
 
 
       <button type="button" onClick={()=> {
-        handlePrev()
+        handleClick('prev')
       }}>Prev</button>
       <button type="button" onClick={()=> {
-        handleClick()
+        handleClick('next')
       }}>Next</button>
     </div>
   )
