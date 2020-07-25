@@ -1,11 +1,12 @@
 import React from 'react';
 // import logo from './logo.svg';
 // import './App.css';
-import {Sample} from "./Component/Sample";
+// import {Sample} from "./Component/Sample";
+import {ReducerSample} from "./Component/ReducerSample";
 
 function App() {
 
-  return <Sample />
+  return <ReducerSample />
   // return (
   //   <div className="App">
   //     <header className="App-header">
