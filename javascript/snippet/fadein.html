@@ -45,11 +45,14 @@
     // インスタンス
     var aha_fader = new AHA_Fader({
         target_selector : "#target",
-        offset : 0,
+        offset : 0, // スクロールしてなくても表示
         waitTime : 100
     });
-    // 実行
-    aha_fader.run();
+
+    // ちょっと時間がたってから実行させる例
+    setTimeout(() => {
+        aha_fader.run();
+    }, 3000);
 
     function show(){
         aha_fader.show();

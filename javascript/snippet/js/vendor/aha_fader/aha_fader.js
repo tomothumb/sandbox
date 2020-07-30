@@ -76,7 +76,7 @@ AHA_Fader.prototype.isVisible = function () {
 
 // 表示しだすスクロール量を越えているか
 AHA_Fader.prototype.overScrolled = function () {
-    return (this.setting.offset < window.scrollY)
+    return (this.setting.offset <= window.scrollY)
 };
 
 // 表示しても良い状態か
