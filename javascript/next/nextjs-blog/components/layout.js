@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import styles from './layout.module.css'
+import styles from './layout.module.scss'
 import utilStyles from '../styles/utils.module.css'
 
 
