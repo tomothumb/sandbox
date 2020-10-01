@@ -12,10 +12,8 @@ export const ContextProvider = ({children}: Props) => {
   // </LocaleProvider>
 
   return (
-        <AccountProvider>
-            <CategoryProvider>
-                {children}
-            </CategoryProvider>
-        </AccountProvider>
+          <CategoryProvider>
+              {children}
+          </CategoryProvider>
     );
 }
