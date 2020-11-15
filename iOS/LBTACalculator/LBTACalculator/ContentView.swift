@@ -76,12 +76,6 @@ struct ContentView: View {
         [.one,.two,.three,.plus],
         [.zero,.decimal,.equals],
     ]
-//    let buttons = [
-//        ["7","8","9","X"],
-//        ["4","5","6","-"],
-//        ["1","2","3","+"],
-//        ["0",".",",","="]
-//    ]
     
     var body: some View {
         
@@ -100,21 +94,7 @@ struct ContentView: View {
                     HStack(spacing: 12){
                         ForEach(row, id: \.self) { button in
                             
-                            Button(action: {
-                                self.env.receiveInput(calculatorButton: button)
-
-                            }) {
-                                Text(button.title)
-                                    .font(.system(size: 32))
-                                    .frame(
-                                        width:self.buttonWidth(button: button),
-                                        height: (UIScreen.main.bounds.width - 5 * 12) / 4
-                                    )
-                                    .foregroundColor(.white)
-                                    .background(button.backgroundColor)
-                                    .cornerRadius(self.buttonWidth(button: button))
-                            }
-                            
+                            CalculatorButtonView(button: button)
                             
                         }
                     }
@@ -123,7 +103,32 @@ struct ContentView: View {
         }
     }
     
-    func buttonWidth(button: CalculatorButton) -> CGFloat {
+}
+
+struct CalculatorButtonView: View {
+    
+    var button: CalculatorButton
+    
+    @EnvironmentObject var env: GlobalEnvironment
+    
+    var body: some View {
+        Button(action: {
+            self.env.receiveInput(calculatorButton: button)
+        }) {
+            Text(button.title)
+                .font(.system(size: 32))
+                .frame(
+                    width:self.buttonWidth(button: button),
+                    height: (UIScreen.main.bounds.width - 5 * 12) / 4
+                )
+                .foregroundColor(.white)
+                .background(button.backgroundColor)
+                .cornerRadius(self.buttonWidth(button: button))
+        }
+        
+    }
+    
+    private func buttonWidth(button: CalculatorButton) -> CGFloat {
         if button == .zero {
             return ((UIScreen.main.bounds.width - 5 * 12) / 4 * 2) + 12
         }
